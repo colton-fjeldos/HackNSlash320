@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://yl6pofsmkwis"
+path="res://.godot/imported/Sappheiros - Dawn.mp3-23785955713cc80f32d46f0385303872.mp3str"
+
+[deps]
+
+source_file="res://Music/Sappheiros - Dawn.mp3"
+dest_files=["res://.godot/imported/Sappheiros - Dawn.mp3-23785955713cc80f32d46f0385303872.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
