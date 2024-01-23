@@ -3,11 +3,18 @@ using System;
 
 public partial class MenuScript : Control
 {
+	
+	Godot.VBoxContainer optionsVBox;
+	Godot.VBoxContainer mainVBox;
+	Godot.Label volumeLabel;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		var options = GetNode<Godot.VBoxContainer>("MarginContainer/Options");
-		options.Hide();
+		optionsVBox = GetNode<Godot.VBoxContainer>("MarginContainer/Options");
+		mainVBox = GetNode<Godot.VBoxContainer>("MarginContainer/Main");
+		volumeLabel = GetNode<Godot.Label>("MarginContainer/Options/VolumeLabel");
+		optionsVBox.Hide();
+		mainVBox.Show();
 	}
 	
 	// MAIN MENU BUTTONS
@@ -21,12 +28,8 @@ public partial class MenuScript : Control
 	private void _on_options_pressed()
 	{
 		GD.Print("Options button pressed");
-		var main = GetNode<Godot.VBoxContainer>("MarginContainer/Main");
-		var options = GetNode<Godot.VBoxContainer>("MarginContainer/Options");
-		main.Hide();
-		options.Show();
-		// Currently nonfunctional, you would disable the current containers
-		//and enable new containers that have the options menu
+		mainVBox.Hide();
+		optionsVBox.Show();
 	}
 
 
@@ -40,20 +43,15 @@ public partial class MenuScript : Control
 	private void _on_back_pressed()
 	{
 		GD.Print("Back button pressed");
-		//I feel like calling GetNode might be expensive, I would probably only want to do this one time
-		//in "_Ready" function, but I don't know how to accomplish that. Same with VolumeLabel.
-		Godot.VBoxContainer main = GetNode<Godot.VBoxContainer>("MarginContainer/Main");
-		Godot.VBoxContainer options = GetNode<Godot.VBoxContainer>("MarginContainer/Options");
-		options.Hide();
-		main.Show();
+		optionsVBox.Hide();
+		mainVBox.Show();
 	}
 	
 	private void _on_volume_slider_value_changed(double value)
 	{
-		Godot.Label volumeLabel = GetNode<Godot.Label>("MarginContainer/Options/VolumeLabel");
-		volumeLabel.Text = "Volume: " + value;
-		//Currently also needs to control actual game volume, IDK how to control that yet.
 		GD.Print("Volume set to: " + value);
+		volumeLabel.Text = "Volume: " + value;
+		//Currently also needs to control actual game volume, IDK how to control that yet
 	}
 	
 }
