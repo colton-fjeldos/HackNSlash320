@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7hkf3435r5at"]
+
+[ext_resource type="Script" path="res://Scripts/MenuScript.cs" id="1_02ue7"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_02ue7")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.489
+anchor_right = 0.6
+anchor_bottom = 0.705
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Main" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PlayButton" type="Button" parent="MarginContainer/Main"]
+layout_mode = 2
+text = "Play"
+
+[node name="OptionsButton" type="Button" parent="MarginContainer/Main"]
+layout_mode = 2
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/Main"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Options" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VolumeLabel" type="Label" parent="MarginContainer/Options"]
+layout_mode = 2
+text = "Volume: 100"
+
+[node name="VolumeSlider" type="HSlider" parent="MarginContainer/Options"]
+layout_mode = 2
+value = 100.0
+
+[node name="BackButton" type="Button" parent="MarginContainer/Options"]
+layout_mode = 2
+text = "Back"
+
+[node name="BackgroundColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.307
+anchor_right = 0.5
+anchor_bottom = 0.307
+offset_left = -50.0
+offset_right = 50.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="TitleLabel" type="Label" parent="CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Hack N Slash"
+
+[connection signal="pressed" from="MarginContainer/Main/PlayButton" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/Main/OptionsButton" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MarginContainer/Main/QuitButton" to="." method="_on_quit_pressed"]
+[connection signal="value_changed" from="MarginContainer/Options/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="pressed" from="MarginContainer/Options/BackButton" to="." method="_on_back_pressed"]

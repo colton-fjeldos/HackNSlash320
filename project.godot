@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="HackNSlash"
-run/main_scene="res://Scenes/Scene1.tscn"
-config/features=PackedStringArray("4.2", "Forward Plus")
+run/main_scene="res://Scenes/StartMenu.tscn"
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://Textures/icon.png"
+
+[debug]
+
+settings/stdout/print_fps=true
 
 [dotnet]
 
