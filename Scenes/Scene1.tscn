@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cti3llu71ljg0"]
+[gd_scene load_steps=7 format=3 uid="uid://cti3llu71ljg0"]
 
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Dark Pallette.png" id="1_t23mu"]
 [ext_resource type="Texture2D" uid="uid://brfskij7sf7yq" path="res://Textures/icon.png" id="2_ivbcg"]
+[ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://Scenes/controlled1.tscn" id="3_2vvoj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5x2m1"]
 texture = ExtResource("1_t23mu")
@@ -163,3 +164,6 @@ debug_color = Color(0, 0.568627, 0.85098, 0.419608)
 position = Vector2(84, 524)
 scale = Vector2(0.0311017, 0.0305296)
 texture = ExtResource("2_ivbcg")
+
+[node name="controlled1" parent="." instance=ExtResource("3_2vvoj")]
+position = Vector2(32, 556)
