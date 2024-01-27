@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://m038w8sqj84p"]
+[gd_scene load_steps=8 format=3 uid="uid://m038w8sqj84p"]
 
 [ext_resource type="Script" path="res://Scripts/controlled1.cs" id="1_f3x4s"]
 [ext_resource type="Texture2D" uid="uid://n78ldru40qme" path="res://Textures/Filler Character Image.png" id="1_swj3o"]
+[ext_resource type="Texture2D" uid="uid://ugmbp8vduwk" path="res://Textures/SwordSprite.png" id="3_01ar2"]
+[ext_resource type="Script" path="res://Scripts/WeaponManager.cs" id="3_rfig2"]
+[ext_resource type="Texture2D" uid="uid://t14emg8doyf7" path="res://Textures/Swing_sprite.png" id="5_1trur"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipcmo"]
 size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lc4m0"]
+size = Vector2(12.97, 20)
 
 [node name="controlled1" type="CharacterBody2D"]
 position = Vector2(1, 1)
@@ -19,3 +25,25 @@ shape = SubResource("RectangleShape2D_ipcmo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
+
+[node name="WeaponManager" type="Node2D" parent="."]
+script = ExtResource("3_rfig2")
+
+[node name="WeaponSprites" type="Node2D" parent="WeaponManager"]
+
+[node name="SwordSprite" type="Sprite2D" parent="WeaponManager/WeaponSprites"]
+position = Vector2(14.58, -5)
+scale = Vector2(2, 2)
+texture = ExtResource("3_01ar2")
+
+[node name="Area2D" type="Area2D" parent="WeaponManager"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponManager/Area2D"]
+position = Vector2(25.68, 0)
+shape = SubResource("RectangleShape2D_lc4m0")
+
+[node name="Sprite2D" type="Sprite2D" parent="WeaponManager/Area2D/CollisionShape2D"]
+position = Vector2(-0.969999, 5.96046e-07)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("5_1trur")
