@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/controlled1.cs" id="1_f3x4s"]
 [ext_resource type="Texture2D" uid="uid://n78ldru40qme" path="res://Textures/Filler Character Image.png" id="1_swj3o"]
-[ext_resource type="Script" path="res://Scenes/CameraController.cs" id="3_kj26r"]
+[ext_resource type="Script" path="res://Scripts/CameraController.cs" id="3_kj26r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipcmo"]
 size = Vector2(32, 32)
@@ -20,4 +20,5 @@ shape = SubResource("RectangleShape2D_ipcmo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
 script = ExtResource("3_kj26r")
