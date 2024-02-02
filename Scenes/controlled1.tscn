@@ -20,5 +20,4 @@ shape = SubResource("RectangleShape2D_ipcmo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)
-position_smoothing_enabled = true
 script = ExtResource("3_kj26r")
