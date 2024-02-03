@@ -7,7 +7,7 @@ public partial class Scene1 : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		pausemenu = GetNode<Godot.VBoxContainer>("MarginContainer/PauseMenu");
+		pausemenu = GetNode<Godot.VBoxContainer>("PauseMenu");
 		pausemenu.Hide();
 	}
 
@@ -17,7 +17,16 @@ public partial class Scene1 : Node2D
 		if (Input.IsActionPressed("ui_cancel"))
 		{
 			GD.Print("Read esc input");
-			//flip the visibility of the ui here with show and hide
+			pausemenu.Show();
 		}
 	}
+	private void _on_back_button_pressed()
+{
+	GD.Print("Back button pressed");
+	pausemenu.Hide();
 }
+	
+}
+
+
+

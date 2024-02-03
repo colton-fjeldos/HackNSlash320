@@ -1,34 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://cti3llu71ljg0"]
 
+[ext_resource type="Script" path="res://Scripts/Scene1.cs" id="1_swjj7"]
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Dark Pallette.png" id="1_t23mu"]
 [ext_resource type="Texture2D" uid="uid://brfskij7sf7yq" path="res://Textures/icon.png" id="2_ivbcg"]
-
-[sub_resource type="CSharpScript" id="CSharpScript_7eix2"]
-script/source = "using Godot;
-using System;
-
-public partial class Scene1 : Node2D
-{
-	Godot.VBoxContainer pausemenu;
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		pausemenu = GetNode<Godot.VBoxContainer>(\"PauseMenu\");
-		pausemenu.Hide();
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		if (Input.IsActionPressed(\"ui_cancel\"))
-		{
-			GD.Print(\"Read esc input\");
-			//flip the visibility of the ui here with show and hide
-			pausemenu.Show();
-		}
-	}
-}
-"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5x2m1"]
 texture = ExtResource("1_t23mu")
@@ -171,7 +145,7 @@ sources/0 = SubResource("TileSetAtlasSource_5x2m1")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xk7f"]
 
 [node name="Node2D" type="Node2D"]
-script = SubResource("CSharpScript_7eix2")
+script = ExtResource("1_swjj7")
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1
@@ -218,3 +192,5 @@ value = 100.0
 [node name="BackButton" type="Button" parent="PauseMenu"]
 layout_mode = 2
 text = "Back"
+
+[connection signal="pressed" from="PauseMenu/BackButton" to="." method="_on_back_button_pressed"]
