@@ -13,23 +13,19 @@ public partial class Scene1 : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		pausemenu = GetNode<Godot.VBoxContainer>(\"PauseMenu\");
+		pausemenu.Hide();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-	}
-	public override _Input(InputEvent @event)
-	{
-		if (@event is InputEventKey eventKey)
-			if (eventKey.Pressed && eventKey.Keycode == Key.Escape) 
-			{
-				if (pausemenu.Hide()) {
-					pausemenu.Show();
-				} else {
-					pausemenu.Hide()
-				}
-			}
+		if (Input.IsActionPressed(\"ui_cancel\"))
+		{
+			GD.Print(\"Read esc input\");
+			//flip the visibility of the ui here with show and hide
+			pausemenu.Show();
+		}
 	}
 }
 "
@@ -195,3 +191,30 @@ debug_color = Color(0, 0.568627, 0.85098, 0.419608)
 position = Vector2(84, 524)
 scale = Vector2(0.0311017, 0.0305296)
 texture = ExtResource("2_ivbcg")
+
+[node name="PauseMenu" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 510.0
+offset_top = 219.0
+offset_right = 706.0
+offset_bottom = 368.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="VolumeLabel" type="Label" parent="PauseMenu"]
+layout_mode = 2
+text = "Volume: 100"
+horizontal_alignment = 1
+
+[node name="VolumeSlider" type="HSlider" parent="PauseMenu"]
+layout_mode = 2
+value = 100.0
+
+[node name="BackButton" type="Button" parent="PauseMenu"]
+layout_mode = 2
+text = "Back"
