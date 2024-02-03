@@ -1,11 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cti3llu71ljg0"]
+[gd_scene load_steps=8 format=3 uid="uid://doxorrfybyb0y"]
 
-[ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Dark Pallette.png" id="1_t23mu"]
-[ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://Scenes/controlled1.tscn" id="3_2vvoj"]
-[ext_resource type="Texture2D" uid="uid://dpxaugqtad6y3" path="res://Textures/slime monster.png" id="4_5b8jt"]
+[ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Dark Pallette.png" id="1_s7plt"]
+[ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://Scenes/controlled1.tscn" id="2_55bm2"]
+[ext_resource type="Texture2D" uid="uid://dpxaugqtad6y3" path="res://Textures/slime monster.png" id="4_h7obr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5x2m1"]
-texture = ExtResource("1_t23mu")
+texture = ExtResource("1_s7plt")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
@@ -142,11 +142,9 @@ texture = ExtResource("1_t23mu")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_5x2m1")
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6571n"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vl4wb"]
 
-[sub_resource type="GDScript" id="GDScript_6wf4v"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ll4ri"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_3kw6p"]
 radius = 4.0
 
 [node name="Node2D" type="Node2D"]
@@ -158,20 +156,19 @@ format = 2
 layer_0/name = "Ground"
 layer_0/tile_data = PackedInt32Array(2490369, 262144, 1, 2490370, 327680, 1, 2490371, 327680, 1, 2490372, 327680, 1, 2490373, 262144, 268435457, 2555906, 262144, 1, 2555908, 262144, 268435457, 2555907, 327680, 1, 2621443, 327680, 4, 2686979, 262144, 4, 2490377, 327680, 1, 2490378, 327680, 1, 2490379, 327680, 1, 2490380, 327680, 1, 2490381, 327680, 1, 2490382, 327680, 1, 2490383, 327680, 1, 2490384, 327680, 1, 2490385, 327680, 1, 2490389, 327680, 1, 2490390, 327680, 1, 2490391, 327680, 1, 2490392, 327680, 1, 2490393, 327680, 1, 2490394, 327680, 1, 2490395, 327680, 1, 2490396, 327680, 1, 2555913, 262144, 1, 2555914, 327680, 1, 2555915, 327680, 1, 2555916, 327680, 1, 2555917, 327680, 1, 2555918, 327680, 1, 2555919, 327680, 1, 2555920, 327680, 1, 2555921, 262144, 268435457, 2555925, 262144, 1, 2555926, 327680, 1, 2555927, 327680, 1, 2555928, 327680, 1, 2555929, 327680, 1, 2555930, 327680, 1, 2555931, 327680, 1, 2555932, 262144, 268435457, 2555936, 262144, 1, 2490400, 327680, 1, 2490401, 327680, 1, 2555937, 327680, 1, 2555938, 327680, 1, 2555939, 327680, 1, 2555940, 327680, 1, 2555941, 327680, 1, 2490405, 327680, 1, 2490406, 327680, 1, 2490404, 327680, 1, 2490403, 327680, 1, 2490402, 327680, 1, 2555942, 262144, 268435457, 2490410, 327680, 1, 2490411, 327680, 1, 2490412, 327680, 1, 2490413, 327680, 1, 2490414, 327680, 1, 2490415, 327680, 1, 2490416, 327680, 1, 2490417, 327680, 1, 2490418, 327680, 1, 2490419, 327680, 1, 2490420, 327680, 1, 2490421, 327680, 1, 2490422, 327680, 1, 2490423, 327680, 1, 2490424, 327680, 1, 2490425, 327680, 1, 2490426, 327680, 1, 2490427, 327680, 1, 2490428, 327680, 1, 2490429, 327680, 1, 2490430, 327680, 1, 2490431, 327680, 1, 2490432, 327680, 1, 2490433, 327680, 1, 2490434, 327680, 1, 2490435, 327680, 1, 2490436, 327680, 1, 2490437, 327680, 1, 2490438, 327680, 1, 2490439, 327680, 1, 2555975, 262144, 268435457, 2555946, 262144, 1, 2555947, 327680, 1, 2555948, 327680, 1, 2555949, 327680, 1, 2555950, 327680, 1, 2555951, 327680, 1, 2555952, 327680, 1, 2555953, 327680, 1, 2555954, 327680, 1, 2555955, 327680, 1, 2555956, 327680, 1, 2555957, 327680, 1, 2555958, 327680, 1, 2555959, 327680, 1, 2555960, 327680, 1, 2555961, 327680, 1, 2555962, 327680, 1, 2555963, 327680, 1, 2555964, 327680, 1, 2555965, 327680, 1, 2555966, 327680, 1, 2555967, 327680, 1, 2555968, 327680, 1, 2555969, 327680, 1, 2555970, 327680, 1, 2555971, 327680, 1, 2555972, 327680, 1, 2555973, 327680, 1, 2555974, 327680, 1, 1703944, 393216, 0, 1769480, 393216, 1, 1835016, 393216, 2, 1703961, 393216, 0, 1769497, 393216, 1, 1835033, 393216, 2, 1703949, 327680, 1, 1703954, 327680, 1, 1835020, 327680, 1, 1900556, 327680, 1, 1966093, 327680, 1, 1966094, 327680, 1, 1966095, 327680, 1, 1966096, 327680, 1, 1966097, 327680, 1, 1966098, 327680, 1, 1900563, 327680, 1, 1835027, 327680, 1, 1769487, 327680, 1, 1835023, 327680, 1, 1835024, 327680, 1, 2490376, 458752, 4, 2490386, 458752, 268435460, 2490388, 458752, 4, 2490397, 458752, 268435460, 2490399, 458752, 4, 2490407, 458752, 268435460, 2490409, 458752, 4, 2490440, 458752, 268435460)
 
-[node name="controlled1" parent="." instance=ExtResource("3_2vvoj")]
-position = Vector2(38, 561)
+[node name="controlled1" parent="." instance=ExtResource("2_55bm2")]
+position = Vector2(32, 556)
 
 [node name="Slime" type="RigidBody2D" parent="."]
-physics_material_override = SubResource("PhysicsMaterial_6571n")
-script = SubResource("GDScript_6wf4v")
+physics_material_override = SubResource("PhysicsMaterial_vl4wb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Slime"]
 position = Vector2(196, 605)
-shape = SubResource("CircleShape2D_ll4ri")
+shape = SubResource("CircleShape2D_3kw6p")
 
 [node name="SlimeMonster" type="Sprite2D" parent="Slime"]
 position = Vector2(195, 604)
 scale = Vector2(0.015, 0.015)
-texture = ExtResource("4_5b8jt")
+texture = ExtResource("4_h7obr")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Slime"]
