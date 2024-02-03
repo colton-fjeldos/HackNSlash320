@@ -7,6 +7,7 @@ public partial class MenuScript : Control
 	Godot.VBoxContainer optionsVBox;
 	Godot.VBoxContainer mainVBox;
 	Godot.Label volumeLabel;
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -53,5 +54,4 @@ public partial class MenuScript : Control
 		volumeLabel.Text = "Volume: " + value;
 		//Currently also needs to control actual game volume, IDK how to control that yet
 	}
-	
 }

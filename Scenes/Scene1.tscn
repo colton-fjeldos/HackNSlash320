@@ -1,5 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cti3llu71ljg0"]
 
+[ext_resource type="Script" path="res://Scripts/Scene1.cs" id="1_swjj7"]
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Dark Pallette.png" id="1_t23mu"]
 [ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://Scenes/controlled1.tscn" id="3_2vvoj"]
 [ext_resource type="Texture2D" uid="uid://dpxaugqtad6y3" path="res://Textures/slime monster.png" id="4_5b8jt"]
@@ -150,6 +151,7 @@ sources/0 = SubResource("TileSetAtlasSource_5x2m1")
 radius = 4.0
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_swjj7")
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1
@@ -174,4 +176,39 @@ position = Vector2(195, 604)
 scale = Vector2(0.015, 0.015)
 texture = ExtResource("4_5b8jt")
 
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(84, 524)
+scale = Vector2(0.0311017, 0.0305296)
+texture = ExtResource("2_ivbcg")
+
+[node name="PauseMenu" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 510.0
+offset_top = 219.0
+offset_right = 706.0
+offset_bottom = 368.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="VolumeLabel" type="Label" parent="PauseMenu"]
+layout_mode = 2
+text = "Volume: 100"
+horizontal_alignment = 1
+
+[node name="VolumeSlider" type="HSlider" parent="PauseMenu"]
+layout_mode = 2
+value = 100.0
+
+[node name="BackButton" type="Button" parent="PauseMenu"]
+layout_mode = 2
+text = "Back"
+
+[connection signal="pressed" from="PauseMenu/BackButton" to="." method="_on_back_button_pressed"]
+
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Slime"]
+
