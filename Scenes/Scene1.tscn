@@ -176,11 +176,6 @@ position = Vector2(195, 604)
 scale = Vector2(0.015, 0.015)
 texture = ExtResource("4_5b8jt")
 
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
-position = Vector2(84, 524)
-scale = Vector2(0.0311017, 0.0305296)
-texture = ExtResource("2_ivbcg")
-
 [node name="PauseMenu" type="VBoxContainer" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
