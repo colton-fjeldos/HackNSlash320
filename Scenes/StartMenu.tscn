@@ -44,7 +44,6 @@ theme_override_constants/separation = 20
 [node name="VolumeLabel" type="Label" parent="MarginContainer/Options"]
 layout_mode = 2
 text = "Volume: 100"
-horizontal_alignment = 1
 
 [node name="VolumeSlider" type="HSlider" parent="MarginContainer/Options"]
 layout_mode = 2

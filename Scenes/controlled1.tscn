@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ugmbp8vduwk" path="res://Textures/SwordSprite.png" id="3_01ar2"]
 [ext_resource type="Script" path="res://Scripts/WeaponManager.cs" id="3_rfig2"]
 [ext_resource type="Texture2D" uid="uid://t14emg8doyf7" path="res://Textures/Swing_sprite.png" id="5_1trur"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipcmo"]
 size = Vector2(32, 32)
 
