@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cu0yj4bbwgw4a"]
 
 [ext_resource type="Script" path="res://Scripts/slime.gd" id="1_am1s2"]
-[ext_resource type="Texture2D" uid="uid://dpxaugqtad6y3" path="res://Textures/slime monster.png" id="1_tr8rf"]
+[ext_resource type="Texture2D" uid="uid://dpxaugqtad6y3" path="res://Textures/Enemy/slime monster.png" id="1_tr8rf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ovq4j"]
 radius = 5.09902
