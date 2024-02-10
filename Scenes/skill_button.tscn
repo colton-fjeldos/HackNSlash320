@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbnf81jj4qhyl"]
+
+[ext_resource type="Texture2D" uid="uid://dapuo4mpk18u3" path="res://icon.svg" id="1_g7p3q"]
+[ext_resource type="Script" path="res://Scripts/SkillButton.gd" id="2_e8asp"]
+
+[node name="SkillButton" type="TextureButton"]
+offset_right = 105.0
+offset_bottom = 96.0
+toggle_mode = true
+texture_normal = ExtResource("1_g7p3q")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_e8asp")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 104.0
+offset_bottom = 97.0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 92.0
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 18
+text = "0/1"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Line2D" type="Line2D" parent="."]
+top_level = true
+z_index = -1
+width = 5.0
+default_color = Color(0.027451, 0.141176, 0.12549, 1)
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
