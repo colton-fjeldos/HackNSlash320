@@ -165,6 +165,7 @@ position = Vector2(38, 561)
 physics_material_override = SubResource("PhysicsMaterial_6571n")
 script = SubResource("GDScript_6wf4v")
 
+<<<<<<< Updated upstream
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Slime"]
 position = Vector2(196, 605)
 shape = SubResource("CircleShape2D_ll4ri")
@@ -175,3 +176,7 @@ scale = Vector2(0.015, 0.015)
 texture = ExtResource("4_5b8jt")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Slime"]
+=======
+[node name="Slime" parent="." instance=ExtResource("4_s0t2i")]
+position = Vector2(252, 601)
+>>>>>>> Stashed changes
