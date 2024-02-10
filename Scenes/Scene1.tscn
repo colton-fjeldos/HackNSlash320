@@ -1,8 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cti3llu71ljg0"]
+[gd_scene load_steps=8 format=3 uid="uid://cti3llu71ljg0"]
 
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Dark Pallette.png" id="1_t23mu"]
 [ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://Scenes/controlled1.tscn" id="3_2vvoj"]
-[ext_resource type="Texture2D" uid="uid://dpxaugqtad6y3" path="res://Textures/slime monster.png" id="4_5b8jt"]
+[ext_resource type="PackedScene" path="res://Scenes/slime.tscn" id="4_s0t2i"]
 [ext_resource type="PackedScene" uid="uid://urum3745k6v6" path="res://Scenes/PauseMenu.tscn" id="5_ajwl6"]
 
 [sub_resource type="CSharpScript" id="CSharpScript_5bgkw"]
@@ -172,13 +172,6 @@ texture = ExtResource("1_t23mu")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_5x2m1")
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6571n"]
-
-[sub_resource type="GDScript" id="GDScript_6wf4v"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_ll4ri"]
-radius = 4.0
-
 [node name="Node2D" type="Node2D"]
 script = SubResource("CSharpScript_5bgkw")
 
@@ -198,17 +191,5 @@ offset_top = -159.0
 offset_right = -89.0
 offset_bottom = -159.0
 
-[node name="Slime" type="RigidBody2D" parent="."]
-physics_material_override = SubResource("PhysicsMaterial_6571n")
-script = SubResource("GDScript_6wf4v")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Slime"]
-position = Vector2(196, 605)
-shape = SubResource("CircleShape2D_ll4ri")
-
-[node name="SlimeMonster" type="Sprite2D" parent="Slime"]
-position = Vector2(195, 604)
-scale = Vector2(0.015, 0.015)
-texture = ExtResource("4_5b8jt")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Slime"]
+[node name="Slime" parent="." instance=ExtResource("4_s0t2i")]
+position = Vector2(233, 602)
