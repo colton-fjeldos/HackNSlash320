@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpntkenu2esrc"
-path="res://.godot/imported/Swing_sprite.png-c7e92f31ff7963a509e6acd6555e6067.ctex"
+uid="uid://cn6r8ys3i36t5"
+path="res://.godot/imported/Attack.png-876c732f04a88dd05fb507ac2e2cb378.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Swing_sprite.png"
-dest_files=["res://.godot/imported/Swing_sprite.png-c7e92f31ff7963a509e6acd6555e6067.ctex"]
+source_file="res://Textures/Enemy/Attack.png"
+dest_files=["res://.godot/imported/Attack.png-876c732f04a88dd05fb507ac2e2cb378.ctex"]
 
 [params]
 

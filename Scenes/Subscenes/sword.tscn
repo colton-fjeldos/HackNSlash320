@@ -1,13 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bg06c6mnt35ua"]
+[gd_scene load_steps=2 format=3 uid="uid://6yodwekfv8e5"]
 
-[ext_resource type="Script" path="res://Scripts/sword.cs" id="1_vbci6"]
-[ext_resource type="Texture2D" uid="uid://ugmbp8vduwk" path="res://Textures/SwordSprite.png" id="2_5ecae"]
+[ext_resource type="Texture2D" uid="uid://cirfgjndhh2vo" path="res://Textures/SwordSprite.png" id="1_2eoit"]
 
 [node name="Sword" type="RigidBody2D"]
-script = ExtResource("1_vbci6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_5ecae")
+texture = ExtResource("1_2eoit")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(0, 4, -4, 4, -4, 0, 2, -4, 4, -4, 4, -2)
+polygon = PackedVector2Array(2, -4, 4, -4, 4, -2, 0, 4, -4, 4, -4, 0)
