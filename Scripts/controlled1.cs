@@ -4,11 +4,11 @@ using System;
 public partial class controlled1 : CharacterBody2D
 {
 	//stored float values for easy changing
-	public static float baseSpeed = 150.0f;
+	//public static float baseSpeed = 150.0f;
 	public static float movementMax = 400.0f;
 	
 	//Basic movement variables
-	public float movement = baseSpeed;
+	//public float movement = baseSpeed;
 	public float jump = 400.0f;
 	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 	
@@ -42,24 +42,28 @@ public partial class controlled1 : CharacterBody2D
 				
 		}
 
-		//set our x velocity to zero
-		velocity.X = 0;
 		
-		//when moving left, accelerate taking the maximum of -movement and -max
+		//when moving left, accelerate
 		if (Input.IsActionPressed("ui_left")){
-			movement+=2;
-			velocity.X = Mathf.Max((-movement), -movementMax);
-			
+			velocity.X = Mathf.Lerp(velocity.X, (-movementMax), (float).08);
 		}
-		//when moving right, accelerate taking the minimum of movement and max
+		//when moving right, accelerate
 		else if (Input.IsActionPressed("ui_right")){
-			movement+=2;
-			velocity.X = Mathf.Min(movement, movementMax);
+			velocity.X = Mathf.Lerp(velocity.X, (movementMax), (float).08);
 			
 		}
-		//when they are released, reset the speed to its static value
-		if (Input.IsActionJustReleased("ui_left") || Input.IsActionJustReleased("ui_right")){
-			movement = baseSpeed;
+		//when they are released, move velocity towards 0
+		else{
+			if (Mathf.Abs(velocity.X)<.00001){
+				//do nothing, this stops it from infinitely calculating lerp
+				//when the model is basically moving at speed 0.
+				velocity.X=0;
+			}
+			else{
+				velocity.X = Mathf.Lerp(velocity.X, (0), (float).2);
+				
+			}
+			
 		}
 		//then set velocity and move
 		Velocity = velocity;
