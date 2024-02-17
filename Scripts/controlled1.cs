@@ -16,6 +16,10 @@ public partial class controlled1 : CharacterBody2D
 	//but stored as an int in case we want to add conditional triple jump
 	public int doubleJump = 1;
 	
+	//Private interactionmanager field since input is taken care of inside of this script
+	[Export]
+	private InteractArea playerInteract;
+	
 	//placeholder
 	public override void _Ready()
 	{
@@ -52,6 +56,7 @@ public partial class controlled1 : CharacterBody2D
 			velocity.X = Mathf.Lerp(velocity.X, (movementMax), (float).08);
 			
 		}
+
 		//when they are released, move velocity towards 0
 		else{
 			if (Mathf.Abs(velocity.X)<.00001){
@@ -63,11 +68,17 @@ public partial class controlled1 : CharacterBody2D
 				velocity.X = Mathf.Lerp(velocity.X, (0), (float).2);
 				
 			}
-			
+
 		}
 		//then set velocity and move
 		Velocity = velocity;
 		MoveAndSlide();
 		
+	}
+	
+	public override void _UnhandledInput(InputEvent @event){
+		if (Input.IsActionJustPressed("interact")){
+			playerInteract.InteractWith();
+		}
 	}
 }

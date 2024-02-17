@@ -1,11 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://6yodwekfv8e5"]
+[gd_scene load_steps=5 format=3 uid="uid://cq7h46b776c31"]
 
 [ext_resource type="Texture2D" uid="uid://cirfgjndhh2vo" path="res://Textures/SwordSprite.png" id="1_2eoit"]
+[ext_resource type="PackedScene" uid="uid://k518oatcttrq" path="res://Scenes/Subscenes/InteractArea.tscn" id="2_28sub"]
+[ext_resource type="Script" path="res://Scripts/Interactions/ObjectInteractArea.cs" id="3_jjcwu"]
 
-[node name="Sword" type="RigidBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f4t1b"]
+size = Vector2(33, 32)
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sword" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D"]
+polygon = PackedVector2Array(-8, 8, 0, 8, 8, -4, 8, -8, 4, -8, -8, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+scale = Vector2(2, 2)
 texture = ExtResource("1_2eoit")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(2, -4, 4, -4, 4, -2, 0, 4, -4, 4, -4, 0)
+[node name="InteractArea" parent="RigidBody2D" instance=ExtResource("2_28sub")]
+script = ExtResource("3_jjcwu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/InteractArea"]
+shape = SubResource("RectangleShape2D_f4t1b")
