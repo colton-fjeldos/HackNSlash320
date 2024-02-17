@@ -1,38 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://cti3llu71ljg0"]
 
+[ext_resource type="Script" path="res://Scenes/Scene1.gd" id="1_54ohx"]
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Dark Pallette.png" id="1_t23mu"]
 [ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://Scenes/controlled1.tscn" id="3_2vvoj"]
 [ext_resource type="PackedScene" uid="uid://cu0yj4bbwgw4a" path="res://Scenes/slime.tscn" id="4_s0t2i"]
 [ext_resource type="PackedScene" uid="uid://urum3745k6v6" path="res://Scenes/PauseMenu.tscn" id="5_ajwl6"]
-
-[sub_resource type="CSharpScript" id="CSharpScript_5bgkw"]
-script/source = "using Godot;
-using System;
-
-public partial class Scene1 : Node2D
-{
-	Godot.VBoxContainer pausemenu;
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		//pausemenu = GetNode<Godot.VBoxContainer>(\"PauseMenu\");
-		//pausemenu.Hide();
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		//if (Input.IsActionPressed(\"ui_cancel\"))
-		//{
-			//GD.Print(\"Read esc input\");
-			//pausemenu.Show();
-		//}
-	}
-	private void _on_back_button_pressed(){
-	//GD.Print(\"Back button pressed\");
-	//pausemenu.Hide();
-}
-"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5x2m1"]
 texture = ExtResource("1_t23mu")
@@ -173,7 +145,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_5x2m1")
 
 [node name="Node2D" type="Node2D"]
-script = SubResource("CSharpScript_5bgkw")
+script = ExtResource("1_54ohx")
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1
@@ -185,11 +157,9 @@ layer_0/tile_data = PackedInt32Array(2490369, 262144, 1, 2490370, 327680, 1, 249
 [node name="controlled1" parent="." instance=ExtResource("3_2vvoj")]
 position = Vector2(38, 561)
 
-[node name="PauseMenu" parent="controlled1" instance=ExtResource("5_ajwl6")]
-offset_left = -89.0
-offset_top = -159.0
-offset_right = -89.0
-offset_bottom = -159.0
-
 [node name="Slime" parent="." instance=ExtResource("4_s0t2i")]
 position = Vector2(233, 602)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_ajwl6")]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://bch36igfl46r3"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_dq281"]
-[ext_resource type="Texture2D" uid="uid://c7c03ljljvtif" path="res://Textures/Enemy/Attack.png" id="2_6m1e1"]
-[ext_resource type="Texture2D" uid="uid://t48bpb8506v2" path="res://Textures/Enemy/Run.png" id="3_r7iwt"]
-[ext_resource type="Texture2D" uid="uid://c638xywyn6vcn" path="res://Textures/Enemy/Walk.png" id="4_u7a1y"]
-[ext_resource type="Texture2D" uid="uid://gum55pgakp75" path="res://Textures/Enemy/Jump.png" id="4_xkrnn"]
+[ext_resource type="Texture2D" uid="uid://cn6r8ys3i36t5" path="res://Textures/Enemy/Attack.png" id="2_6m1e1"]
+[ext_resource type="Texture2D" uid="uid://rit58urm4erj" path="res://Textures/Enemy/Run.png" id="3_r7iwt"]
+[ext_resource type="Texture2D" uid="uid://digso276vqxno" path="res://Textures/Enemy/Walk.png" id="4_u7a1y"]
+[ext_resource type="Texture2D" uid="uid://x2fke72ohnty" path="res://Textures/Enemy/Jump.png" id="4_xkrnn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ss5e2"]
 size = Vector2(52, 67.8102)
