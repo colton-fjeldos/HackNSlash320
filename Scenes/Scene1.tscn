@@ -7,34 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://urum3745k6v6" path="res://Scenes/PauseMenu.tscn" id="5_ajwl6"]
 [ext_resource type="PackedScene" uid="uid://cq7h46b776c31" path="res://Scenes/Subscenes/sword.tscn" id="5_i4kdo"]
 
-[sub_resource type="CSharpScript" id="CSharpScript_5bgkw"]
-script/source = "using Godot;
-using System;
-
-public partial class Scene1 : Node2D
-{
-	Godot.VBoxContainer pausemenu;
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		//pausemenu = GetNode<Godot.VBoxContainer>(\"PauseMenu\");
-		//pausemenu.Hide();
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-		//if (Input.IsActionPressed(\"ui_cancel\"))
-		//{
-			//GD.Print(\"Read esc input\");
-			//pausemenu.Show();
-		//}
-	}
-	private void _on_back_button_pressed(){
-	//GD.Print(\"Back button pressed\");
-	//pausemenu.Hide();
-}
-"
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5x2m1"]
 texture = ExtResource("1_t23mu")
 0:0/0 = 0
