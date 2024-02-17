@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://doxorrfybyb0y"]
+[gd_scene load_steps=7 format=3 uid="uid://doxorrfybyb0y"]
 
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Dark Pallette.png" id="1_s7plt"]
 [ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://Scenes/controlled1.tscn" id="2_55bm2"]
-[ext_resource type="Texture2D" uid="uid://dpxaugqtad6y3" path="res://Textures/slime monster.png" id="4_h7obr"]
+[ext_resource type="PackedScene" uid="uid://cu0yj4bbwgw4a" path="res://Scenes/slime.tscn" id="3_utj8y"]
+[ext_resource type="Script" path="res://Scripts/HP System.gd" id="4_xaja0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5x2m1"]
 texture = ExtResource("1_s7plt")
@@ -142,11 +143,6 @@ texture = ExtResource("1_s7plt")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_5x2m1")
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vl4wb"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_3kw6p"]
-radius = 4.0
-
 [node name="Node2D" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -159,16 +155,8 @@ layer_0/tile_data = PackedInt32Array(2490369, 262144, 1, 2490370, 327680, 1, 249
 [node name="controlled1" parent="." instance=ExtResource("2_55bm2")]
 position = Vector2(32, 556)
 
-[node name="Slime" type="RigidBody2D" parent="."]
-physics_material_override = SubResource("PhysicsMaterial_vl4wb")
+[node name="Slime" parent="." instance=ExtResource("3_utj8y")]
+position = Vector2(201, 602)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Slime"]
-position = Vector2(196, 605)
-shape = SubResource("CircleShape2D_3kw6p")
-
-[node name="SlimeMonster" type="Sprite2D" parent="Slime"]
-position = Vector2(195, 604)
-scale = Vector2(0.015, 0.015)
-texture = ExtResource("4_h7obr")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Slime"]
+[node name="Node" type="Node" parent="Slime"]
+script = ExtResource("4_xaja0")
