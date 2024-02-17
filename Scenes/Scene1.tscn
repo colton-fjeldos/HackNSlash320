@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cti3llu71ljg0"]
+[gd_scene load_steps=9 format=3 uid="uid://cti3llu71ljg0"]
 
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Dark Pallette.png" id="1_t23mu"]
 [ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://Scenes/controlled1.tscn" id="3_2vvoj"]
 [ext_resource type="PackedScene" uid="uid://cu0yj4bbwgw4a" path="res://Scenes/slime.tscn" id="4_s0t2i"]
 [ext_resource type="PackedScene" uid="uid://urum3745k6v6" path="res://Scenes/PauseMenu.tscn" id="5_ajwl6"]
 
+<<<<<<< Updated upstream
 [sub_resource type="CSharpScript" id="CSharpScript_5bgkw"]
 script/source = "using Godot;
 using System;
@@ -34,6 +35,8 @@ public partial class Scene1 : Node2D
 }
 "
 
+=======
+>>>>>>> Stashed changes
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5x2m1"]
 texture = ExtResource("1_t23mu")
 0:0/0 = 0
@@ -193,3 +196,13 @@ offset_bottom = -159.0
 
 [node name="Slime" parent="." instance=ExtResource("4_s0t2i")]
 position = Vector2(233, 602)
+<<<<<<< Updated upstream
+=======
+
+[node name="Sword" parent="." instance=ExtResource("5_i4kdo")]
+position = Vector2(393, 556)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_ajwl6")]
+>>>>>>> Stashed changes
