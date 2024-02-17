@@ -55,13 +55,4 @@ func disable_skills_recursive(node):
 			skill.level = 0
 			disable_skills_recursive(skill)
 			
-				
-				
-				
-			
-			
-			
-	
-	
-	
-	
+
