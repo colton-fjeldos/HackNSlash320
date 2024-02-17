@@ -13,7 +13,11 @@ func _process(delta):
 	if (_processCount == 0):
 		_createMap()
 		_processCount = _processCount + 1
+
+func getPath(start, end):
+	return aStar.get_point_path(aStar.get_closest_point(start), aStar.get_closest_point(end))
 	
+
 func _createMap():
 	# Gets every cell with a tile
 	for cell in tileMap.get_used_cells(0):
@@ -56,14 +60,14 @@ func _createMap():
 					elif not (cell + Vector2i.RIGHT + Vector2i.UP) in tileMap.get_used_cells(0) and (cell + Vector2i.LEFT + Vector2i.UP) in tileMap.get_used_cells(0):
 						_createPoint(tileMap.map_to_local(cell + Vector2i.UP))
 	_connectPoint()
-	
+
 func _cellType(cell):
 	var cellType = tileMap.get_cell_tile_data(0, cell)
 	if(cellType and cellType.get_custom_data('Type') == 'Edge'):
 		return true
 	else:
 		return false
-	
+
 func _getFallPoints(cell, right, left):
 	
 	var state = get_world_2d().direct_space_state
@@ -99,21 +103,25 @@ func _getFallPoints(cell, right, left):
 		if(result):
 			_createFallPoint (tileMap.map_to_local(cell + Vector2i.UP), tileMap.map_to_local(tileMap.local_to_map(result.position) + Vector2i.UP))
 			#_createPoint (tileMap.map_to_local((tileMap.local_to_map(result.position) + Vector2i.UP)))
-	
 
 func _createPoint(pos):
 	if not aStar.get_point_position(aStar.get_closest_point(pos)) == pos:
-		var instance = _walkPoint.instantiate()
-		add_child(instance)
-		instance.position = pos
-		aStar.add_point(aStar.get_available_point_id(), instance.position)
+		#var instance = _walkPoint.instantiate()
+		#add_child(instance)
+		#instance.position = pos
+		#aStar.add_point(aStar.get_available_point_id(), instance.position)
+		aStar.add_point(aStar.get_available_point_id(), pos)
 
 func _createFallPoint(pos1, pos2):
 	if not aStar.get_point_position(aStar.get_closest_point(pos2)) == pos2:
 		var instance = _walkPoint.instantiate()
-		add_child(instance)
-		instance.position = pos2
-		aStar.add_point(aStar.get_available_point_id(), instance.position)
+		#add_child(instance)
+		#instance.position = pos2
+		#aStar.add_point(aStar.get_available_point_id(), instance.position)
+		
+		#instance = _walkPoint.instantiate()
+		#add_child(instance)
+		#instance.position = (pos1+pos2)/2
 		
 		pos1 = aStar.get_closest_point(pos1)
 		pos2 = aStar.get_closest_point(pos2)
@@ -126,16 +134,20 @@ func _connectPoint():
 		var mapPosition =  tileMap.local_to_map(aStar.get_point_position(currentPoint)) + Vector2i.RIGHT + Vector2i.DOWN
 		var state = get_world_2d().direct_space_state
 
-		if !tileMap.get_cell_source_id(0, mapPosition) and !_cellType(mapPosition):
+		#if !tileMap.get_cell_source_id(0, mapPosition) and !_cellType(mapPosition):
+		if _cellType(mapPosition) or !_cellType(mapPosition):
 			for connectingPoint in aStar.get_point_ids():
-				if(aStar.get_point_position(connectingPoint)[1] == aStar.get_point_position(currentPoint)[1]):
-					if(aStar.get_point_position(connectingPoint)[0] > aStar.get_point_position(currentPoint)[0]):
-						if(neighbhour == -1 or (aStar.get_point_position(connectingPoint)[0] - aStar.get_point_position(currentPoint)[0]) < (aStar.get_point_position(neighbhour)[0] - aStar.get_point_position(currentPoint)[0])):
-							neighbhour = connectingPoint
+				if aStar.get_point_position(connectingPoint)[1] == aStar.get_point_position(currentPoint)[1]:
+					if aStar.get_point_position(connectingPoint)[0] > aStar.get_point_position(currentPoint)[0]:
+						if (neighbhour == -1 or ((aStar.get_point_position(connectingPoint)[0] - aStar.get_point_position(currentPoint)[0]) < (aStar.get_point_position(neighbhour)[0] - aStar.get_point_position(currentPoint)[0]))):
+							var query = PhysicsRayQueryParameters2D.create (aStar.get_point_position(currentPoint), aStar.get_point_position(connectingPoint))
+							var result = state.intersect_ray(query)
+							if !result:
+								neighbhour = connectingPoint
 
 			if (neighbhour != -1):
-				var instance = _walkPoint.instantiate()
-				add_child(instance)
-				instance.position = (aStar.get_point_position(currentPoint) + aStar.get_point_position(neighbhour))/2
+				#var instance = _walkPoint.instantiate()
+				#add_child(instance)
+				#instance.position = (aStar.get_point_position(currentPoint) + aStar.get_point_position(neighbhour))/2
 				aStar.connect_points(currentPoint, neighbhour)
 

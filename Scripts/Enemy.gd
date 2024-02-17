@@ -8,7 +8,10 @@ var _rightRay
 var _player
 var _animation
 var health = 100
-var inChase = false
+var _inChase = false
+var _enemyMovement
+var _pathfinder
+
 
 # State variables
 enum States {idle, patrolling, chasing, attacking}
@@ -20,22 +23,29 @@ func _ready():
 	_player = get_parent().get_node("controlled1")
 	state = States.patrolling 
 	_animation = $AnimationPlayer
-#	velocity.x = _SPEED
+	_pathfinder = get_parent().get_node("Pathfinder")
 
 func _physics_process(delta):
 
-	if (inChase == false):
+	if (_inChase == false):
 		if (_playerInChaseRange()):
 			_chase()
-			inChase = true
+			_inChase = true
 		else:
 			_patrol()
 	
-	else:
+	elif(_player.is_on_floor()):
 		if (_playerInAttackRange()):
 			_attack()
 		else:
 			_chase()
+	else:
+		$Attack.visible = false
+		$Walk.visible = true
+		$Run.visible = false
+		_animation.stop()
+		velocity.x = 0
+		move_and_slide()
 
 func _patrol():
 	$Attack.visible = false
@@ -60,21 +70,23 @@ func _chase():
 	$Walk.visible = false
 	$Run.visible = true
 	_animation.play("Run")
+	
+	_enemyMovement = _pathfinder.getPath(global_position, _player.global_position)
+	var nextPos = _enemyMovement.pop_front()
 
-	if (_player.global_position.x <= global_position.x):
-		if ($Run.flip_h == false):
-			$Run.flip_h = true
+	if (_player.global_position.x <= nextPos.x):
+		#if ($Run.flip_h == false):
+		$Run.flip_h = true
 			
 		velocity.x = -1 * _SPEED
 		move_and_slide()
 		
 	else:
-		if ($Run.flip_h == true):
-			$Run.flip_h = false
+		#if ($Run.flip_h == true):
+		$Run.flip_h = false
+	
 		velocity.x = _SPEED
 		move_and_slide()
-	
-
 	
 func _attack():
 	$Walk.visible = false
