@@ -14,19 +14,53 @@ var level : int = 0:
 	set(value):
 		level = value
 		label.text = str(level) + "/1"
-		
-		
 
 func _on_pressed():
-	level = min( level+1, 1)
-	panel.show_behind_parent = true
+	if is_inside_tree() or (get_parent() is SkillNode and get_parent().level == 1):
+		if level == 0:
+			level = min( level+1, 1)
+			panel.show_behind_parent = true
+		
+			line_2d.default_color = Color(0.47926771640778, 0.85250693559647, 0.26897257566452)
 	
-	line_2d.default_color = Color(0.47926771640778, 0.85250693559647, 0.26897257566452)
-	
-	var skills = get_children()
-	for skill in skills:
-		if skill is SkillNode and level == 1:
-			skill.disabled = false
+			var skills = get_children()
+			for skill in skills:
+				if skill is SkillNode and level == 1:
+					skill.disabled = false
+					
+					
+					
+		else: 
+			level = 0
+			panel.show_behind_parent = false
+			line_2d.default_color = Color(1, 1, 1)
+		
+			var skills = get_children()
+			for skill in skills:
+				if skill is SkillNode:
+					skill.disabled = true
+					skill.line_2d.default_color = Color(1, 1, 1)
+					skill.panel.show_behind_parent = false
+					skill.level = 0
+					
+					disable_skills_recursive(self)
+					
+					# Recursive function to disable skills and their children
+func disable_skills_recursive(node):
+	for skill in node.get_children():
+		if skill is SkillNode:
+			skill.disabled = true
+			skill.line_2d.default_color = Color(1, 1, 1)
+			skill.panel.show_behind_parent = false
+			skill.level = 0
+			disable_skills_recursive(skill)
+			
+				
+				
+				
+			
+			
+			
 	
 	
 	
