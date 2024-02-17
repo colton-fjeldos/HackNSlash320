@@ -16,6 +16,10 @@ public partial class controlled1 : CharacterBody2D
 	//but stored as an int in case we want to add conditional triple jump
 	public int doubleJump = 1;
 	
+	//Private interactionmanager field since input is taken care of inside of this script
+	[Export]
+	private InteractArea playerInteract;
+	
 	//placeholder
 	public override void _Ready()
 	{
@@ -57,6 +61,7 @@ public partial class controlled1 : CharacterBody2D
 			velocity.X = Mathf.Min(movement, movementMax);
 			
 		}
+		
 		//when they are released, reset the speed to its static value
 		if (Input.IsActionJustReleased("ui_left") || Input.IsActionJustReleased("ui_right")){
 			movement = baseSpeed;
@@ -65,5 +70,11 @@ public partial class controlled1 : CharacterBody2D
 		Velocity = velocity;
 		MoveAndSlide();
 		
+	}
+	
+	public override void _UnhandledInput(InputEvent @event){
+		if (Input.IsActionJustPressed("interact")){
+			playerInteract.InteractWith();
+		}
 	}
 }
