@@ -1,14 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://cxm8abaww5v45"]
+[gd_scene load_steps=3 format=3 uid="uid://cxm8abaww5v45"]
 
+[ext_resource type="Script" path="res://Scenes/skillTree.gd" id="1_ky3gf"]
 [ext_resource type="PackedScene" uid="uid://dbnf81jj4qhyl" path="res://Scenes/skill_button.tscn" id="1_yd26q"]
 
-[node name="SkillTree" type="Control"]
+[node name="SkillTree" type="Control" groups=["SkillTree"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ky3gf")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -24,6 +26,7 @@ offset_left = 507.0
 offset_top = 493.0
 offset_right = 612.0
 offset_bottom = 589.0
+SkillName = "Health Boost"
 
 [node name="SkillButton" parent="SkillButton" instance=ExtResource("1_yd26q")]
 layout_mode = 0
@@ -32,6 +35,7 @@ offset_top = -132.0
 offset_right = -73.0
 offset_bottom = -36.0
 disabled = true
+SkillName = "Damage Boost"
 
 [node name="SkillButton" parent="SkillButton/SkillButton" instance=ExtResource("1_yd26q")]
 layout_mode = 0
@@ -48,6 +52,7 @@ offset_top = -132.0
 offset_right = 278.0
 offset_bottom = -36.0
 disabled = true
+SkillName = "Speed Boost"
 
 [node name="SkillButton" parent="SkillButton/SkillButton2" instance=ExtResource("1_yd26q")]
 layout_mode = 0

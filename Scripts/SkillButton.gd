@@ -1,9 +1,12 @@
 extends TextureButton
 class_name SkillNode
 
+
 @onready var panel = $Panel
 @onready var label = $MarginContainer/Label
 @onready var line_2d = $Line2D
+
+@export var SkillName: String
 
 func _ready():
 	if get_parent() is SkillNode:
@@ -20,6 +23,16 @@ func _on_pressed():
 		if level == 0:
 			level = min( level+1, 1)
 			panel.show_behind_parent = true
+			
+			var SkillTree = get_tree().get_first_node_in_group("SkillTree")
+			SkillTree.setUnlock(SkillName, level)
+			print(SkillName)
+			#var unlock: bool = SkillTree.checkSkill("Health Boost")
+			#match unlock:
+			#	true:
+			#		print("You Got A Health Boost!")
+			#	false:
+			#		print("Nope")
 		
 			line_2d.default_color = Color(0.47926771640778, 0.85250693559647, 0.26897257566452)
 	
