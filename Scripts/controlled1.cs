@@ -39,6 +39,9 @@ public partial class controlled1 : CharacterBody2D
 	[Export]
 	private InteractArea playerInteract;
 	
+	[Export]
+	private Node2D weaponManager;
+	
 	//velocity is a shared variable
 	Vector2 velocity;
 	//placeholder
@@ -138,7 +141,10 @@ public partial class controlled1 : CharacterBody2D
 	
 	public override void _UnhandledInput(InputEvent @event){
 		if (Input.IsActionJustPressed("interact")){
-			playerInteract.InteractWith();
+			int objectID = playerInteract.InteractWith();
+			//use objectID to get weapon sprite & attack animation sprite
+			if (objectID != 0) 
+				weaponManager.Show();
 		}
 	}
 }

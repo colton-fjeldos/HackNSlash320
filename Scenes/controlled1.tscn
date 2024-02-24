@@ -15,14 +15,14 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oerxt"]
 size = Vector2(10.525, 18)
 
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjc8b"]
 size = Vector2(32, 32)
 
-[node name="controlled1" type="CharacterBody2D" node_paths=PackedStringArray("playerInteract")]
+[node name="controlled1" type="CharacterBody2D" node_paths=PackedStringArray("playerInteract", "weaponManager")]
 position = Vector2(1, 1)
 script = ExtResource("1_f3x4s")
 playerInteract = NodePath("InteractArea")
+weaponManager = NodePath("WeaponManager")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -36,6 +36,7 @@ zoom = Vector2(1.5, 1.5)
 script = ExtResource("3_kj26r")
 
 [node name="WeaponManager" type="Node2D" parent="."]
+visible = false
 script = ExtResource("4_tfpqi")
 
 [node name="WeaponSprites" type="Node2D" parent="WeaponManager"]
@@ -55,8 +56,14 @@ shape = SubResource("RectangleShape2D_oerxt")
 [node name="Sprite2D" type="Sprite2D" parent="WeaponManager/Area2D/CollisionShape2D"]
 texture = ExtResource("6_ur58i")
 
+[node name="HitboxTimer" type="Timer" parent="WeaponManager"]
+process_callback = 0
+wait_time = 0.25
+
 [node name="InteractArea" parent="." instance=ExtResource("7_uvfh6")]
 script = ExtResource("8_c5q5l")
 
 [node name="InteractCS2D" type="CollisionShape2D" parent="InteractArea"]
 shape = SubResource("RectangleShape2D_jjc8b")
+
+[connection signal="timeout" from="WeaponManager/HitboxTimer" to="WeaponManager" method="OnHitboxTimerTimeout"]
