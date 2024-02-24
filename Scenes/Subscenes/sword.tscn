@@ -20,8 +20,20 @@ polygon = PackedVector2Array(-8, 8, 0, 8, 8, -4, 8, -8, 4, -8, -8, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("1_2eoit")
 
-[node name="InteractArea" parent="RigidBody2D" instance=ExtResource("2_28sub")]
+[node name="InteractArea" parent="RigidBody2D" node_paths=PackedStringArray("parentObject") instance=ExtResource("2_28sub")]
 script = ExtResource("3_jjcwu")
+parentObject = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/InteractArea"]
 shape = SubResource("RectangleShape2D_f4t1b")
+
+[node name="pickupLabel" type="Label" parent="RigidBody2D/InteractArea"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -71.0
+offset_top = 13.175
+offset_right = 71.0
+offset_bottom = 36.175
+grow_horizontal = 2
+text = "Press [E] to pickup"

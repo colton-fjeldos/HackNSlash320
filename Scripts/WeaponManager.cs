@@ -7,12 +7,14 @@ public partial class WeaponManager : Node2D
 	Godot.Area2D Hitbox;
 	Godot.Node2D WeaponSprite;
 	Godot.Viewport Viewport;
+	Godot.Timer HitboxTimer;
 	
 	public override void _Ready()
 	{
 		Hitbox = GetNode<Godot.Area2D>("Area2D"); //Used to draw the hitbox when clicked
 		WeaponSprite = GetNode<Godot.Node2D>("WeaponSprites"); //Used to rotate weapon sprite
 		Viewport = GetViewport(); //Used to get the screen width for drawing sword sprite
+		HitboxTimer = GetNode<Godot.Timer>("HitboxTimer");
 	}
 	
 	public override void _Process(double delta){
@@ -43,7 +45,16 @@ public partial class WeaponManager : Node2D
 		if (@event is InputEventMouseButton mouseEvent && @event.IsPressed())
 		{
 			LookAt(GetGlobalMousePosition());
+			HitboxTimer.Start();
 			Hitbox.Show();
 		}
 	}
+	
+	private void OnHitboxTimerTimeout()
+	{
+		Hitbox.Hide();
+	}
 }
+
+
+
