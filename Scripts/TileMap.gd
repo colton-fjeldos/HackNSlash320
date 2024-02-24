@@ -14,8 +14,12 @@ func _process(delta):
 		_createMap()
 		_processCount = _processCount + 1
 
-func getPath(start, end):
-	return aStar.get_point_path(aStar.get_closest_point(start), aStar.get_closest_point(end))
+func getPath(start, end): 
+	var path = aStar.get_point_path(aStar.get_closest_point(start), aStar.get_closest_point(end))
+	
+	var path2 = aStar.get_id_path(aStar.get_closest_point(start), aStar.get_closest_point(end))
+	print (path2.size())
+	return path
 	
 
 func _createMap():
@@ -60,6 +64,7 @@ func _createMap():
 					elif not (cell + Vector2i.RIGHT + Vector2i.UP) in tileMap.get_used_cells(0) and (cell + Vector2i.LEFT + Vector2i.UP) in tileMap.get_used_cells(0):
 						_createPoint(tileMap.map_to_local(cell + Vector2i.UP))
 	_connectPoint()
+	#_draw()
 
 func _cellType(cell):
 	var cellType = tileMap.get_cell_tile_data(0, cell)
@@ -106,22 +111,22 @@ func _getFallPoints(cell, right, left):
 
 func _createPoint(pos):
 	if not aStar.get_point_position(aStar.get_closest_point(pos)) == pos:
-		#var instance = _walkPoint.instantiate()
-		#add_child(instance)
-		#instance.position = pos
-		#aStar.add_point(aStar.get_available_point_id(), instance.position)
+		var instance = _walkPoint.instantiate()
+		add_child(instance)
+		instance.position = pos
+		aStar.add_point(aStar.get_available_point_id(), instance.position)
 		aStar.add_point(aStar.get_available_point_id(), pos)
 
 func _createFallPoint(pos1, pos2):
 	if not aStar.get_point_position(aStar.get_closest_point(pos2)) == pos2:
 		var instance = _walkPoint.instantiate()
-		#add_child(instance)
-		#instance.position = pos2
-		#aStar.add_point(aStar.get_available_point_id(), instance.position)
+		add_child(instance)
+		instance.position = pos2
+		aStar.add_point(aStar.get_available_point_id(), instance.position)
 		
-		#instance = _walkPoint.instantiate()
-		#add_child(instance)
-		#instance.position = (pos1+pos2)/2
+	#	instance = _walkPoint.instantiate()
+	#	add_child(instance)
+	#	instance.position = (pos1+pos2)/2
 		
 		pos1 = aStar.get_closest_point(pos1)
 		pos2 = aStar.get_closest_point(pos2)
@@ -149,5 +154,6 @@ func _connectPoint():
 				#var instance = _walkPoint.instantiate()
 				#add_child(instance)
 				#instance.position = (aStar.get_point_position(currentPoint) + aStar.get_point_position(neighbhour))/2
+				#draw_line(aStar.get_point_position(currentPoint), aStar.get_point_position(neighbhour), Color(255, 0, 0), 1)
 				aStar.connect_points(currentPoint, neighbhour)
 
