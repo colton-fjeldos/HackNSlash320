@@ -1,13 +1,12 @@
 extends CharacterBody2D
 
-var _SPEED = 31
-var jumpForce = 100
+var _SPEED = 60
 var _gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var _leftRay
 var _rightRay
 var _player
 var _animation
-var health = 100
+var _health = 100
 var _inChase = false
 var _enemyMovement
 var _pathfinder
@@ -27,8 +26,11 @@ func _ready():
 
 func _physics_process(delta):
 	
-	if(_player.is_on_floor()):
+	if(!is_on_floor()):
+
 		velocity.y += _gravity * delta
+		move_and_slide()
+	
 	if (_inChase == false):
 		if (_playerInChaseRange()):
 			_chase()
@@ -41,20 +43,12 @@ func _physics_process(delta):
 			_attack()
 		else:
 			_chase()
-"	else:
-		$Attack.visible = false
-		$Walk.visible = true
-		$Run.visible = false
-		_animation.stop()
-		velocity.x = 0
-		move_and_slide()
-"
+
 func _patrol():
 	$Attack.visible = false
 	$Walk.visible = true
 	$Run.visible = false
 	_animation.play("Walk")
-
 
 	if (!_leftRay.is_colliding() or !_rightRay.is_colliding()):
 		if ($Walk.flip_h == true):
@@ -71,44 +65,62 @@ func _chase():
 	$Walk.visible = false
 	$Run.visible = true
 	_animation.play("Run")
+	var jumpForce = -295
+	var isJumping
+	var reachPoint = -1
+	
+	if _leftRay.is_colliding():
+		isJumping = false
+	
 	
 	_enemyMovement = _pathfinder.getPath(global_position, _player.global_position)
 	_enemyMovement.push_back(_player.global_position)
-	#for nextPos in _enemyMovement:
+	var nextPos = _enemyMovement[0]
+	#print(_enemyMovement.size())
 	
 	if(_enemyMovement.size() > 1):
-		#print("Enemy:", global_position.x)
-		#print("Pla7er:", _player.global_position.x)
-		#for item in _enemyMovement:
-		#	print(item[0])
-		#print()
-		var nextPos = _enemyMovement[0]
+		if _enemyMovement[0].y == _enemyMovement[1].y or _enemyMovement.size() == 2 :
+			if (abs(_enemyMovement[0].x - global_position.x) < abs(_enemyMovement[0].x - _enemyMovement[1].x)):
+				nextPos = _enemyMovement[1]
+		#print ("next ", nextPos.y, " Enemy ", global_position.y)
+
 		if (nextPos.x <= global_position.x):
-			#if ($Run.flip_h == false):
 			$Run.flip_h = true
-				
 			velocity.x = -1 * _SPEED
-			move_and_slide()
 			
+			if !_leftRay.is_colliding() and is_on_floor():
+				velocity.y = jumpForce
+				
+			move_and_slide()
+
 		else:
 			#if ($Run.flip_h == true):
 			$Run.flip_h = false
-		
 			velocity.x = _SPEED
-			move_and_slide()
-	else:
-		#print("Player")
-		if (_player.global_position.x <= global_position.x):
-			$Run.flip_h = true
-				
-			velocity.x = -1 * _SPEED
+			
+			if !_rightRay.is_colliding() and is_on_floor():
+				velocity.y = jumpForce
+			#if !_rightRay.is_colliding():
+			#	velocity.y = jumpForce
 			move_and_slide()
 			
-		else:
-			$Run.flip_h = false
-		
-			velocity.x = _SPEED
-			move_and_slide()
+	#elif (_enemyMovement.size() > 1):
+		#if (nextPos.x <= global_position.x):
+			##if ($Run.flip_h == false):
+			#$Run.flip_h = true
+				#
+			#velocity.x = -1 * _SPEED
+			#move_and_slide()
+			#
+		#else:
+			##if ($Run.flip_h == true):
+			#$Run.flip_h = false
+		#
+			#velocity.x = _SPEED
+			#move_and_slide()
+	
+func _jump():
+	pass
 	
 func _attack():
 	$Walk.visible = false
@@ -143,6 +155,6 @@ func _on_area_2d_body_entered(body):
 	print(body.name)
 
 func updateHealth(damage):
-	health = health - damage
-	if health <= 0:
+	_health = _health - damage
+	if _health <= 0:
 		queue_free()

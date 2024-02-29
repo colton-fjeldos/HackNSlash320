@@ -5,9 +5,10 @@ var aStar = AStar2D.new()
 @onready var tileMap = get_parent().get_node("TileMap")
 var _processCount = 0
 var _rayHeight = 20
+var _enemy
 
 func _ready():
-	pass
+	_enemy = get_parent().get_node("Enemy")
 
 func _process(delta):
 	if (_processCount == 0):
@@ -15,12 +16,31 @@ func _process(delta):
 		_processCount = _processCount + 1
 
 func getPath(start, end): 
+	#var pos1 = _getClosetPoint(start)
+	#var pos2 = _getClosetPoint(end)
+	#var path = aStar.get_point_path(pos1, pos2)
+	#print(start, end)
+	#print(aStar.get_point_position(pos1), aStar.get_point_position(pos2))
+	#print()
+	#print("Number of points: ", aStar.get_point_count())
 	var path = aStar.get_point_path(aStar.get_closest_point(start), aStar.get_closest_point(end))
+	#for pos in path:
+	#	print(pos)
+
+	#if (start.x < (path[0].x + 1) and start.x > (path[0].x - 1)):
+		#path.remove_at(0)
 	
-	var path2 = aStar.get_id_path(aStar.get_closest_point(start), aStar.get_closest_point(end))
-	print (path2.size())
 	return path
 	
+func _getClosetPoint(point):
+	var closestPoint = aStar.get_point_ids()[0]
+	for currentPoint in aStar.get_point_ids():
+		if (closestPoint == -1):
+			if abs(aStar.get_point_position(currentPoint)[1] - point[1]) < abs(aStar.get_point_position(closestPoint)[0] - point[0]):
+				closestPoint = currentPoint
+			elif abs(aStar.get_point_position(currentPoint)[0] - point[0]) < abs(aStar.get_point_position(closestPoint)[0] - point[0]):
+					closestPoint = currentPoint
+	return closestPoint
 
 func _createMap():
 	# Gets every cell with a tile
@@ -98,7 +118,7 @@ func _getFallPoints(cell, right, left):
 
 		result = state.intersect_ray(queryLeft)
 		if(result):
-			_createFallPoint (tileMap.map_to_local(cell + Vector2i.UP), tileMap.map_to_local(tileMap.local_to_map(result.position) + Vector2i.UP))
+			_createFallPoint (tileMap.map_to_local(cell + Vector2i.UP), tileMap.map_to_local(tileMap.local_to_map(result.position) + Vector2i.UP + Vector2i.LEFT))
 			#_createPoint (tileMap.map_to_local((tileMap.local_to_map(result.position) + Vector2i.UP)))
 			
 	elif (!right and left):
@@ -115,23 +135,24 @@ func _createPoint(pos):
 		add_child(instance)
 		instance.position = pos
 		aStar.add_point(aStar.get_available_point_id(), instance.position)
-		aStar.add_point(aStar.get_available_point_id(), pos)
+
 
 func _createFallPoint(pos1, pos2):
+	var instance = _walkPoint.instantiate()	
 	if not aStar.get_point_position(aStar.get_closest_point(pos2)) == pos2:
-		var instance = _walkPoint.instantiate()
+		#var instance = _walkPoint.instantiate()
 		add_child(instance)
 		instance.position = pos2
 		aStar.add_point(aStar.get_available_point_id(), instance.position)
+		#
+	#instance = _walkPoint.instantiate()
+	#add_child(instance)
+	#instance.position = (pos1+pos2)/2
+
+	pos1 = aStar.get_closest_point(pos1)
+	pos2 = aStar.get_closest_point(pos2)
 		
-	#	instance = _walkPoint.instantiate()
-	#	add_child(instance)
-	#	instance.position = (pos1+pos2)/2
-		
-		pos1 = aStar.get_closest_point(pos1)
-		pos2 = aStar.get_closest_point(pos2)
-		
-		aStar.connect_points(pos1, pos2)
+	aStar.connect_points(pos1, pos2)
 
 func _connectPoint():
 	for currentPoint in aStar.get_point_ids():
@@ -140,20 +161,29 @@ func _connectPoint():
 		var state = get_world_2d().direct_space_state
 
 		#if !tileMap.get_cell_source_id(0, mapPosition) and !_cellType(mapPosition):
-		if _cellType(mapPosition) or !_cellType(mapPosition):
-			for connectingPoint in aStar.get_point_ids():
-				if aStar.get_point_position(connectingPoint)[1] == aStar.get_point_position(currentPoint)[1]:
-					if aStar.get_point_position(connectingPoint)[0] > aStar.get_point_position(currentPoint)[0]:
-						if (neighbhour == -1 or ((aStar.get_point_position(connectingPoint)[0] - aStar.get_point_position(currentPoint)[0]) < (aStar.get_point_position(neighbhour)[0] - aStar.get_point_position(currentPoint)[0]))):
-							var query = PhysicsRayQueryParameters2D.create (aStar.get_point_position(currentPoint), aStar.get_point_position(connectingPoint))
-							var result = state.intersect_ray(query)
-							if !result:
-								neighbhour = connectingPoint
 
-			if (neighbhour != -1):
-				#var instance = _walkPoint.instantiate()
-				#add_child(instance)
-				#instance.position = (aStar.get_point_position(currentPoint) + aStar.get_point_position(neighbhour))/2
-				#draw_line(aStar.get_point_position(currentPoint), aStar.get_point_position(neighbhour), Color(255, 0, 0), 1)
-				aStar.connect_points(currentPoint, neighbhour)
+		for connectingPoint in aStar.get_point_ids():
+			if aStar.get_point_position(connectingPoint)[1] == aStar.get_point_position(currentPoint)[1]:
+				if aStar.get_point_position(connectingPoint)[0] > aStar.get_point_position(currentPoint)[0]:
+					if (neighbhour == -1 or ((aStar.get_point_position(connectingPoint)[0] - aStar.get_point_position(currentPoint)[0]) < (aStar.get_point_position(neighbhour)[0] - aStar.get_point_position(currentPoint)[0]))):
+						var query = PhysicsRayQueryParameters2D.create (aStar.get_point_position(currentPoint), aStar.get_point_position(connectingPoint))
+						query.exclude = [_enemy]
+						var result = state.intersect_ray(query)
+						if !result:
+							neighbhour = connectingPoint
+
+		if (neighbhour != -1):
+			var instance = _walkPoint.instantiate()
+			add_child(instance)
+			instance.position = (aStar.get_point_position(currentPoint) + aStar.get_point_position(neighbhour))/2
+			#draw_line(aStar.get_point_position(currentPoint), aStar.get_point_position(neighbhour), Color(255, 0, 0), 1)
+			aStar.connect_points(currentPoint, neighbhour)
+
+
+
+
+
+
+
+
 
