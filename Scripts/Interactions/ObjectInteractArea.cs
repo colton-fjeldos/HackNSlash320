@@ -6,35 +6,32 @@ public partial class ObjectInteractArea : InteractArea
 	[Export]
 	private Node2D parentObject;
 	
-	[Export]
-	private int itemID = 1;
+	public PickupResource pickupResource;
 	
 	private Label pickupLabel;
 	
 	public override void _Ready(){
 		pickupLabel = GetNode<Label>("pickupLabel");
-		//Look into settings for what key is designated as interact key
-		//set the pickUp label's text to reflect this.
-		pickupLabel.Hide();
+		pickupLabel.Visible = false;
 	}
 	
 	//This override will be used to remove the object when it is interacted with
-	public override int InteractedBy(){
+	public override PickupResource InteractedBy(){
 		GD.Print("This item has been picked up");
-		return itemID;
+		return pickupResource;
 	}
 	
 	public override void AreaEntered(Area2D area)
 	{
 		GD.Print("ObjectWithinRange");
 		curInteraction = (InteractArea) area;
-		pickupLabel.Show();
+		pickupLabel.Visible = true;
 	}
 	
 	public override void AreaExited(Area2D area)
 	{
 		if (curInteraction == area) curInteraction = null;
-		pickupLabel.Hide();
+		pickupLabel.Visible = false;
 	}
 	
 	public override void FreeParent(){ parentObject.QueueFree();}

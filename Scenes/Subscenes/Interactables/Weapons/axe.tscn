@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dug8se1pqdmx1"]
+
+[ext_resource type="PackedScene" uid="uid://chx38s3gmu312" path="res://Scenes/Subscenes/Interactables/pickupObject.tscn" id="1_p25hn"]
+[ext_resource type="Resource" uid="uid://dyk1oa3iu00s2" path="res://Resources/Pickup/Axe.tres" id="2_8i1nx"]
+[ext_resource type="Texture2D" uid="uid://chabtcacvia7m" path="res://Textures/Objects/Weapons/AxeSprite.png" id="2_drba1"]
+
+[node name="Axe" type="Node2D"]
+
+[node name="pickupObject" parent="." instance=ExtResource("1_p25hn")]
+pickupResource = ExtResource("2_8i1nx")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="pickupObject"]
+polygon = PackedVector2Array(-8, 8, -6, 8, 6, 4, 8, 2, 8, -2, 2, -6, 0, -6, -2, -4, -8, 6)
+
+[node name="Sprite2D" type="Sprite2D" parent="pickupObject"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_drba1")

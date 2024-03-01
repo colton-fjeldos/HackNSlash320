@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://cti3llu71ljg0"]
+[gd_scene load_steps=11 format=3 uid="uid://cti3llu71ljg0"]
 
 [ext_resource type="Script" path="res://Scenes/Scene1.gd" id="1_54ohx"]
-[ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Dark Pallette.png" id="1_t23mu"]
+[ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Tilemaps/Dark Pallette.png" id="1_t23mu"]
 [ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://Scenes/controlled1.tscn" id="3_2vvoj"]
 [ext_resource type="PackedScene" uid="uid://cu0yj4bbwgw4a" path="res://Scenes/slime.tscn" id="4_s0t2i"]
 [ext_resource type="PackedScene" uid="uid://urum3745k6v6" path="res://Scenes/PauseMenu.tscn" id="5_ajwl6"]
-[ext_resource type="PackedScene" uid="uid://cq7h46b776c31" path="res://Scenes/Subscenes/sword.tscn" id="5_i4kdo"]
+[ext_resource type="PackedScene" uid="uid://dwyh8u8hsyiqb" path="res://Scenes/Subscenes/Interactables/Weapons/sword.tscn" id="5_i4kdo"]
+[ext_resource type="PackedScene" uid="uid://dug8se1pqdmx1" path="res://Scenes/Subscenes/Interactables/Weapons/axe.tscn" id="7_oykya"]
+[ext_resource type="PackedScene" uid="uid://bsqven2pnpim5" path="res://Scenes/Subscenes/Interactables/Weapons/hammer.tscn" id="7_stg84"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5x2m1"]
 texture = ExtResource("1_t23mu")
@@ -162,9 +164,16 @@ position = Vector2(38, 561)
 [node name="Slime" parent="." instance=ExtResource("4_s0t2i")]
 position = Vector2(233, 602)
 
-[node name="Sword" parent="." instance=ExtResource("5_i4kdo")]
-position = Vector2(393, 556)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_ajwl6")]
+visible = false
+
+[node name="axe" parent="." instance=ExtResource("7_oykya")]
+position = Vector2(191, 546)
+
+[node name="Hammer" parent="." instance=ExtResource("7_stg84")]
+position = Vector2(372, 549)
+
+[node name="Sword" parent="." instance=ExtResource("5_i4kdo")]
+position = Vector2(443, 549)
