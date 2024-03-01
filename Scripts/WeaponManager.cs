@@ -5,14 +5,18 @@ public partial class WeaponManager : Node2D
 {
 	
 	Godot.Area2D Hitbox;
-	Godot.Node2D WeaponSprite;
+	Godot.Node2D WeaponSpriteWrapper;
 	Godot.Viewport Viewport;
 	Godot.Timer HitboxTimer;
+	Godot.Sprite2D WeaponSprite;
+	Godot.Sprite2D SwingSprite;
 	
 	public override void _Ready()
 	{
 		Hitbox = GetNode<Godot.Area2D>("Area2D"); //Used to draw the hitbox when clicked
-		WeaponSprite = GetNode<Godot.Node2D>("WeaponSprites"); //Used to rotate weapon sprite
+		WeaponSpriteWrapper = GetNode<Godot.Node2D>("WeaponSpriteWrapper"); //Used to rotate weapon sprite
+		WeaponSprite = GetNode<Godot.Sprite2D>("%WeaponSprite");
+		SwingSprite = GetNode<Godot.Sprite2D>("%SwingSprite");
 		Viewport = GetViewport(); //Used to get the screen width for drawing sword sprite
 		HitboxTimer = GetNode<Godot.Timer>("HitboxTimer");
 	}
@@ -23,14 +27,14 @@ public partial class WeaponManager : Node2D
 		float mouseX = Viewport.GetMousePosition().X;
 		
 		Vector2 globalMousePos = GetGlobalMousePosition();
-		Vector2 spritePos = WeaponSprite.GlobalPosition;
+		Vector2 spritePos = WeaponSpriteWrapper.GlobalPosition;
 		
 		if (mouseX > halfWidth){ //Is the mouse on the right side of the screen?
-			WeaponSprite.Scale = new Vector2(1,1);
-			WeaponSprite.LookAt(globalMousePos);
+			WeaponSpriteWrapper.Scale = new Vector2(1,1);
+			WeaponSpriteWrapper.LookAt(globalMousePos);
 		} else { //Left side?
-			WeaponSprite.Scale = new Vector2(-1,1);
-			WeaponSprite.LookAt(spritePos * 2 - globalMousePos);
+			WeaponSpriteWrapper.Scale = new Vector2(-1,1);
+			WeaponSpriteWrapper.LookAt(spritePos * 2 - globalMousePos);
 		}
 		
 
@@ -53,6 +57,11 @@ public partial class WeaponManager : Node2D
 	private void OnHitboxTimerTimeout()
 	{
 		Hitbox.Hide();
+	}
+	
+	public void ChangeSprites(Texture2D hSprite, Texture2D sSprite){
+		WeaponSprite.Texture = hSprite;
+		SwingSprite.Texture = sSprite;
 	}
 }
 

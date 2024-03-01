@@ -3,18 +3,18 @@ using System;
 
 public partial class CharacterInteractArea : InteractArea
 {
-	public override int InteractWith()
+	public override PickupResource InteractWith()
 	{
-		int interactID;
+		PickupResource pickupResource;
 		if (curInteraction != null) {
 			GD.Print("Character interacts with area");
-			interactID = curInteraction.InteractedBy();
+			pickupResource = curInteraction.InteractedBy();
 			curInteraction.FreeParent();
-			GD.Print("Picked up object of itemID" + interactID);
-			return interactID;
+			GD.Print("Picked up object of itemID" + pickupResource.ID);
+			return pickupResource;
 		}
 		GD.Print("No object to pickup in range");
-		return 0;
+		return null;
 	}
 	
 	public override void AreaEntered(Area2D area)
@@ -27,5 +27,4 @@ public partial class CharacterInteractArea : InteractArea
 	{
 		if (curInteraction == area) curInteraction = null;
 	}
-	public override void FreeParent() {GD.Print("This function should literally never be called, how did you call it");}
 }
