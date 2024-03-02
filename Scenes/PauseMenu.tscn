@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://urum3745k6v6"]
 
-[ext_resource type="Script" path="res://Scripts/pausemenu.gd" id="1_weqs6"]
-[ext_resource type="Shader" path="res://Textures/Blur.gdshader" id="2_y0jne"]
+[ext_resource type="Script" path="res://Scripts/sceneScripts/pausemenu.gd" id="1_weqs6"]
+[ext_resource type="Shader" path="res://Textures/Shaders/Blur.gdshader" id="2_y0jne"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g608t"]
 shader = ExtResource("2_y0jne")
