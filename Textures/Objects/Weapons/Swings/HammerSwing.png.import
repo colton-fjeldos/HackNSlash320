@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpntkenu2esrc"
-path="res://.godot/imported/Swing_sprite.png-c7e92f31ff7963a509e6acd6555e6067.ctex"
+uid="uid://dd0ajfimqovp3"
+path="res://.godot/imported/HammerSwing.png-e553b53c11d2da571d166daf003d4a19.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Swing_sprite.png"
-dest_files=["res://.godot/imported/Swing_sprite.png-c7e92f31ff7963a509e6acd6555e6067.ctex"]
+source_file="res://Textures/Objects/Weapons/Swings/HammerSwing.png"
+dest_files=["res://.godot/imported/HammerSwing.png-e553b53c11d2da571d166daf003d4a19.ctex"]
 
 [params]
 

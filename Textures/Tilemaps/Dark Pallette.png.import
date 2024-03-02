@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cirfgjndhh2vo"
-path="res://.godot/imported/SwordSprite.png-cf5b94bf8b1f29cfe7b42581ed7057af.ctex"
+uid="uid://c24a0kxy2mwb2"
+path="res://.godot/imported/Dark Pallette.png-1060ee4594223399a40878e4db2dafbb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/SwordSprite.png"
-dest_files=["res://.godot/imported/SwordSprite.png-cf5b94bf8b1f29cfe7b42581ed7057af.ctex"]
+source_file="res://Textures/Tilemaps/Dark Pallette.png"
+dest_files=["res://.godot/imported/Dark Pallette.png-1060ee4594223399a40878e4db2dafbb.ctex"]
 
 [params]
 

@@ -39,15 +39,14 @@ public partial class controlled1 : CharacterBody2D
 	[Export]
 	private InteractArea playerInteract;
 	
-	[Export]
-	private Node2D weaponManager;
+	private WeaponManager weaponManager;
 	
 	//velocity is a shared variable
 	Vector2 velocity;
 	//placeholder
 	public override void _Ready()
 	{
-		
+		weaponManager = GetNode<WeaponManager>("WeaponManager");
 	}
 	
 	//Dash recharge rate for overall dash recharge
@@ -141,10 +140,11 @@ public partial class controlled1 : CharacterBody2D
 	
 	public override void _UnhandledInput(InputEvent @event){
 		if (Input.IsActionJustPressed("interact")){
-			int objectID = playerInteract.InteractWith();
+			PickupResource pickupResource = playerInteract.InteractWith();
 			//use objectID to get weapon sprite & attack animation sprite
-			if (objectID != 0) 
+			if (pickupResource.ID != 0) 
 				weaponManager.Show();
+				weaponManager.ChangeSprites(pickupResource.HeldSprite, pickupResource.SwingSprite);
 		}
 	}
 }

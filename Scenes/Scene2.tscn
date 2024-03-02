@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://Scripts/sceneScripts/Scene2.gd" id="1_7gxu1"]
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Dark Pallette.png" id="2_bluvy"]
+
 [ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://Scenes/controlled1.tscn" id="3_mgoc1"]
 [ext_resource type="PackedScene" uid="uid://cu0yj4bbwgw4a" path="res://Scenes/slime.tscn" id="4_3mp32"]
-[ext_resource type="PackedScene" uid="uid://cq7h46b776c31" path="res://Scenes/Subscenes/sword.tscn" id="5_vxo0c"]
 [ext_resource type="PackedScene" uid="uid://urum3745k6v6" path="res://Scenes/PauseMenu.tscn" id="6_jmpwc"]
 [ext_resource type="Script" path="res://Scripts/sceneScripts/doorscene2.gd" id="7_oo3on"]
 
@@ -163,11 +163,9 @@ layer_0/tile_data = PackedInt32Array(2490369, 262144, 1, 2490370, 327680, 1, 249
 [node name="controlled1" parent="." instance=ExtResource("3_mgoc1")]
 position = Vector2(42, 590)
 
+
 [node name="Slime" parent="." instance=ExtResource("4_3mp32")]
 position = Vector2(233, 602)
-
-[node name="Sword" parent="." instance=ExtResource("5_vxo0c")]
-position = Vector2(393, 556)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
