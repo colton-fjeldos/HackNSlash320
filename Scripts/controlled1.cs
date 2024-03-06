@@ -16,6 +16,7 @@ public partial class controlled1 : CharacterBody2D
 	//dash recharge variable for dash bar
 	public int dashRecharge = 2;
 	
+	
 	//dash availability for refractory period
 	public bool dashAvailable = true;
 	
@@ -41,9 +42,17 @@ public partial class controlled1 : CharacterBody2D
 	
 	private WeaponManager weaponManager;
 	
+	public int playerHealth = 100;
+	
+	public bool playerAlive = true;
+	
 	//velocity is a shared variable
 	Vector2 velocity;
 	//placeholder
+	public controlled1(){
+		GD.Print("Nothing");
+	}
+	
 	public override void _Ready()
 	{
 		weaponManager = GetNode<WeaponManager>("WeaponManager");
@@ -146,5 +155,34 @@ public partial class controlled1 : CharacterBody2D
 				weaponManager.Show();
 				weaponManager.ChangeSprites(pickupResource.HeldSprite, pickupResource.SwingSprite);
 		}
+	}
+	
+	
+	public void takeDamage(int damageVal){
+		int newHealth = playerHealth - damageVal;
+		if (newHealth < 0) newHealth = 0;
+		playerHealth = newHealth;
+		updateAliveStatus();
+	}
+	
+	public void getHealed(int healVal){
+		if (!playerAlive) return;
+		int newHealth = playerHealth + healVal;
+		if (newHealth > 100) playerHealth = 100;
+		playerHealth = newHealth;
+		updateAliveStatus();
+	}
+	
+	public void updateAliveStatus(){
+		if (playerHealth <= 0){
+			playerAlive = false;
+			handleDeath();
+			return;
+		}
+		playerAlive = true;
+	}
+	
+	public void handleDeath(){
+		GD.Print("TODO Character death");
 	}
 }

@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="HackNSlash"
+config/name="TestSuite"
 run/main_scene="res://Scenes/StartMenu.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://Textures/icon.png"
@@ -22,6 +22,10 @@ settings/stdout/print_fps=true
 [dotnet]
 
 project/assembly_name="HackNSlash"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
 
 [input]
 
