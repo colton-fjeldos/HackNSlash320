@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cti3llu71ljg0"]
+[gd_scene load_steps=13 format=3 uid="uid://cti3llu71ljg0"]
 
 [ext_resource type="Script" path="res://Scripts/sceneScripts/Scene1.gd" id="1_54ohx"]
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Tilemaps/Dark Pallette.png" id="1_t23mu"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://dug8se1pqdmx1" path="res://Scenes/Subscenes/Interactables/Weapons/axe.tscn" id="7_oykya"]
 [ext_resource type="PackedScene" uid="uid://bsqven2pnpim5" path="res://Scenes/Subscenes/Interactables/Weapons/hammer.tscn" id="7_stg84"]
 [ext_resource type="Script" path="res://Scripts/sceneScripts/doorscene1.gd" id="7_ygax8"]
-
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5x2m1"]
 texture = ExtResource("1_t23mu")
@@ -181,9 +180,6 @@ script = ExtResource("7_ygax8")
 position = Vector2(1126, 586.75)
 shape = SubResource("RectangleShape2D_d1ev5")
 
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
-
 [node name="axe" parent="." instance=ExtResource("7_oykya")]
 position = Vector2(191, 546)
 
@@ -192,3 +188,6 @@ position = Vector2(372, 549)
 
 [node name="Sword" parent="." instance=ExtResource("5_i4kdo")]
 position = Vector2(443, 549)
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
