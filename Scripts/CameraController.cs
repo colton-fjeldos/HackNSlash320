@@ -24,8 +24,20 @@ public partial class CameraController : Camera2D
 	public override void _Process(double delta)
 	{	
 		if (Moveable_Camera){
-			Vector2 mouse_coor = screen.GetMousePosition() - screen.GetVisibleRect().Size / 2;
-			Position = Position.Lerp(mouse_coor.Normalized() * Camera_Radius, mouse_coor.Length() / Inverse_Camera_Speed);
+			Vector2 offset = GetOffsetFromCenter(screen.GetVisibleRect(), screen.GetMousePosition());
+			Position = MoveCamera(Position, offset, Camera_Radius, Inverse_Camera_Speed);
 		}
 	}
+	
+	//Gets new camera coordinates
+	public static Vector2 MoveCamera(Vector2 pos, Vector2 offset, int cameraRadius, int inverseCameraSpeed){
+		return pos.Lerp(offset.Normalized() * cameraRadius, offset.Length() / inverseCameraSpeed);
+	}
+	
+	//Gets the mouse position relative to the center of the screen
+	public static Vector2 GetOffsetFromCenter(Rect2 screenRect, Vector2 mouseScreenPos){
+		return mouseScreenPos - screenRect.Size / 2;
+	}
+	
+	
 }

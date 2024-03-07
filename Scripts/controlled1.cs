@@ -41,12 +41,19 @@ public partial class controlled1 : CharacterBody2D
 	
 	private WeaponManager weaponManager;
 	
+	private int playerHealth = 100;
+	private int maxHealth = 100;
+	
+	private bool playerAlive = true;
+	
 	//velocity is a shared variable
 	Vector2 velocity;
 	//placeholder
 	public override void _Ready()
 	{
 		weaponManager = GetNode<WeaponManager>("WeaponManager");
+		maxHealth = 100; //modifiers can be added here from skill tree
+		playerHealth = maxHealth; 
 	}
 	
 	//Dash recharge rate for overall dash recharge
@@ -142,9 +149,41 @@ public partial class controlled1 : CharacterBody2D
 		if (Input.IsActionJustPressed("interact")){
 			PickupResource pickupResource = playerInteract.InteractWith();
 			//use objectID to get weapon sprite & attack animation sprite
-			if (pickupResource.ID != 0) 
+			if (pickupResource != null) {
 				weaponManager.Show();
 				weaponManager.ChangeSprites(pickupResource.HeldSprite, pickupResource.SwingSprite);
+			}
 		}
+	}
+	
+	//If a projectile hits InteractArea, detects that its in the player group
+	//grab that area's parent node, and call the function takeDamage on it.
+	public void takeDamage(int damageVal){
+		if (damageVal < 0) return;
+		int newHealth = playerHealth - damageVal;
+		if (newHealth < 0) newHealth = 0;
+		playerHealth = newHealth;
+		updateAliveStatus();
+	}
+	
+	public void getHealed(int healVal){
+		if (healVal < 0) return;
+		if (!playerAlive) return;
+		int newHealth = playerHealth + healVal;
+		if (newHealth > 100) playerHealth = 100;
+		playerHealth = newHealth;
+		updateAliveStatus();
+	}
+	
+	private void updateAliveStatus(){
+		if (playerHealth <= 0){
+			playerAlive = false;
+			handleDeath();
+			return;
+		}
+	}
+	
+	private void handleDeath(){
+		GD.Print("TODO Character death");
 	}
 }
