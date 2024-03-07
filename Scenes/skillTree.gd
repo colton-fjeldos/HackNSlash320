@@ -16,6 +16,8 @@ var Skills: Dictionary = {
 	}
 }
 
+#test
+
 
 func setUnlock(skill: String, level: int):
 	if skill in Skills.keys():
