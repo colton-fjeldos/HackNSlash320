@@ -3,6 +3,7 @@ extends Control
 var pauseMenu
 var volumeLabel
 var ispaused
+var volumestring
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pauseMenu = $"."
@@ -10,9 +11,10 @@ func _ready():
 	pauseMenu.hide()
 	$AnimationPlayer.play("RESET")
 	ispaused = false
+	volumestring = ""
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		PauseLogic()
 
@@ -39,10 +41,16 @@ func pause():
 	pauseMenu.show()
 	$AnimationPlayer.play("blur-animation")
 	ispaused = !ispaused
-	get_tree().paused = ispaused
+	#get_tree().paused = ispaused
 	
 func resume():
 	ispaused = !ispaused
-	get_tree().paused = ispaused
+	#get_tree().paused = ispaused
 	pauseMenu.hide()
 	$AnimationPlayer.play_backwards("blur-animation")
+
+func set_ispaused(value):
+	ispaused = value
+
+func set_volumelabel(value):
+	volumestring = ("Volume: " + String.num(value,-1))
