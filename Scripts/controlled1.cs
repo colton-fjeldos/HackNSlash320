@@ -15,7 +15,7 @@ public partial class controlled1 : CharacterBody2D
 	//double jump capability. Currently used like a bool
 	//but stored as an int in case we want to add conditional triple jump
 	public int doubleJump = 1;
-	
+	public bool attacked = false;
 	//Private interactionmanager field since input is taken care of inside of this script
 	[Export]
 	private InteractArea playerInteract;
@@ -80,5 +80,10 @@ public partial class controlled1 : CharacterBody2D
 		if (Input.IsActionJustPressed("interact")){
 			playerInteract.InteractWith();
 		}
+	}
+
+	public void attackSignal() {
+		attacked = true;
+
 	}
 }

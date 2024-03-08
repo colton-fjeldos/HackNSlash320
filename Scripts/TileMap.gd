@@ -1,10 +1,9 @@
 extends Node2D
 
 var _walkPoint = preload("res://Scenes/walkpoints.tscn")
-var aStar = AStar2D.new()
-@onready var tileMap = get_parent().get_node("TileMap")
 var _processCount = 0
 var _rayHeight = 20
+var aStar = AStar2D.new()
 var _enemy
 
 func _ready():
@@ -12,27 +11,19 @@ func _ready():
 
 func _process(delta):
 	if (_processCount == 0):
-		_createMap()
+		var tileMap = get_parent().get_node("TileMap")
+		_createMap(tileMap)
+		_connectPoint(tileMap)
 		_processCount = _processCount + 1
 
 func getPath(start, end): 
-	#var pos1 = _getClosetPoint(start)
-	#var pos2 = _getClosetPoint(end)
-	#var path = aStar.get_point_path(pos1, pos2)
-	#print(start, end)
-	#print(aStar.get_point_position(pos1), aStar.get_point_position(pos2))
-	#print()
-	#print("Number of points: ", aStar.get_point_count())
+	#var path = aStar.get_point_path(start, end)
 	var path = aStar.get_point_path(aStar.get_closest_point(start), aStar.get_closest_point(end))
-	#for pos in path:
-	#	print(pos)
 
-	#if (start.x < (path[0].x + 1) and start.x > (path[0].x - 1)):
-		#path.remove_at(0)
 	
 	return path
 	
-func _getClosetPoint(point):
+func _getClosetPoint(aStar, point):
 	var closestPoint = aStar.get_point_ids()[0]
 	for currentPoint in aStar.get_point_ids():
 		if (closestPoint == -1):
@@ -42,37 +33,37 @@ func _getClosetPoint(point):
 					closestPoint = currentPoint
 	return closestPoint
 
-func _createMap():
+func _createMap(tileMap):
 	# Gets every cell with a tile
 	for cell in tileMap.get_used_cells(0):
 		
 		# Gets rid of cells that are under another cell.
-		if not (cell + Vector2i.UP) in tileMap.get_used_cells(0) or _cellType(cell + Vector2i.UP):
+		if not (cell + Vector2i.UP) in tileMap.get_used_cells(0) or _cellType(tileMap, cell + Vector2i.UP):
 			if tileMap.get_cell_tile_data(0, cell).get_custom_data('Decor') != 'Decoration': 
 			
 				var cellType = tileMap.get_cell_tile_data(0, cell)
 				if(cellType and cellType.get_custom_data('Type') != 'Edge'):
 					
-					var leftCellType = _cellType(cell + Vector2i.LEFT)
-					var rightCellType = _cellType(cell + Vector2i.RIGHT)
+					var leftCellType = _cellType(tileMap, cell + Vector2i.LEFT)
+					var rightCellType = _cellType(tileMap, cell + Vector2i.RIGHT)
 				
 				# Edge Points
 					if not (cell + Vector2i.LEFT) in tileMap.get_used_cells(0) or leftCellType:
 					# A point is created on top a cell if the cell has nothing to its right or left (Edge piece 1)
 						if not (cell + Vector2i.RIGHT) in tileMap.get_used_cells(0) or rightCellType:
 							_createPoint(tileMap.map_to_local(cell + Vector2i.UP))
-							_getFallPoints(cell, true, true)
+							#_getFallPoints(tileMap, cell, true, true)
 
 					# A point is created on top a cell if the cell has something to its right but nothing to its left (Edge piece 3)
 						elif (cell + Vector2i.RIGHT) in tileMap.get_used_cells(0) and !rightCellType:
 								_createPoint(tileMap.map_to_local(cell + Vector2i.UP))
-								_getFallPoints(cell, true, false)
+								#_getFallPoints(tileMap, cell, true, false)
 
 				# A point is created on top a cell if the cell has nothing to its right but something to its left (Edge piece 3)
 					elif not (cell + Vector2i.RIGHT) in tileMap.get_used_cells(0) or rightCellType:
 						if (cell + Vector2i.LEFT) in tileMap.get_used_cells(0) and !leftCellType:
 							_createPoint(tileMap.map_to_local(cell + Vector2i.UP))
-							_getFallPoints(cell, false, true)
+							#_getFallPoints(tileMap, cell, false, true)
 
 				# Corner Points
 					elif (cell + Vector2i.RIGHT + Vector2i.UP) in tileMap.get_used_cells(0) and (cell + Vector2i.LEFT + Vector2i.UP) in tileMap.get_used_cells(0):
@@ -83,17 +74,18 @@ func _createMap():
 
 					elif not (cell + Vector2i.RIGHT + Vector2i.UP) in tileMap.get_used_cells(0) and (cell + Vector2i.LEFT + Vector2i.UP) in tileMap.get_used_cells(0):
 						_createPoint(tileMap.map_to_local(cell + Vector2i.UP))
-	_connectPoint()
+	#_connectPoint(tileMap)
+	return aStar.get_point_count()
 	#_draw()
 
-func _cellType(cell):
+func _cellType(tileMap, cell):
 	var cellType = tileMap.get_cell_tile_data(0, cell)
 	if(cellType and cellType.get_custom_data('Type') == 'Edge'):
 		return true
 	else:
 		return false
 
-func _getFallPoints(cell, right, left):
+func _getFallPoints(tileMap, cell, right, left):
 	
 	var state = get_world_2d().direct_space_state
 	var result 
@@ -154,11 +146,11 @@ func _createFallPoint(pos1, pos2):
 		
 	aStar.connect_points(pos1, pos2)
 
-func _connectPoint():
+func _connectPoint(tileMap):
 	for currentPoint in aStar.get_point_ids():
 		var neighbhour = -1
 		var mapPosition =  tileMap.local_to_map(aStar.get_point_position(currentPoint)) + Vector2i.RIGHT + Vector2i.DOWN
-		var state = get_world_2d().direct_space_state
+		#var state = get_world_2d().direct_space_state
 
 		#if !tileMap.get_cell_source_id(0, mapPosition) and !_cellType(mapPosition):
 
@@ -166,11 +158,11 @@ func _connectPoint():
 			if aStar.get_point_position(connectingPoint)[1] == aStar.get_point_position(currentPoint)[1]:
 				if aStar.get_point_position(connectingPoint)[0] > aStar.get_point_position(currentPoint)[0]:
 					if (neighbhour == -1 or ((aStar.get_point_position(connectingPoint)[0] - aStar.get_point_position(currentPoint)[0]) < (aStar.get_point_position(neighbhour)[0] - aStar.get_point_position(currentPoint)[0]))):
-						var query = PhysicsRayQueryParameters2D.create (aStar.get_point_position(currentPoint), aStar.get_point_position(connectingPoint))
-						query.exclude = [_enemy]
-						var result = state.intersect_ray(query)
-						if !result:
-							neighbhour = connectingPoint
+						#var query = PhysicsRayQueryParameters2D.create (aStar.get_point_position(currentPoint), aStar.get_point_position(connectingPoint))
+						#query.exclude = [get_parent().get_node("Enemy")]
+						#var result = state.intersect_ray(query)
+						#if !result:
+						neighbhour = connectingPoint
 
 		if (neighbhour != -1):
 			var instance = _walkPoint.instantiate()
@@ -179,6 +171,9 @@ func _connectPoint():
 			#draw_line(aStar.get_point_position(currentPoint), aStar.get_point_position(neighbhour), Color(255, 0, 0), 1)
 			aStar.connect_points(currentPoint, neighbhour)
 
+func _addPoints(x):
+	return (x+1)
+	
 
 
 
