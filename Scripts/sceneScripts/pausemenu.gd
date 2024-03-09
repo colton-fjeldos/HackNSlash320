@@ -2,16 +2,18 @@ extends Control
 
 var pauseMenu
 var volumeLabel
-var ispaused
-var volumestring
+var ispaused = false
+var volumestring = ""
+var isvisible = false
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pauseMenu = $"."
 	volumeLabel = $PanelContainer/PauseMenu/VolumeLabel
 	pauseMenu.hide()
 	$AnimationPlayer.play("RESET")
-	ispaused = false
-	volumestring = ""
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -28,7 +30,8 @@ func _on_back_button_pressed():
 	resume()
 
 func _on_quit_button_pressed():
-	get_tree().quit()
+	pass
+	#get_tree().quit()
 
 func _on_volume_slider_value_changed(value):
 	volumeLabel.set_text("Volume: " + String.num(value,-1))
@@ -40,13 +43,13 @@ func _on_reset_button_pressed():
 func pause():
 	pauseMenu.show()
 	$AnimationPlayer.play("blur-animation")
-	ispaused = !ispaused
+	ispaused = true
 	#get_tree().paused = ispaused
 	
 func resume():
-	ispaused = !ispaused
+	ispaused = false
 	#get_tree().paused = ispaused
-	pauseMenu.hide()
+	#pauseMenu.hide()
 	$AnimationPlayer.play_backwards("blur-animation")
 
 func set_ispaused(value):
