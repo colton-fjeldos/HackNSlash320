@@ -2,21 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-<<<<<<< Updated upstream:Textures/Dark Pallette.png.import
-uid="uid://c24a0kxy2mwb2"
-path="res://.godot/imported/Dark Pallette.png-a59fad591e28aeb05ffb294272c270c9.ctex"
-=======
-uid="uid://dpxaugqtad6y3"
-path="res://.godot/imported/slime monster.png-734c59e1c73f73a5b6ae351016f98b1f.ctex"
->>>>>>> Stashed changes:Textures/Enemy/slime monster.png.import
+uid="uid://bu6cscj754yrh"
+path="res://.godot/imported/arrow.png-2b5b2d838b5b3467cf300ac2da1630d9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Dark Pallette.png"
-dest_files=["res://.godot/imported/Dark Pallette.png-a59fad591e28aeb05ffb294272c270c9.ctex"]
+source_file="res://addons/gut/gui/arrow.png"
+dest_files=["res://.godot/imported/arrow.png-2b5b2d838b5b3467cf300ac2da1630d9.ctex"]
 
 [params]
 

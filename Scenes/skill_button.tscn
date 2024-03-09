@@ -38,4 +38,6 @@ z_index = -1
 width = 5.0
 default_color = Color(0.027451, 0.141176, 0.12549, 1)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
 [connection signal="pressed" from="." to="." method="_on_pressed"]
