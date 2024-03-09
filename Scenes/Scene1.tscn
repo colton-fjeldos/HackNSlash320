@@ -1,14 +1,9 @@
-<<<<<<< Updated upstream
 [gd_scene load_steps=11 format=3 uid="uid://cti3llu71ljg0"]
-=======
-[gd_scene load_steps=14 format=3 uid="uid://cti3llu71ljg0"]
->>>>>>> Stashed changes
 
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Dark Pallette.png" id="1_t23mu"]
 [ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://Scenes/controlled1.tscn" id="3_2vvoj"]
 [ext_resource type="Texture2D" uid="uid://dpxaugqtad6y3" path="res://Textures/slime monster.png" id="4_5b8jt"]
 [ext_resource type="PackedScene" uid="uid://urum3745k6v6" path="res://Scenes/PauseMenu.tscn" id="5_ajwl6"]
-<<<<<<< Updated upstream
 
 [sub_resource type="CSharpScript" id="CSharpScript_5bgkw"]
 script/source = "using Godot;
@@ -38,13 +33,6 @@ public partial class Scene1 : Node2D
 	//pausemenu.Hide();
 }
 "
-=======
-[ext_resource type="PackedScene" uid="uid://dwyh8u8hsyiqb" path="res://Scenes/Subscenes/Interactables/Weapons/sword.tscn" id="5_i4kdo"]
-[ext_resource type="PackedScene" uid="uid://dug8se1pqdmx1" path="res://Scenes/Subscenes/Interactables/Weapons/axe.tscn" id="7_oykya"]
-[ext_resource type="PackedScene" uid="uid://bsqven2pnpim5" path="res://Scenes/Subscenes/Interactables/Weapons/hammer.tscn" id="7_stg84"]
-[ext_resource type="Script" path="res://Scripts/sceneScripts/doorscene1.gd" id="7_ygax8"]
-[ext_resource type="PackedScene" uid="uid://cxm8abaww5v45" path="res://Scenes/skillTree.tscn" id="10_jwakv"]
->>>>>>> Stashed changes
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5x2m1"]
 texture = ExtResource("1_t23mu")
@@ -223,27 +211,4 @@ position = Vector2(195, 604)
 scale = Vector2(0.015, 0.015)
 texture = ExtResource("4_5b8jt")
 
-<<<<<<< Updated upstream
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Slime"]
-=======
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1126, 586.75)
-shape = SubResource("RectangleShape2D_d1ev5")
-
-[node name="axe" parent="." instance=ExtResource("7_oykya")]
-position = Vector2(191, 546)
-
-[node name="Hammer" parent="." instance=ExtResource("7_stg84")]
-position = Vector2(372, 549)
-
-[node name="Sword" parent="." instance=ExtResource("5_i4kdo")]
-position = Vector2(443, 549)
-
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
-
-[node name="SkillTree" parent="CanvasLayer2" instance=ExtResource("10_jwakv")]
-visible = false
-
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
->>>>>>> Stashed changes
