@@ -24,6 +24,21 @@ func setUnlock(skill: String, level: int):
 		Skills[skill]["unlock"] = true
 		Skills[skill]["level"] = level
 		
-#func checkSKill(skill: String) -> bool:
-#	return Skills[skill]["unlock"]
+func checkSKill(skill: String) -> bool:
+	return Skills[skill]["unlock"]
 	
+
+
+var isPaused:bool = false:
+	set = setPaused
+	
+
+func handleInput(event: InputEvent) -> void:
+	if event.is_action_just_pressed("SkillTree"):
+		isPaused = !isPaused
+
+
+func setPaused(value:bool) -> void:
+	isPaused = value
+	get_tree().paused = false
+	visible = isPaused
