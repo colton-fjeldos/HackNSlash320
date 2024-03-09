@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://urum3745k6v6"]
+[gd_scene load_steps=7 format=3 uid="uid://urum3745k6v6"]
 
 [ext_resource type="Script" path="res://Scripts/sceneScripts/pausemenu.gd" id="1_weqs6"]
 [ext_resource type="Shader" path="res://Textures/Shaders/Blur.gdshader" id="2_y0jne"]
-[ext_resource type="Script" path="res://addons/gut/test.gd" id="3_5uoqk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g608t"]
 shader = ExtResource("2_y0jne")
@@ -95,7 +94,6 @@ _data = {
 
 [node name="PauseMenu" type="Control"]
 process_mode = 2
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -162,9 +160,6 @@ text = "Quit"
 libraries = {
 "": SubResource("AnimationLibrary_5fe7b")
 }
-
-[node name="GutTest" type="Node" parent="."]
-script = ExtResource("3_5uoqk")
 
 [connection signal="value_changed" from="PanelContainer/PauseMenuContainer/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
 [connection signal="pressed" from="PanelContainer/PauseMenuContainer/BackButton" to="." method="_on_back_button_pressed"]
