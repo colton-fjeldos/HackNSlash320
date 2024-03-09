@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://chx38s3gmu312"]
+
+[ext_resource type="PackedScene" uid="uid://k518oatcttrq" path="res://Scenes/Subscenes/Interactables/InteractArea.tscn" id="1_qsmpb"]
+[ext_resource type="Script" path="res://Scripts/pickupObject.cs" id="1_tw8k2"]
+[ext_resource type="Script" path="res://Resources/Pickup/PickupResource.cs" id="2_8xb3n"]
+[ext_resource type="Script" path="res://Scripts/Interactions/ObjectInteractArea.cs" id="2_qo5f2"]
+
+[sub_resource type="Resource" id="Resource_2m5fr"]
+script = ExtResource("2_8xb3n")
+ID = -1
+Damage = -1
+Name = "NULL"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j5sml"]
+size = Vector2(33, 32)
+
+[node name="pickupObject" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 2
+lock_rotation = true
+script = ExtResource("1_tw8k2")
+pickupResource = SubResource("Resource_2m5fr")
+
+[node name="InteractArea" parent="." node_paths=PackedStringArray("parentObject") instance=ExtResource("1_qsmpb")]
+script = ExtResource("2_qo5f2")
+parentObject = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("RectangleShape2D_j5sml")
+
+[node name="pickupLabel" type="Label" parent="InteractArea"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -71.0
+offset_top = 11.08
+offset_right = 71.0
+offset_bottom = 34.08
+grow_horizontal = 2
+text = "Press [E] to pickup"
+metadata/_edit_use_anchors_ = true

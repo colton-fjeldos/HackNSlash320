@@ -18,17 +18,17 @@ public partial class InteractArea : Area2D
 	}
 	
 	//This is a function that will be called when a player wants to interact with another object
-	public virtual int InteractWith()
+	public virtual PickupResource InteractWith()
 	{
 		if (curInteraction != null) curInteraction.InteractedBy();
-		return 0;
+		return null;
 	}
 	
 	//This is the function that will be called when something ELSE interacts with this interact area
-	public virtual int InteractedBy()
+	public virtual PickupResource InteractedBy()
 	{
 		GD.Print("This object has been interacted by some other object");
-		return 0;
+		return null;
 	}
 	
 	public virtual void FreeParent() {

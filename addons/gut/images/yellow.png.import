@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c24a0kxy2mwb2"
-path="res://.godot/imported/Dark Pallette.png-a59fad591e28aeb05ffb294272c270c9.ctex"
+uid="uid://cvkmpsdwhyiir"
+path="res://.godot/imported/yellow.png-b3cf3d463958a169d909273d3d742052.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Dark Pallette.png"
-dest_files=["res://.godot/imported/Dark Pallette.png-a59fad591e28aeb05ffb294272c270c9.ctex"]
+source_file="res://addons/gut/images/yellow.png"
+dest_files=["res://.godot/imported/yellow.png-b3cf3d463958a169d909273d3d742052.ctex"]
 
 [params]
 

@@ -38,11 +38,11 @@ func _on_reset_button_pressed():
 func pause():
 	pauseMenu.show()
 	$AnimationPlayer.play("blur-animation")
-	ispaused = true
-	get_tree().paused = true
+	ispaused = !ispaused
+	get_tree().paused = ispaused
 	
 func resume():
-	ispaused = false
-	get_tree().paused = false
+	ispaused = !ispaused
+	get_tree().paused = ispaused
 	pauseMenu.hide()
 	$AnimationPlayer.play_backwards("blur-animation")

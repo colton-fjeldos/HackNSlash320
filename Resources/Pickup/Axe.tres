@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PickupResource" load_steps=4 format=3 uid="uid://dyk1oa3iu00s2"]
+
+[ext_resource type="Script" path="res://Resources/Pickup/PickupResource.cs" id="1_2153a"]
+[ext_resource type="Texture2D" uid="uid://chabtcacvia7m" path="res://Textures/Objects/Weapons/AxeSprite.png" id="1_cmhe1"]
+[ext_resource type="Texture2D" uid="uid://3o5vcl0msuds" path="res://Textures/Objects/Weapons/Swings/AxeSwing.png" id="2_vg8wx"]
+
+[resource]
+script = ExtResource("1_2153a")
+ID = 2
+Damage = 2
+Name = "Axe"
+SwingSprite = ExtResource("2_vg8wx")
+HeldSprite = ExtResource("1_cmhe1")

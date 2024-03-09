@@ -39,16 +39,25 @@ public partial class controlled1 : CharacterBody2D
 	[Export]
 	private InteractArea playerInteract;
 	
-	[Export]
-	private Node2D weaponManager;
+	private WeaponManager weaponManager;
+	
+	private int playerHealth = 100;
+	private int maxHealth = 100;
+	
+	private bool playerAlive = true;
 	
 	//velocity is a shared variable
 	Vector2 velocity;
-	//placeholder
+
+
 	public override void _Ready()
 	{
-		
+		weaponManager = GetNode<WeaponManager>("WeaponManager");
+		maxHealth = 100; //modifiers can be added here from skill tree
+		playerHealth = maxHealth; 
 	}
+	
+	
 	
 	//Dash recharge rate for overall dash recharge
 	public async Task dashBarTimer(){
@@ -69,7 +78,7 @@ public partial class controlled1 : CharacterBody2D
 	//timers for dash recharge and refractory period
 	public void dashFunc(){
 		if ((dashRecharge > 0) 
-		&& dashAvailable){
+		&& dashAvailable && playerAlive){
 			isDashing = true;
 			dashAvailable= false;
 			velocity = (direction.Normalized() * 1000);
@@ -80,6 +89,35 @@ public partial class controlled1 : CharacterBody2D
 			
 		}
 	}
+	
+	//dash bool check
+	public void dashReady(){
+		if (dashRecharge==0){
+			dashAvailable=false;
+		}
+		else{
+			dashAvailable =true;
+		}
+	}
+	//direction setters and velocity return function
+	//so that external programs can call these without having to mess
+	//with variables directly
+	public void setRight(){
+		direction = Vector2.Right;
+	}
+	public void setLeft(){
+		direction = Vector2.Left;
+	}
+	public void setUp(){
+		direction = Vector2.Up;
+	}
+	public void setDown(){
+		direction = Vector2.Down;
+	}
+	public float velocityFunc(){
+		float temp = velocity.X;
+		return temp;
+	}	
 	
 	//physics for controlled character
 	public override void _PhysicsProcess(double delta){
@@ -110,13 +148,13 @@ public partial class controlled1 : CharacterBody2D
 		//when moving left, accelerate smoothly to movement max
 		if (Input.IsActionPressed("ui_left")){
 			facing = "left";
-			direction = Vector2.Left;
+			setLeft();
 			velocity.X = Mathf.Lerp(velocity.X, (-movementMax), (float).08);
 		}
 		//when moving left, accelerate smoothly to movement max
 		else if (Input.IsActionPressed("ui_right")){
 			facing = "right";
-			direction = Vector2.Right;
+			setRight();
 			velocity.X = Mathf.Lerp(velocity.X, (movementMax), (float).08);
 
 			
@@ -141,10 +179,43 @@ public partial class controlled1 : CharacterBody2D
 	
 	public override void _UnhandledInput(InputEvent @event){
 		if (Input.IsActionJustPressed("interact")){
-			int objectID = playerInteract.InteractWith();
+			PickupResource pickupResource = playerInteract.InteractWith();
 			//use objectID to get weapon sprite & attack animation sprite
-			if (objectID != 0) 
+			if (pickupResource != null) {
 				weaponManager.Show();
+				weaponManager.ChangeSprites(pickupResource.HeldSprite, pickupResource.SwingSprite);
+			}
 		}
+	}
+	
+	//If a projectile hits InteractArea, detects that its in the player group
+	//grab that area's parent node, and call the function takeDamage on it.
+	public void takeDamage(int damageVal){
+		if (damageVal < 0) return;
+		int newHealth = playerHealth - damageVal;
+		if (newHealth < 0) newHealth = 0;
+		playerHealth = newHealth;
+		updateAliveStatus();
+	}
+	
+	public void getHealed(int healVal){
+		if (healVal < 0) return;
+		if (!playerAlive) return;
+		int newHealth = playerHealth + healVal;
+		if (newHealth > 100) playerHealth = 100;
+		playerHealth = newHealth;
+		updateAliveStatus();
+	}
+	
+	private void updateAliveStatus(){
+		if (playerHealth <= 0){
+			playerAlive = false;
+			handleDeath();
+			return;
+		}
+	}
+	
+	private void handleDeath(){
+		GD.Print("TODO Character death");
 	}
 }

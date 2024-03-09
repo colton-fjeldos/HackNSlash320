@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cirfgjndhh2vo"
-path="res://.godot/imported/SwordSprite.png-cf5b94bf8b1f29cfe7b42581ed7057af.ctex"
+uid="uid://3o5vcl0msuds"
+path="res://.godot/imported/AxeSwing.png-6ce9671a70917841f3dcd20de452aad8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/SwordSprite.png"
-dest_files=["res://.godot/imported/SwordSprite.png-cf5b94bf8b1f29cfe7b42581ed7057af.ctex"]
+source_file="res://Textures/Objects/Weapons/Swings/AxeSwing.png"
+dest_files=["res://.godot/imported/AxeSwing.png-6ce9671a70917841f3dcd20de452aad8.ctex"]
 
 [params]
 

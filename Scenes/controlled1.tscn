@@ -1,12 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://m038w8sqj84p"]
+[gd_scene load_steps=10 format=3 uid="uid://m038w8sqj84p"]
 
 [ext_resource type="Script" path="res://Scripts/controlled1.cs" id="1_f3x4s"]
 [ext_resource type="Texture2D" uid="uid://n78ldru40qme" path="res://Textures/Filler Character Image.png" id="1_swj3o"]
 [ext_resource type="Script" path="res://Scripts/CameraController.cs" id="3_kj26r"]
 [ext_resource type="Script" path="res://Scripts/WeaponManager.cs" id="4_tfpqi"]
-[ext_resource type="Texture2D" uid="uid://cirfgjndhh2vo" path="res://Textures/SwordSprite.png" id="5_4afn6"]
-[ext_resource type="Texture2D" uid="uid://bpntkenu2esrc" path="res://Textures/Swing_sprite.png" id="6_ur58i"]
-[ext_resource type="PackedScene" uid="uid://k518oatcttrq" path="res://Scenes/Subscenes/InteractArea.tscn" id="7_uvfh6"]
+[ext_resource type="PackedScene" uid="uid://k518oatcttrq" path="res://Scenes/Subscenes/Interactables/InteractArea.tscn" id="7_uvfh6"]
 [ext_resource type="Script" path="res://Scripts/Interactions/CharacterInteractArea.cs" id="8_c5q5l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipcmo"]
@@ -18,11 +16,10 @@ size = Vector2(10.525, 18)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjc8b"]
 size = Vector2(32, 32)
 
-[node name="controlled1" type="CharacterBody2D" node_paths=PackedStringArray("playerInteract", "weaponManager")]
+[node name="controlled1" type="CharacterBody2D" node_paths=PackedStringArray("playerInteract")]
 position = Vector2(1, 1)
 script = ExtResource("1_f3x4s")
 playerInteract = NodePath("InteractArea")
-weaponManager = NodePath("WeaponManager")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -39,28 +36,34 @@ script = ExtResource("3_kj26r")
 visible = false
 script = ExtResource("4_tfpqi")
 
-[node name="WeaponSprites" type="Node2D" parent="WeaponManager"]
+[node name="WeaponSpriteWrapper" type="Node2D" parent="WeaponManager"]
 
-[node name="SwordSprite" type="Sprite2D" parent="WeaponManager/WeaponSprites"]
+[node name="WeaponSprite" type="Sprite2D" parent="WeaponManager/WeaponSpriteWrapper"]
+unique_name_in_owner = true
+visibility_layer = 2
 position = Vector2(15.64, -4.61)
-scale = Vector2(2, 2)
-texture = ExtResource("5_4afn6")
+scale = Vector2(2.5, 2.5)
 
-[node name="Area2D" type="Area2D" parent="WeaponManager"]
+[node name="WeaponHitbox" type="Area2D" parent="WeaponManager"]
 visible = false
+show_behind_parent = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponManager/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponManager/WeaponHitbox"]
+show_behind_parent = true
 position = Vector2(23.7375, 1)
 shape = SubResource("RectangleShape2D_oerxt")
 
-[node name="Sprite2D" type="Sprite2D" parent="WeaponManager/Area2D/CollisionShape2D"]
-texture = ExtResource("6_ur58i")
+[node name="SwingSprite" type="Sprite2D" parent="WeaponManager/WeaponHitbox/CollisionShape2D"]
+unique_name_in_owner = true
+show_behind_parent = true
+visibility_layer = 4
+scale = Vector2(1.5, 1.5)
 
 [node name="HitboxTimer" type="Timer" parent="WeaponManager"]
 process_callback = 0
 wait_time = 0.25
 
-[node name="InteractArea" parent="." instance=ExtResource("7_uvfh6")]
+[node name="InteractArea" parent="." groups=["player"] instance=ExtResource("7_uvfh6")]
 script = ExtResource("8_c5q5l")
 
 [node name="InteractCS2D" type="CollisionShape2D" parent="InteractArea"]

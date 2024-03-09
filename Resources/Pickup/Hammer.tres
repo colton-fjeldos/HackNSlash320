@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PickupResource" load_steps=4 format=3 uid="uid://byaaeovcj1pvj"]
+
+[ext_resource type="Script" path="res://Resources/Pickup/PickupResource.cs" id="1_73bnf"]
+[ext_resource type="Texture2D" uid="uid://cdd2prfso40a4" path="res://Textures/Objects/Weapons/HammerSprite.png" id="1_j14h7"]
+[ext_resource type="Texture2D" uid="uid://dd0ajfimqovp3" path="res://Textures/Objects/Weapons/Swings/HammerSwing.png" id="2_cm67c"]
+
+[resource]
+script = ExtResource("1_73bnf")
+ID = 3
+Damage = 3
+Name = "Hammer"
+SwingSprite = ExtResource("2_cm67c")
+HeldSprite = ExtResource("1_j14h7")
