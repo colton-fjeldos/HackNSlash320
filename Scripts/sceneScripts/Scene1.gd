@@ -11,3 +11,8 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().paused = true
 	pass
+
+func process_(delta):
+	if Input.is_action_just_pressed("SkillTree"):
+		get_tree().paused = true
+	pass

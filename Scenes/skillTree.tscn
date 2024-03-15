@@ -59,3 +59,5 @@ layout_mode = 0
 offset_top = -196.0
 offset_bottom = -100.0
 disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
