@@ -179,6 +179,8 @@ public partial class controlled1 : CharacterBody2D
 	
 	public override void _UnhandledInput(InputEvent @event){
 		if (Input.IsActionJustPressed("interact")){
+			
+			//If our hands are full.
 			if (weaponManager.hasWeapon) return;
 			weaponManager.hasWeapon = true;
 			InteractArea objectInteract = playerInteract.InteractWith();

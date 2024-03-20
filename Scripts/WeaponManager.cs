@@ -47,11 +47,18 @@ public partial class WeaponManager : Node2D
 	
 	public override void _Input(InputEvent @event)
 	{
-		if (@event is InputEventMouseButton mouseEvent && @event.IsPressed())
+		if (Input.IsActionJustPressed("attack"))
 		{
 			NodeLookAtMouse(Hitbox);
 			HitboxTimer.Start();
 			Hitbox.Show();
+		}
+		
+		if (Input.IsActionJustPressed("throw"))
+		{
+			//create projectile at mouse angle
+			hasWeapon = false;
+			this.Hide();
 		}
 	}
 	
