@@ -179,11 +179,17 @@ public partial class controlled1 : CharacterBody2D
 	
 	public override void _UnhandledInput(InputEvent @event){
 		if (Input.IsActionJustPressed("interact")){
-			PickupResource pickupResource = playerInteract.InteractWith();
-			//use objectID to get weapon sprite & attack animation sprite
-			if (pickupResource != null) {
+			if (weaponManager.hasWeapon) return;
+			weaponManager.hasWeapon = true;
+			InteractArea objectInteract = playerInteract.InteractWith();
+			PickupResource objectPickup = objectInteract.InteractedBy();
+			objectInteract.FreeParent();
+			
+			GD.Print("Picked up object of itemID" + objectPickup.ID);
+			
+			if (objectPickup != null) {
 				weaponManager.Show();
-				weaponManager.ChangeSprites(pickupResource.HeldSprite, pickupResource.SwingSprite);
+				weaponManager.ChangeSprites(objectPickup.HeldSprite, objectPickup.SwingSprite);
 			}
 		}
 	}

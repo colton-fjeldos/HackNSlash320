@@ -10,9 +10,11 @@ public partial class WeaponManager : Node2D
 	Godot.Timer HitboxTimer;
 	Godot.Sprite2D WeaponSprite;
 	Godot.Sprite2D SwingSprite;
+	public bool hasWeapon;
 	
 	public override void _Ready()
 	{
+		hasWeapon = false;
 		Hitbox = GetNode<Godot.Area2D>("WeaponHitbox"); //Used to draw the hitbox when clicked
 		WeaponSpriteWrapper = GetNode<Godot.Node2D>("WeaponSpriteWrapper"); //Used to rotate weapon sprite
 		WeaponSprite = GetNode<Godot.Sprite2D>("%WeaponSprite");
