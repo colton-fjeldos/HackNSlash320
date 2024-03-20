@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 public partial class controlled1 : CharacterBody2D
 {
 	//stored float values for easy changing
-	//public static float baseSpeed = 150.0f;
-	public static float movementMax = 400.0f;
+	public static float movementMax = 350.0f;
 	
 	//Basic movement variables
 	//public float movement = baseSpeed;
@@ -22,7 +21,7 @@ public partial class controlled1 : CharacterBody2D
 	//is dashing for eventual state checking
 	public bool isDashing = false;
 	//length of the dash state in milliseconds
-	public int dashLength = 320;
+	public int dashLength = 300;
 	//length of the overall dash recharge also in milliseconds
 	public int dashLongCharge = 5000;
 	//facing string for animation useage later
@@ -52,6 +51,10 @@ public partial class controlled1 : CharacterBody2D
 
 	public override void _Ready()
 	{
+		//manually set collision values upon ready for portability
+		this.SetCollisionMaskValue(3,true);
+		this.SetCollisionMaskValue(1,true);
+		this.SetCollisionLayerValue(3,true);
 		weaponManager = GetNode<WeaponManager>("WeaponManager");
 		maxHealth = 100; //modifiers can be added here from skill tree
 		playerHealth = maxHealth; 
@@ -71,6 +74,7 @@ public partial class controlled1 : CharacterBody2D
 		await Task.Delay(TimeSpan.FromMilliseconds(dashLength));
 		isDashing = false;
 		dashAvailable= true;
+		this.SetCollisionMaskValue(3,true);
 		return;
 	}
 	
@@ -81,8 +85,8 @@ public partial class controlled1 : CharacterBody2D
 		&& dashAvailable && playerAlive){
 			isDashing = true;
 			dashAvailable= false;
+			this.SetCollisionMaskValue(3,false);
 			velocity = (direction.Normalized() * 1000);
-			//GD.Print(velocity);
 			dashRecharge--;
 			dashInstanceTimer();
 			dashBarTimer();
@@ -99,6 +103,7 @@ public partial class controlled1 : CharacterBody2D
 			dashAvailable =true;
 		}
 	}
+	
 	//direction setters and velocity return function
 	//so that external programs can call these without having to mess
 	//with variables directly
@@ -125,6 +130,9 @@ public partial class controlled1 : CharacterBody2D
 		if (!isDashing){
 		//set velocity
 		Vector2 velocity = Velocity;
+		}
+		if (!playerAlive){
+			return;
 		}
 		//if its in the air fall, or check for DJ
 		if (!IsOnFloor()){
@@ -192,6 +200,8 @@ public partial class controlled1 : CharacterBody2D
 	//grab that area's parent node, and call the function takeDamage on it.
 	public void takeDamage(int damageVal){
 		if (damageVal < 0) return;
+		//dashing should be an invulnerability state
+		if (isDashing) return;
 		int newHealth = playerHealth - damageVal;
 		if (newHealth < 0) newHealth = 0;
 		playerHealth = newHealth;
