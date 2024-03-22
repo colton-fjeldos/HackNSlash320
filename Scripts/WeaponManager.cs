@@ -3,6 +3,8 @@ using System;
 
 public partial class WeaponManager : Node2D
 {
+	[Export]
+	int thrownSpeed = 500;
 	
 	Godot.Area2D Hitbox;
 	Godot.Node2D WeaponSpriteWrapper;
@@ -11,6 +13,8 @@ public partial class WeaponManager : Node2D
 	Godot.Sprite2D WeaponSprite;
 	Godot.Sprite2D SwingSprite;
 	public bool hasWeapon;
+	PackedScene thrownScene;
+	Node2D root;
 	
 	public override void _Ready()
 	{
@@ -21,6 +25,8 @@ public partial class WeaponManager : Node2D
 		SwingSprite = GetNode<Godot.Sprite2D>("%SwingSprite");
 		Viewport = GetViewport(); //Used to get the screen width for drawing sword sprite
 		HitboxTimer = GetNode<Godot.Timer>("HitboxTimer");
+		thrownScene = GD.Load<PackedScene>("res://Scenes/Subscenes/Character/Projectiles/ThrownWeapon.tscn");
+		root = (Node2D) GetTree().Root.GetChild(0);
 	}
 	
 	public override void _Process(double delta){
@@ -56,9 +62,19 @@ public partial class WeaponManager : Node2D
 		
 		if (Input.IsActionJustPressed("throw"))
 		{
-			//create projectile at mouse angle
-			hasWeapon = false;
-			this.Hide();
+			if (hasWeapon){
+				var screen = GetViewport();
+				RigidBody2D thrownItem = (RigidBody2D) thrownScene.Instantiate();
+				GD.Print(GlobalPosition);
+				thrownItem.Position = GlobalPosition;
+				NodeLookAtMouse(thrownItem);
+				thrownItem.Rotation += 45;
+				root.AddChild(thrownItem);
+				thrownItem.ApplyImpulse((screen.GetMousePosition() - screen.GetVisibleRect().Size / 2).Normalized() * thrownSpeed);
+				//create projectile at mouse angle
+				hasWeapon = false;
+				this.Hide();
+			}
 		}
 	}
 	
