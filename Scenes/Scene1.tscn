@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cti3llu71ljg0"]
+[gd_scene load_steps=18 format=3 uid="uid://cti3llu71ljg0"]
 
 [ext_resource type="Script" path="res://Scripts/sceneScripts/Scene1.gd" id="1_54ohx"]
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Tilemaps/Dark Pallette.png" id="1_t23mu"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://bsqven2pnpim5" path="res://Scenes/Subscenes/Interactables/Weapons/hammer.tscn" id="7_stg84"]
 [ext_resource type="Script" path="res://Scripts/sceneScripts/doorscene1.gd" id="7_ygax8"]
 [ext_resource type="PackedScene" uid="uid://cxm8abaww5v45" path="res://Scenes/skillTree.tscn" id="10_fnmfv"]
+[ext_resource type="Script" path="res://Scenes/Panel.gd" id="11_d5jqt"]
+[ext_resource type="FontFile" uid="uid://70rlmkas7auv" path="res://Textures/Fonts/joystix monospace.otf" id="11_o3url"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5x2m1"]
 texture = ExtResource("1_t23mu")
@@ -153,6 +155,12 @@ sources/0 = SubResource("TileSetAtlasSource_5x2m1")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d1ev5"]
 size = Vector2(44, 45.5)
 
+[sub_resource type="FontVariation" id="FontVariation_x3vsw"]
+base_font = ExtResource("11_o3url")
+
+[sub_resource type="FontVariation" id="FontVariation_ygrki"]
+base_font = ExtResource("11_o3url")
+
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_54ohx")
 
@@ -195,6 +203,48 @@ position = Vector2(443, 549)
 
 [node name="SkillTree" parent="CanvasLayer2" instance=ExtResource("10_fnmfv")]
 visible = false
+
+[node name="Timer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="Timer"]
+offset_left = 332.0
+offset_top = 367.0
+offset_right = 445.0
+offset_bottom = 406.0
+script = ExtResource("11_d5jqt")
+
+[node name="Minutes" type="Label" parent="Timer/Panel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 41.0
+offset_bottom = 24.0
+theme_override_fonts/font = SubResource("FontVariation_x3vsw")
+text = "00:"
+horizontal_alignment = 2
+
+[node name="Seconds" type="Label" parent="Timer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.086
+anchor_bottom = 0.086
+offset_left = 37.0
+offset_top = -2.01
+offset_right = 77.0
+offset_bottom = 17.99
+theme_override_fonts/font = ExtResource("11_o3url")
+text = "00."
+horizontal_alignment = 2
+
+[node name="Msecs" type="Label" parent="Timer/Panel"]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 1.0
+offset_right = 113.0
+offset_bottom = 24.0
+theme_override_fonts/font = SubResource("FontVariation_ygrki")
+text = "000"
+horizontal_alignment = 2
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
