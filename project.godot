@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/StartMenu.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://Textures/icon.png"
 
+[autoload]
+
+GlobalAnimation="*res://Scripts/sceneScripts/Animation.gd"
+
 [debug]
 
 settings/stdout/print_fps=true

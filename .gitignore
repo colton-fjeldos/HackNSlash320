@@ -3,3 +3,5 @@
 *.mp3
 *.png
 *.jpg
+*.import
+/addons/gut
