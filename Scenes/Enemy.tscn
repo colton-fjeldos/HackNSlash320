@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://bch36igfl46r3"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_dq281"]
-[ext_resource type="Texture2D" uid="uid://cn6r8ys3i36t5" path="res://Textures/Enemy/Attack.png" id="2_6m1e1"]
-[ext_resource type="Texture2D" uid="uid://rit58urm4erj" path="res://Textures/Enemy/Run.png" id="3_r7iwt"]
-[ext_resource type="Texture2D" uid="uid://digso276vqxno" path="res://Textures/Enemy/Walk.png" id="4_u7a1y"]
-[ext_resource type="Texture2D" uid="uid://x2fke72ohnty" path="res://Textures/Enemy/Jump.png" id="4_xkrnn"]
+[ext_resource type="Texture2D" uid="uid://v4241d7tcjbr" path="res://Textures/Enemy/Attack.png" id="2_6m1e1"]
+[ext_resource type="Texture2D" uid="uid://bla071nwjs781" path="res://Textures/Enemy/Run.png" id="3_r7iwt"]
+[ext_resource type="Texture2D" uid="uid://cdwotn8lb6rdo" path="res://Textures/Enemy/Walk.png" id="4_u7a1y"]
+[ext_resource type="Texture2D" uid="uid://dyj0j6557mhln" path="res://Textures/Enemy/Jump.png" id="4_xkrnn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ss5e2"]
 size = Vector2(52, 67.8102)
@@ -449,7 +449,7 @@ _data = {
 [node name="Enemy" type="CharacterBody2D"]
 scale = Vector2(0.416242, 0.330039)
 disable_mode = 2
-collision_layer = 2
+collision_layer = 4
 script = ExtResource("1_dq281")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -481,6 +481,7 @@ texture = ExtResource("3_r7iwt")
 hframes = 10
 
 [node name="Jump" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(8.29771, -29.1411)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("4_xkrnn")

@@ -16,20 +16,8 @@ func _process(delta):
 		_processCount = _processCount + 1
 
 func getPath(start, end): 
-	#var pos1 = _getClosetPoint(start)
-	#var pos2 = _getClosetPoint(end)
-	#var path = aStar.get_point_path(pos1, pos2)
-	#print(start, end)
-	#print(aStar.get_point_position(pos1), aStar.get_point_position(pos2))
-	#print()
-	#print("Number of points: ", aStar.get_point_count())
 	var path = aStar.get_point_path(aStar.get_closest_point(start), aStar.get_closest_point(end))
-	#for pos in path:
-	#	print(pos)
 
-	#if (start.x < (path[0].x + 1) and start.x > (path[0].x - 1)):
-		#path.remove_at(0)
-	
 	return path
 	
 func _getClosetPoint(point):
@@ -145,9 +133,9 @@ func _createFallPoint(pos1, pos2):
 		instance.position = pos2
 		aStar.add_point(aStar.get_available_point_id(), instance.position)
 		#
-	#instance = _walkPoint.instantiate()
-	#add_child(instance)
-	#instance.position = (pos1+pos2)/2
+	instance = _walkPoint.instantiate()
+	add_child(instance)
+	instance.position = (pos1+pos2)/2
 
 	pos1 = aStar.get_closest_point(pos1)
 	pos2 = aStar.get_closest_point(pos2)
