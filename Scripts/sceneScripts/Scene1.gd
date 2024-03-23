@@ -6,13 +6,16 @@ func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().paused = true
-	pass
-
-func process_(delta):
 	if Input.is_action_just_pressed("SkillTree"):
+		print("SKILL!")
 		get_tree().paused = true
+		
+	if Input.is_action_just_pressed("ui_cancel"):
+		print("Pause!")
+		get_tree().paused = true
+		
 	pass
+	
+
+

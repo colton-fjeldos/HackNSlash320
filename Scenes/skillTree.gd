@@ -37,7 +37,7 @@ func checkSKill(skill: String) -> bool:
 	
 	
 
-func process_(delta):
+func _process(delta):
 	if Input.is_action_just_pressed("SkillTree"): 
 		toggleSkillTree()
 
@@ -46,8 +46,8 @@ func toggleSkillTree():
 	if isSkillTreeVisible:
 		skillTree.show()
 		get_tree().paused = true # Pause the game when the skill tree is open 
-		$AnimationPlayer.play("blur-animation")
+		$AnimationPlayer.play("blur")
 	else:
-			skillTree.hide()
-			get_tree().paused = false # Unpause the game when the skill tree is closed 
-			$AnimationPlayer.play_backwards("blur-animation")
+		skillTree.hide()
+		get_tree().paused = false # Unpause the game when the skill tree is closed 
+		$AnimationPlayer.play_backwards("blur")
