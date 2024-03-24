@@ -18,7 +18,7 @@ public partial class InteractArea : Area2D
 	}
 	
 	//This is a function that will be called when a player wants to interact with another object
-	public virtual PickupResource InteractWith()
+	public virtual InteractArea InteractWith()
 	{
 		if (curInteraction != null) curInteraction.InteractedBy();
 		return null;

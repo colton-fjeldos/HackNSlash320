@@ -18,6 +18,8 @@ size = Vector2(32, 32)
 
 [node name="controlled1" type="CharacterBody2D" node_paths=PackedStringArray("playerInteract")]
 position = Vector2(1, 1)
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_f3x4s")
 playerInteract = NodePath("InteractArea")
 metadata/_edit_group_ = true
@@ -35,6 +37,7 @@ script = ExtResource("3_kj26r")
 [node name="WeaponManager" type="Node2D" parent="."]
 visible = false
 script = ExtResource("4_tfpqi")
+thrownSpeed = 1000
 
 [node name="WeaponSpriteWrapper" type="Node2D" parent="WeaponManager"]
 
