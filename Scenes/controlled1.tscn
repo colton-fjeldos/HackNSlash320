@@ -37,7 +37,6 @@ script = ExtResource("3_kj26r")
 [node name="WeaponManager" type="Node2D" parent="."]
 visible = false
 script = ExtResource("4_tfpqi")
-thrownSpeed = 1000
 
 [node name="WeaponSpriteWrapper" type="Node2D" parent="WeaponManager"]
 
