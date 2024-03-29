@@ -72,7 +72,7 @@ func _createMap():
 					elif not (cell + Vector2i.RIGHT + Vector2i.UP) in tileMap.get_used_cells(0) and (cell + Vector2i.LEFT + Vector2i.UP) in tileMap.get_used_cells(0):
 						_createPoint(tileMap.map_to_local(cell + Vector2i.UP))
 	_connectPoint()
-	#_draw()
+
 
 func _cellType(cell):
 	var cellType = tileMap.get_cell_tile_data(0, cell)
@@ -94,12 +94,12 @@ func _getFallPoints(cell, right, left):
 		result = state.intersect_ray(queryLeft)
 		if(result):
 			_createFallPoint (tileMap.map_to_local(cell + Vector2i.UP), tileMap.map_to_local(tileMap.local_to_map(result.position) + Vector2i.UP))
-			#_createPoint (tileMap.map_to_local(tileMap.local_to_map(result.position) + Vector2i.UP))
+
 
 		result = state.intersect_ray(queryRight)
 		if(result):
 			_createFallPoint (tileMap.map_to_local(cell + Vector2i.UP), tileMap.map_to_local(tileMap.local_to_map(result.position) + Vector2i.UP))
-			#_createPoint (tileMap.map_to_local((tileMap.local_to_map(result.position) + Vector2i.UP)))
+
 	
 	elif (right and !left):
 		var queryLeft = PhysicsRayQueryParameters2D.create (tileMap.map_to_local(cell + Vector2i.UP + Vector2i.LEFT), tileMap.map_to_local(cell + Vector2i.UP + Vector2i.LEFT + Vector2i(0, _rayHeight)))
@@ -107,7 +107,7 @@ func _getFallPoints(cell, right, left):
 		result = state.intersect_ray(queryLeft)
 		if(result):
 			_createFallPoint (tileMap.map_to_local(cell + Vector2i.UP), tileMap.map_to_local(tileMap.local_to_map(result.position) + Vector2i.UP + Vector2i.LEFT))
-			#_createPoint (tileMap.map_to_local((tileMap.local_to_map(result.position) + Vector2i.UP)))
+
 			
 	elif (!right and left):
 		var queryRight = PhysicsRayQueryParameters2D.create (tileMap.map_to_local(cell + Vector2i.UP + Vector2i.RIGHT), tileMap.map_to_local(cell + Vector2i.UP + Vector2i.RIGHT + Vector2i(0, _rayHeight)))
@@ -115,7 +115,7 @@ func _getFallPoints(cell, right, left):
 		result = state.intersect_ray(queryRight)
 		if(result):
 			_createFallPoint (tileMap.map_to_local(cell + Vector2i.UP), tileMap.map_to_local(tileMap.local_to_map(result.position) + Vector2i.UP))
-			#_createPoint (tileMap.map_to_local((tileMap.local_to_map(result.position) + Vector2i.UP)))
+
 
 func _createPoint(pos):
 	if not aStar.get_point_position(aStar.get_closest_point(pos)) == pos:
@@ -128,7 +128,6 @@ func _createPoint(pos):
 func _createFallPoint(pos1, pos2):
 	var instance = _walkPoint.instantiate()	
 	if not aStar.get_point_position(aStar.get_closest_point(pos2)) == pos2:
-		#var instance = _walkPoint.instantiate()
 		add_child(instance)
 		instance.position = pos2
 		aStar.add_point(aStar.get_available_point_id(), instance.position)
@@ -148,8 +147,6 @@ func _connectPoint():
 		var mapPosition =  tileMap.local_to_map(aStar.get_point_position(currentPoint)) + Vector2i.RIGHT + Vector2i.DOWN
 		var state = get_world_2d().direct_space_state
 
-		#if !tileMap.get_cell_source_id(0, mapPosition) and !_cellType(mapPosition):
-
 		for connectingPoint in aStar.get_point_ids():
 			if aStar.get_point_position(connectingPoint)[1] == aStar.get_point_position(currentPoint)[1]:
 				if aStar.get_point_position(connectingPoint)[0] > aStar.get_point_position(currentPoint)[0]:
@@ -161,15 +158,12 @@ func _connectPoint():
 							neighbhour = connectingPoint
 
 		if (neighbhour != -1):
-			var instance = _walkPoint.instantiate()
-			add_child(instance)
-			instance.position = (aStar.get_point_position(currentPoint) + aStar.get_point_position(neighbhour))/2
-			#draw_line(aStar.get_point_position(currentPoint), aStar.get_point_position(neighbhour), Color(255, 0, 0), 1)
 			aStar.connect_points(currentPoint, neighbhour)
 
 
-
-
+#
+#
+#
 
 
 

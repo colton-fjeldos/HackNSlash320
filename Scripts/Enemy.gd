@@ -63,7 +63,7 @@ func _patrol():
 	move_and_slide()
 
 func _chase():
-	_SPEED = 100
+	_SPEED = 70
 	$Attack.visible = false
 	$Walk.visible = false
 	$Run.visible = true
@@ -76,9 +76,10 @@ func _chase():
 	_enemyMovement = _pathfinder.getPath(global_position, _player.global_position)
 	_enemyMovement.push_back(_player.global_position)
 	var nextPos = _enemyMovement[0]
-	print (_enemyMovement)
-	print ("nextPos: ", nextPos, " enemyPos: ", global_position, "vel: ", velocity.x)
-	print()
+	#print (_enemyMovement)
+	#print ("nextPos: ", nextPos, " enemyPos: ", global_position, "vel: ", velocity.x)
+	#print()
+	#print ("playerPos: ", _player.global_position)
 	
 	if(_enemyMovement.size() > 1):
 		if _enemyMovement[0].y == _enemyMovement[1].y or _enemyMovement.size() == 2 :
@@ -86,13 +87,11 @@ func _chase():
 				nextPos = _enemyMovement[1]
 
 
-	if (nextPos.x <= global_position.x):
+	if (nextPos.x <= global_position.x + 2):
 		$Run.flip_h = true
 		velocity.x = -1 * _SPEED
 		if !_leftRay.is_colliding() and is_on_floor():
 			velocity.y = jumpForce
-			
-		move_and_slide()
 
 	else:
 		$Run.flip_h = false
@@ -100,12 +99,15 @@ func _chase():
 		
 		if !_rightRay.is_colliding() and is_on_floor():
 			velocity.y = jumpForce
-		move_and_slide()
+	
+	
+	if ((nextPos.y + 8) < (global_position.y) and _player.is_on_floor() and is_on_floor()):
+		var y = (global_position.y - nextPos.y) * jumpForce
+		velocity.y = jumpForce
+	
+	move_and_slide()
 
-	
-func _jump():
-	pass
-	
+
 func _attack():
 	$Walk.visible = false
 	$Run.visible = false
@@ -120,27 +122,25 @@ func _attack():
 	velocity = Vector2.ZERO
 	move_and_slide()
 
+
 func _playerInChaseRange(enemyPos, playerPos):
 	if (enemyPos.distance_to(playerPos) < 100 and enemyPos.distance_to(playerPos) > 40):
 		state = States.chasing
 		return true
 	return false
 
+
 func _playerInAttackRange(enemyPos, playerPos):
 	if (enemyPos.distance_to(playerPos) < 40):
 		state = States.attacking
 		return true
-		
-#func _playerInAttackRange():
-	#if (global_position.distance_to(_player.global_position) < 40):
-		#state = States.attacking
-		#return true
 	return false
+
 
 func _on_area_2d_body_entered(body):
 	var _player = get_parent().get_node("controlled1")
 	_player.takeDamage(20)
-	
+
 
 func updateHealth(damage):
 	_health = _health - damage

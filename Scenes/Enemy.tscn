@@ -449,7 +449,7 @@ _data = {
 [node name="Enemy" type="CharacterBody2D"]
 scale = Vector2(0.416242, 0.330039)
 disable_mode = 2
-collision_layer = 4
+collision_layer = 8
 script = ExtResource("1_dq281")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
