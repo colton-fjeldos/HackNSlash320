@@ -3,15 +3,14 @@ using System;
 
 public partial class CharacterInteractArea : InteractArea
 {
-	public override PickupResource InteractWith()
+	public override InteractArea InteractWith()
 	{
-		PickupResource pickupResource;
 		if (curInteraction != null) {
 			GD.Print("Character interacts with area");
-			pickupResource = curInteraction.InteractedBy();
-			curInteraction.FreeParent();
-			GD.Print("Picked up object of itemID" + pickupResource.ID);
-			return pickupResource;
+			//pickupResource = curInteraction.InteractedBy();
+			//curInteraction.FreeParent();
+			//GD.Print("Picked up object of itemID" + pickupResource.ID);
+			return curInteraction;
 		}
 		GD.Print("No object to pickup in range");
 		return null;

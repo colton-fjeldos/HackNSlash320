@@ -1,22 +1,78 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxm8abaww5v45"]
+[gd_scene load_steps=8 format=3 uid="uid://cxm8abaww5v45"]
 
 [ext_resource type="Script" path="res://Scenes/skillTree.gd" id="1_ky3gf"]
 [ext_resource type="PackedScene" uid="uid://dbnf81jj4qhyl" path="res://Scenes/skill_button.tscn" id="1_yd26q"]
+[ext_resource type="Shader" path="res://Textures/Shaders/skillTree.gdshader" id="2_5v45d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_of4pq"]
+shader = ExtResource("2_5v45d")
+shader_parameter/lod = 0.787
+
+[sub_resource type="Animation" id="Animation_pwmnh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.787]
+}
+
+[sub_resource type="Animation" id="Animation_yha7p"]
+resource_name = "blur"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/lod")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.787]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6qgsc"]
+_data = {
+"RESET": SubResource("Animation_pwmnh"),
+"blur": SubResource("Animation_yha7p")
+}
 
 [node name="SkillTree" type="Control" groups=["SkillTree"]]
+process_mode = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ky3gf")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_of4pq")
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.002
+anchor_bottom = 1.0
+offset_right = -0.304077
+offset_bottom = -3.0
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -59,3 +115,8 @@ layout_mode = 0
 offset_top = -196.0
 offset_bottom = -100.0
 disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6qgsc")
+}

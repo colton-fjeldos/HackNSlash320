@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 public partial class controlled1 : CharacterBody2D
 {
 	//stored float values for easy changing
-	//public static float baseSpeed = 150.0f;
-	public static float movementMax = 400.0f;
+	public static float movementMax = 350.0f;
 	
 	//Basic movement variables
 	//public float movement = baseSpeed;
@@ -22,7 +21,7 @@ public partial class controlled1 : CharacterBody2D
 	//is dashing for eventual state checking
 	public bool isDashing = false;
 	//length of the dash state in milliseconds
-	public int dashLength = 320;
+	public int dashLength = 300;
 	//length of the overall dash recharge also in milliseconds
 	public int dashLongCharge = 5000;
 	//facing string for animation useage later
@@ -34,6 +33,10 @@ public partial class controlled1 : CharacterBody2D
 	//double jump capability. Currently used like a bool
 	//but stored as an int in case we want to add conditional triple jump
 	public int doubleJump = 1;
+	
+	//invulnerability is an INT to track stacking amounts of invulnerability
+	//see the invulnerability ASYNC function for more information
+	public int invulnerable = 0;
 	
 	//Private interactionmanager field since input is taken care of inside of this script
 	[Export]
@@ -52,12 +55,28 @@ public partial class controlled1 : CharacterBody2D
 
 	public override void _Ready()
 	{
+		//manually set collision values upon ready for portability
+		this.SetCollisionMaskValue(3,true);
+		this.SetCollisionMaskValue(1,true);
+		this.SetCollisionLayerValue(3,true);
 		weaponManager = GetNode<WeaponManager>("WeaponManager");
 		maxHealth = 100; //modifiers can be added here from skill tree
 		playerHealth = maxHealth; 
 	}
 	
-	
+	//The way invulnerability works is that multiple types of invuln don't stack,
+	//but they can overlap. So if the player dashes, they are invuln for 300 miliseconds
+	//as called by the dash function. The async function increments and then waits for that time
+	//to decrement. If something else makes the player invulnerable during this time,
+	//then invulnerability is incremented again for the listed time. Making the effective
+	//invuln time the higher of either the remaining time of the first effect of the 
+	//total time of the new effect. You are invuln if the value of its variable is >0.
+	public async Task invulnerability(int time){
+		invulnerable++;
+		await Task.Delay(TimeSpan.FromMilliseconds(time));
+		invulnerable--;
+		return;
+	}
 	
 	//Dash recharge rate for overall dash recharge
 	public async Task dashBarTimer(){
@@ -71,6 +90,7 @@ public partial class controlled1 : CharacterBody2D
 		await Task.Delay(TimeSpan.FromMilliseconds(dashLength));
 		isDashing = false;
 		dashAvailable= true;
+		this.SetCollisionMaskValue(3,true);
 		return;
 	}
 	
@@ -81,9 +101,10 @@ public partial class controlled1 : CharacterBody2D
 		&& dashAvailable && playerAlive){
 			isDashing = true;
 			dashAvailable= false;
+			this.SetCollisionMaskValue(3,false);
 			velocity = (direction.Normalized() * 1000);
-			//GD.Print(velocity);
 			dashRecharge--;
+			invulnerability(dashLength);
 			dashInstanceTimer();
 			dashBarTimer();
 			
@@ -99,6 +120,7 @@ public partial class controlled1 : CharacterBody2D
 			dashAvailable =true;
 		}
 	}
+	
 	//direction setters and velocity return function
 	//so that external programs can call these without having to mess
 	//with variables directly
@@ -125,6 +147,9 @@ public partial class controlled1 : CharacterBody2D
 		if (!isDashing){
 		//set velocity
 		Vector2 velocity = Velocity;
+		}
+		if (!playerAlive){
+			return;
 		}
 		//if its in the air fall, or check for DJ
 		if (!IsOnFloor()){
@@ -179,12 +204,19 @@ public partial class controlled1 : CharacterBody2D
 	
 	public override void _UnhandledInput(InputEvent @event){
 		if (Input.IsActionJustPressed("interact")){
-			PickupResource pickupResource = playerInteract.InteractWith();
-			//use objectID to get weapon sprite & attack animation sprite
-			if (pickupResource != null) {
-				weaponManager.Show();
-				weaponManager.ChangeSprites(pickupResource.HeldSprite, pickupResource.SwingSprite);
-			}
+			
+			//If our hands are full.
+			if (weaponManager.hasWeapon) return;
+			InteractArea objectInteract = playerInteract.InteractWith();
+			if (objectInteract == null) return;
+			PickupResource objectPickup = objectInteract.InteractedBy();
+			objectInteract.FreeParent();
+			weaponManager.hasWeapon = true;
+			GD.Print("Picked up object of itemID" + objectPickup.ID);
+			
+			weaponManager.Show();
+			weaponManager.ChangeSprites(objectPickup.HeldSprite, objectPickup.SwingSprite);
+			
 		}
 	}
 	
@@ -192,6 +224,8 @@ public partial class controlled1 : CharacterBody2D
 	//grab that area's parent node, and call the function takeDamage on it.
 	public void takeDamage(int damageVal){
 		if (damageVal < 0) return;
+		//don't take damage in an invulnerability state
+		if (invulnerable!=0) return;
 		int newHealth = playerHealth - damageVal;
 		if (newHealth < 0) newHealth = 0;
 		playerHealth = newHealth;
