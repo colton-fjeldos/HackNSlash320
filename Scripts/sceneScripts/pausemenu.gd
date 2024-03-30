@@ -10,7 +10,7 @@ var isvisible
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pauseMenu = $"."
-	volumeLabel = $PanelContainer/PauseMenuContainer/VolumeLabel
+	volumeLabel = $PanelContainer/PauseMenu/VolumeLabel
 	ispaused = false
 	isvisible = false
 	volumestring = ""
