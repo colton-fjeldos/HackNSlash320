@@ -34,6 +34,10 @@ public partial class controlled1 : CharacterBody2D
 	//but stored as an int in case we want to add conditional triple jump
 	public int doubleJump = 1;
 	
+	//invulnerability is an INT to track stacking amounts of invulnerability
+	//see the invulnerability ASYNC function for more information
+	public int invulnerable = 0;
+	
 	//Private interactionmanager field since input is taken care of inside of this script
 	[Export]
 	private InteractArea playerInteract;
@@ -60,7 +64,19 @@ public partial class controlled1 : CharacterBody2D
 		playerHealth = maxHealth; 
 	}
 	
-	
+	//The way invulnerability works is that multiple types of invuln don't stack,
+	//but they can overlap. So if the player dashes, they are invuln for 300 miliseconds
+	//as called by the dash function. The async function increments and then waits for that time
+	//to decrement. If something else makes the player invulnerable during this time,
+	//then invulnerability is incremented again for the listed time. Making the effective
+	//invuln time the higher of either the remaining time of the first effect of the 
+	//total time of the new effect. You are invuln if the value of its variable is >0.
+	public async Task invulnerability(int time){
+		invulnerable++;
+		await Task.Delay(TimeSpan.FromMilliseconds(time));
+		invulnerable--;
+		return;
+	}
 	
 	//Dash recharge rate for overall dash recharge
 	public async Task dashBarTimer(){
@@ -88,6 +104,7 @@ public partial class controlled1 : CharacterBody2D
 			this.SetCollisionMaskValue(3,false);
 			velocity = (direction.Normalized() * 1000);
 			dashRecharge--;
+			invulnerability(dashLength);
 			dashInstanceTimer();
 			dashBarTimer();
 			
@@ -207,8 +224,8 @@ public partial class controlled1 : CharacterBody2D
 	//grab that area's parent node, and call the function takeDamage on it.
 	public void takeDamage(int damageVal){
 		if (damageVal < 0) return;
-		//dashing should be an invulnerability state
-		if (isDashing) return;
+		//don't take damage in an invulnerability state
+		if (invulnerable!=0) return;
 		int newHealth = playerHealth - damageVal;
 		if (newHealth < 0) newHealth = 0;
 		playerHealth = newHealth;
