@@ -15,7 +15,7 @@ func _process(delta):
 	pass
 
 
-func _on_body_entered(_body: PhysicsBody2D):
+func _on_body_entered(_body: CharacterBody2D):
 	inRange = true
 
 

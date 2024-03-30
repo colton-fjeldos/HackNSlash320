@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cti3llu71ljg0"]
+[gd_scene load_steps=19 format=3 uid="uid://cti3llu71ljg0"]
 
 [ext_resource type="Script" path="res://Scripts/sceneScripts/Scene1.gd" id="1_54ohx"]
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Tilemaps/Dark Pallette.png" id="1_t23mu"]
