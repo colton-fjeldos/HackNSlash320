@@ -42,12 +42,15 @@ func _process(delta):
 		toggleSkillTree()
 
 func toggleSkillTree():
-	isSkillTreeVisible = !isSkillTreeVisible
-	if isSkillTreeVisible:
-		skillTree.show()
-		get_tree().paused = true # Pause the game when the skill tree is open 
-		$AnimationPlayer.play("blur")
-	else:
-		skillTree.hide()
-		get_tree().paused = false # Unpause the game when the skill tree is closed 
-		$AnimationPlayer.play_backwards("blur")
+	if !Global.is_pause_menu_open:
+		isSkillTreeVisible = !isSkillTreeVisible
+		if isSkillTreeVisible:
+			skillTree.show()
+			get_tree().paused = true # Pause the game when the skill tree is open 
+			Global.is_skill_tree_open = true
+			$AnimationPlayer.play("blur")
+		else:
+			skillTree.hide()
+			get_tree().paused = false # Unpause the game when the skill tree is closed 
+			Global.is_skill_tree_open = false
+			$AnimationPlayer.play_backwards("blur")

@@ -23,13 +23,17 @@ func _process(_delta):
 		PauseLogic()
 
 func PauseLogic():
-	if ispaused:
-		resume()
-	elif !ispaused:
-		pause()
+	if !Global.is_skill_tree_open:
+		if ispaused:
+			resume()
+			Global.is_pause_menu_open = false
+		elif !ispaused:
+			pause()
+			Global.is_pause_menu_open = true
 
 func _on_back_button_pressed():
 	resume()
+	Global.is_pause_menu_open = false
 
 func _on_quit_button_pressed():
 	get_tree().quit()
@@ -41,6 +45,7 @@ func _on_volume_slider_value_changed(value):
 func _on_reset_button_pressed():
 	resume()
 	get_tree().reload_current_scene()
+	Global.is_pause_menu_open = false
 
 func pause():
 	show()
