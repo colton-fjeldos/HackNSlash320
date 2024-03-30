@@ -69,6 +69,10 @@ public partial class WeaponManager : Node2D
 				thrownItem.Position = GlobalPosition;
 				NodeLookAtMouse(thrownItem);
 				thrownItem.Rotation += 45;
+				Sprite2D thrownSprite = (Sprite2D) thrownItem.GetNode("Sprite");
+				thrownSprite.Texture = WeaponSprite.Texture;
+				
+				
 				root.AddChild(thrownItem);
 				thrownItem.ApplyImpulse((screen.GetMousePosition() - screen.GetVisibleRect().Size / 2).Normalized() * thrownSpeed);
 				//create projectile at mouse angle
