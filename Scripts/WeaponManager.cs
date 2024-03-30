@@ -26,7 +26,7 @@ public partial class WeaponManager : Node2D
 		Viewport = GetViewport(); //Used to get the screen width for drawing sword sprite
 		HitboxTimer = GetNode<Godot.Timer>("HitboxTimer");
 		thrownScene = GD.Load<PackedScene>("res://Scenes/Subscenes/Character/Projectiles/ThrownWeapon.tscn");
-		root = (Node2D) GetTree().Root.GetChild(0);
+		root = (Node2D) GetTree().Root.GetChild(-1);
 	}
 	
 	public override void _Process(double delta){
