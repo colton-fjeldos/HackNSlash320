@@ -44,6 +44,9 @@ public partial class controlled1 : CharacterBody2D
 	
 	private WeaponManager weaponManager;
 	
+	//this is the dashBar timer graphical interface
+	private TimerBar myTimer;
+	
 	private int playerHealth = 100;
 	private int maxHealth = 100;
 	
@@ -61,7 +64,10 @@ public partial class controlled1 : CharacterBody2D
 		this.SetCollisionLayerValue(3,true);
 		weaponManager = GetNode<WeaponManager>("WeaponManager");
 		maxHealth = 100; //modifiers can be added here from skill tree
-		playerHealth = maxHealth; 
+		playerHealth = maxHealth;
+		//create a timerBar and initialize it with player pixel values.
+		myTimer = GetNode<TimerBar>("TimerBar");
+		myTimer.startFunc(33f,0f);
 	}
 	
 	//The way invulnerability works is that multiple types of invuln don't stack,
@@ -81,6 +87,7 @@ public partial class controlled1 : CharacterBody2D
 	//Dash recharge rate for overall dash recharge
 	public async Task dashBarTimer(){
 		await Task.Delay(TimeSpan.FromMilliseconds(dashLongCharge));
+		myTimer.updateBar(16.5f,1);
 		dashRecharge++;
 		return;
 	}
@@ -105,6 +112,7 @@ public partial class controlled1 : CharacterBody2D
 			velocity = (direction.Normalized() * 1000);
 			dashRecharge--;
 			invulnerability(dashLength);
+			myTimer.updateBar(16.5f,0);
 			dashInstanceTimer();
 			dashBarTimer();
 			
