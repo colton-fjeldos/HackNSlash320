@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://uu0gcmtbplm1"]
+
+[ext_resource type="Script" path="res://Scripts/randomLevel.gd" id="1_fjb1b"]
+[ext_resource type="Texture2D" uid="uid://dapuo4mpk18u3" path="res://icon.svg" id="1_pbeao"]
+
+[node name="Room" type="Node2D"]
+script = ExtResource("1_fjb1b")
+
+[node name="Boders" type="Node" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Boders"]
+position = Vector2(1.52588e-05, -260)
+scale = Vector2(4, 0.0625)
+texture = ExtResource("1_pbeao")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Boders"]
+position = Vector2(0, 256)
+scale = Vector2(4, 0.0625)
+texture = ExtResource("1_pbeao")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Boders"]
+position = Vector2(-256, -9.53674e-07)
+rotation = 1.5708
+scale = Vector2(4, 0.0625)
+texture = ExtResource("1_pbeao")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Boders"]
+position = Vector2(256, -9.53674e-07)
+rotation = 1.5708
+scale = Vector2(4, 0.0625)
+texture = ExtResource("1_pbeao")
+
+[node name="StartPositions" type="Node" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="StartPositions"]
+position = Vector2(-192, -192)
+scale = Vector2(0.045, 0.045)
+texture = ExtResource("1_pbeao")
+
+[node name="Sprite2D2" type="Sprite2D" parent="StartPositions"]
+position = Vector2(-64, -192)
+scale = Vector2(0.045, 0.045)
+texture = ExtResource("1_pbeao")
+
+[node name="Sprite2D3" type="Sprite2D" parent="StartPositions"]
+position = Vector2(64, -192)
+scale = Vector2(0.045, 0.045)
+texture = ExtResource("1_pbeao")
+
+[node name="Sprite2D4" type="Sprite2D" parent="StartPositions"]
+position = Vector2(192, -192)
+scale = Vector2(0.045, 0.045)
+texture = ExtResource("1_pbeao")
