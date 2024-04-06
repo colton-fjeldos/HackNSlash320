@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://m038w8sqj84p"]
+[gd_scene load_steps=11 format=3 uid="uid://m038w8sqj84p"]
 
 [ext_resource type="Script" path="res://Scripts/controlled1.cs" id="1_f3x4s"]
 [ext_resource type="Texture2D" uid="uid://n78ldru40qme" path="res://Textures/Filler Character Image.png" id="1_swj3o"]
 [ext_resource type="Script" path="res://Scripts/CameraController.cs" id="3_kj26r"]
 [ext_resource type="Script" path="res://Scripts/WeaponManager.cs" id="4_tfpqi"]
+[ext_resource type="Script" path="res://Scenes/skillTree.gd" id="7_jv2pb"]
 [ext_resource type="PackedScene" uid="uid://k518oatcttrq" path="res://Scenes/Subscenes/Interactables/InteractArea.tscn" id="7_uvfh6"]
 [ext_resource type="Script" path="res://Scripts/Interactions/CharacterInteractArea.cs" id="8_c5q5l"]
 
@@ -70,5 +71,13 @@ script = ExtResource("8_c5q5l")
 
 [node name="InteractCS2D" type="CollisionShape2D" parent="InteractArea"]
 shape = SubResource("RectangleShape2D_jjc8b")
+
+[node name="Control" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("7_jv2pb")
 
 [connection signal="timeout" from="WeaponManager/HitboxTimer" to="WeaponManager" method="OnHitboxTimerTimeout"]

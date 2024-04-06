@@ -51,6 +51,10 @@ public partial class controlled1 : CharacterBody2D
 	
 	//velocity is a shared variable
 	Vector2 velocity;
+	
+	// Exported dictionary for skills
+	//[Export]
+	//public Dictionary<string, Dictionary<string, object>> Skills { get; set; }
 
 
 	public override void _Ready()
@@ -62,6 +66,22 @@ public partial class controlled1 : CharacterBody2D
 		weaponManager = GetNode<WeaponManager>("WeaponManager");
 		maxHealth = 100; //modifiers can be added here from skill tree
 		playerHealth = maxHealth; 
+		
+		// Get a reference to the SkillTree node path
+		Node skillTree = GetNode<Node>("/root/Node2D/CanvasLayer2/SkillTree");
+		
+		if (skillTree != null)
+		{
+			// Print a message to indicate that the reference was successfully obtained
+			GD.Print("Reference to SkillTree node obtained successfully.");
+		}
+		else
+		{
+			// Print a message to indicate that the reference could not be obtained
+		GD.Print("Failed to obtain reference to SkillTree node.");
+		}
+		
+		
 	}
 	
 	//The way invulnerability works is that multiple types of invuln don't stack,

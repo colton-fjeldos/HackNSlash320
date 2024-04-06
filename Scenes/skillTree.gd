@@ -2,29 +2,31 @@ extends Control
 
 var isSkillTreeVisible
 var skillTree
-
+signal skill_checked
 
 
 func _ready():
 	skillTree = $"."
 	isSkillTreeVisible = false
 	skillTree.hide()
-	$AnimationPlayer.play("RESET")
+	#$AnimationPlayer.play("RESET")
+	print(get_path())
 
-var Skills: Dictionary = {
+@export var Skills: Dictionary = {
 	"Health Boost":{
 		"unlock": false,
 		"level": 0
 	},
 	"Speed Boost":{
-		"unclock": false,
+		"unlock": false,
 		"level": 0
 	},
 	"Damage Boost":{
-		"unclock": false,
+		"unlock": false,
 		"level": 0
 	}
 }
+
 
 
 func setUnlock(skill: String, level: int):
@@ -32,8 +34,23 @@ func setUnlock(skill: String, level: int):
 		Skills[skill]["unlock"] = true
 		Skills[skill]["level"] = level
 		
-func checkSKill(skill: String) -> bool:
-	return Skills[skill]["unlock"]
+
+func checkSkill(skill: String) -> bool:
+	if skill in Skills:
+		return Skills[skill]["unlock"]
+	else:
+		print("Skill not found:", skill)
+		return false
+
+
+#func checkSkill(skillName: String):
+#	var unlocked = checkSkillInternal(skillName)
+#	emit_signal("skill_checked", skillName, unlocked)
+
+
+#func checkSkillInternal(skill: String) -> bool:
+#	return Skills[skill]["unlock"]
+
 	
 	
 
