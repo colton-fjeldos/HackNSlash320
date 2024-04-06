@@ -1,3 +1,26 @@
-[gd_scene format=3 uid="uid://c8mmf0fn1co8f"]
+[gd_scene load_steps=4 format=3 uid="uid://dd1wgof7rh7rr"]
 
-[node name="EnemyAi" type="Node2D"]
+[ext_resource type="Script" path="res://Scripts/arrow.gd" id="1_q2a4x"]
+[ext_resource type="Texture2D" uid="uid://dapuo4mpk18u3" path="res://icon.svg" id="2_qnbix"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f8eul"]
+size = Vector2(32, 2)
+
+[node name="Arrow" type="Area2D"]
+script = ExtResource("1_q2a4x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(0.501132, 0.44545)
+rotation = 1.5708
+scale = Vector2(0.0147727, 0.246111)
+texture = ExtResource("2_qnbix")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_f8eul")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(-2.38419e-07, 0)
+scale = Vector2(1.6, 0.1)
+
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]
