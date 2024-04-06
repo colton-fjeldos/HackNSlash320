@@ -65,7 +65,6 @@ public partial class WeaponManager : Node2D
 			if (hasWeapon){
 				var screen = GetViewport();
 				RigidBody2D thrownItem = (RigidBody2D) thrownScene.Instantiate();
-				GD.Print(GlobalPosition);
 				thrownItem.Position = GlobalPosition;
 				NodeLookAtMouse(thrownItem);
 				thrownItem.Rotation += 45;

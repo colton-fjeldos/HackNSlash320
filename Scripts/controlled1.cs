@@ -29,6 +29,8 @@ public partial class controlled1 : CharacterBody2D
 	//direction vector for normalized dashing movement
 	Vector2 direction = Vector2.Zero;
 	
+
+	
 	
 	//double jump capability. Currently used like a bool
 	//but stored as an int in case we want to add conditional triple jump
@@ -54,6 +56,9 @@ public partial class controlled1 : CharacterBody2D
 	
 	//velocity is a shared variable
 	Vector2 velocity;
+	
+	PackedScene deathScene;
+	Node2D root;
 
 
 	public override void _Ready()
@@ -68,6 +73,9 @@ public partial class controlled1 : CharacterBody2D
 		//create a timerBar and initialize it with player pixel values.
 		myTimer = GetNode<TimerBar>("TimerBar");
 		myTimer.startFunc(33f,0f);
+		
+		deathScene = GD.Load<PackedScene>("res://Scenes/Subscenes/Character/Projectiles/DeathScene.tscn");
+		root = (Node2D) GetTree().Root.GetChild(-1);
 	}
 	
 	//The way invulnerability works is that multiple types of invuln don't stack,
@@ -225,6 +233,8 @@ public partial class controlled1 : CharacterBody2D
 			weaponManager.Show();
 			weaponManager.ChangeSprites(objectPickup.HeldSprite, objectPickup.SwingSprite);
 			
+		} else if (Input.IsActionJustPressed("testdeath")){
+			handleDeath();
 		}
 	}
 	
@@ -232,8 +242,9 @@ public partial class controlled1 : CharacterBody2D
 	//grab that area's parent node, and call the function takeDamage on it.
 	public void takeDamage(int damageVal){
 		if (damageVal < 0) return;
+		if (!playerAlive) return;
 		//don't take damage in an invulnerability state
-		if (invulnerable!=0) return;
+		if (invulnerable != 0) return;
 		int newHealth = playerHealth - damageVal;
 		if (newHealth < 0) newHealth = 0;
 		playerHealth = newHealth;
@@ -258,6 +269,19 @@ public partial class controlled1 : CharacterBody2D
 	}
 	
 	private void handleDeath(){
-		GD.Print("TODO Character death");
+		Vector2 deathVelocity = new Vector2(velocity.X, -500);
+		var random = new RandomNumberGenerator();
+		random.Randomize();
+		RigidBody2D deadBody = (RigidBody2D) deathScene.Instantiate();
+		deadBody.Position = GlobalPosition;
+		
+		root.AddChild(deadBody);
+		deadBody.LinearVelocity = deathVelocity;
+		deadBody.AngularVelocity = random.Randfn() * 15;
+		this.Hide();
+		this.ProcessMode = (ProcessModeEnum) 4;
+		
+		//Probably open a pause menu, or some menu to restart level, or something!
+		
 	}
 }
