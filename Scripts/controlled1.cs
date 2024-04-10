@@ -48,7 +48,7 @@ public partial class controlled1 : CharacterBody2D
 	
 	//this is the dashBar timer graphical interface
 	private TimerBar myTimer;
-	
+	//starting values for health
 	private int playerHealth = 100;
 	private int maxHealth = 100;
 	
@@ -61,6 +61,9 @@ public partial class controlled1 : CharacterBody2D
 	Node2D root;
 
 
+	//ready sets:
+	//collision masks, initializes weapon manager, 
+	//health, the death scene and dashBar
 	public override void _Ready()
 	{
 		//manually set collision values upon ready for portability
@@ -94,6 +97,7 @@ public partial class controlled1 : CharacterBody2D
 	
 	//Dash recharge rate for overall dash recharge
 	public async Task dashBarTimer(){
+		//Await 5 seconds for recharge
 		await Task.Delay(TimeSpan.FromMilliseconds(dashLongCharge));
 		myTimer.updateBar(16.5f,1);
 		dashRecharge++;
@@ -112,15 +116,23 @@ public partial class controlled1 : CharacterBody2D
 	//dash function, moves the players, sets bools then calls 
 	//timers for dash recharge and refractory period
 	public void dashFunc(){
+		//dash if we have charges, araen't dashing, and alive
 		if ((dashRecharge > 0) 
 		&& dashAvailable && playerAlive){
+			//isDashing to track dash time
 			isDashing = true;
+			//dash availablility for any states that might stop dash, such as already dashing
 			dashAvailable= false;
+			//change collision mask to move through enemies
 			this.SetCollisionMaskValue(3,false);
+			//check direction and move rapidly in that direction
 			velocity = (direction.Normalized() * 1000);
+			//one less dash for long dash charge, if 0 cannot dash.
 			dashRecharge--;
+			//be invulnerable for the dash length and half the bar
 			invulnerability(dashLength);
 			myTimer.updateBar(16.5f,0);
+			//call await function
 			dashInstanceTimer();
 			dashBarTimer();
 			
@@ -152,16 +164,18 @@ public partial class controlled1 : CharacterBody2D
 	public void setDown(){
 		direction = Vector2.Down;
 	}
+	//grab velocity value for analysis of movement functionality
 	public float velocityFunc(){
 		float temp = velocity.X;
 		return temp;
 	}	
 	
 	//physics for controlled character
+	//uses the character functions for dash, jump, and directional setters
+	//also useable for any function that needs to be checked every frame
 	public override void _PhysicsProcess(double delta){
-		//if not dashing
+		//if not dashing, set velocity (to avoid velocity conflicts)
 		if (!isDashing){
-		//set velocity
 		Vector2 velocity = Velocity;
 		}
 		if (!playerAlive){
@@ -169,9 +183,11 @@ public partial class controlled1 : CharacterBody2D
 		}
 		//if its in the air fall, or check for DJ
 		if (!IsOnFloor()){
+			//if not on the floor, set the gravity
 			velocity.Y += gravity * (float)delta;
 			if (Input.IsActionJustPressed("ui_up") && doubleJump ==1){
 				doubleJump = 0;
+				//the second jump is slightly higher than the first
 				velocity.Y = (float)-(jump*1.1);
 			}
 			
@@ -182,6 +198,7 @@ public partial class controlled1 : CharacterBody2D
 				doubleJump = 1;
 				
 		}
+		//call the dash function
 		if (Input.IsActionJustPressed("ui_down")){
 			dashFunc();
 		}
@@ -208,6 +225,7 @@ public partial class controlled1 : CharacterBody2D
 				velocity.X=0;
 			}
 			else{
+				//smooth slide stop
 				velocity.X = Mathf.Lerp(velocity.X, (0), (float).2);
 				
 			}
