@@ -164,6 +164,7 @@ position = Vector2(42, 590)
 
 [node name="Slime" parent="." instance=ExtResource("4_3mp32")]
 position = Vector2(233, 602)
+collision_layer = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
