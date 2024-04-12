@@ -17,8 +17,3 @@ func _process(delta):
 		print("Pause!")
 		get_tree().paused = true
 		Global.is_pause_menu_open = true
-		menu = 2
-	pass
-
-
-

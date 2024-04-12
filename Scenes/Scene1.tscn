@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cti3llu71ljg0"]
+[gd_scene load_steps=19 format=3 uid="uid://cti3llu71ljg0"]
 
 [ext_resource type="Script" path="res://Scripts/sceneScripts/Scene1.gd" id="1_54ohx"]
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Tilemaps/Dark Pallette.png" id="1_t23mu"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cxm8abaww5v45" path="res://Scenes/skillTree.tscn" id="10_fnmfv"]
 [ext_resource type="Script" path="res://Scenes/Panel.gd" id="11_d5jqt"]
 [ext_resource type="FontFile" uid="uid://70rlmkas7auv" path="res://Textures/Fonts/joystix monospace.otf" id="11_o3url"]
+[ext_resource type="PackedScene" uid="uid://dhaqw3hc685qm" path="res://Resources/Animations.tscn" id="13_ltyoa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5x2m1"]
 texture = ExtResource("1_t23mu")
@@ -247,6 +248,8 @@ offset_bottom = 24.0
 theme_override_fonts/font = SubResource("FontVariation_ygrki")
 text = "000"
 horizontal_alignment = 2
+
+[node name="SlideAnimation" parent="." groups=["Animations"] instance=ExtResource("13_ltyoa")]
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]

@@ -11,7 +11,8 @@ func _ready():
 func _process(delta):
 	if inRange:
 		if Input.is_action_just_pressed("interact"):
-			get_tree().change_scene_to_file("res://Scenes/Scene2.tscn")
+			print("Running global function!")
+			AnimationScene.change_scene("res://Scenes/Scene2.tscn","slide")
 	pass
 
 

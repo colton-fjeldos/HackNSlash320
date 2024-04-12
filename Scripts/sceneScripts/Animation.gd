@@ -1,11 +1,17 @@
-extends Control
-
+extends CanvasLayer
+var player
+var root
+var bigBox
+var smolBoxes
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$".".hide()
-	pass # Replace with function body.
-
+	player = $SlideAnimation/AnimationPlayer
+	root = $SlideAnimation
+	root.hide()
+	player.play("RESET")
+	bigBox = $SlideAnimation/AnimationPlayer/ColorRect
+	smolBoxes = $SlideAnimation/AnimationPlayer/ColorRect2
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -19,17 +25,23 @@ func change_scene(target: String, type: String):
 	pass
 
 func transitionSlide(target: String):
-	$".".show()
-	$AnimationPlayer.play('SlideIn')
-	await($AnimationPlayer)
+	root.show()
+	bigBox.show()
+	smolBoxes.show()
+	player.play('SlideIn')
+	await(player)
 	get_tree().change_scene_to_file(target)
-	$AnimationPlayer.play('SlideOut')
-	$".".hide()
+	player.play('SlideOut')
+	bigBox.hide()
+	smolBoxes.hide()
+	root.hide()
 
 func transitionFade(target: String):
-	$".".show()
-	$AnimationPlayer.play('FadeIn')
-	await($AnimationPlayer)
+	root.show()
+	bigBox.show()
+	player.play('FadeIn')
+	await(player)
 	get_tree().change_scene_to_file(target)
-	$AnimationPlayer.play('FadeOut')
-	$".".hide()
+	player.play('FadeOut')
+	bigBox.hide()
+	root.hide()
