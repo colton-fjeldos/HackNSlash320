@@ -18,9 +18,9 @@ size = Vector2(10.525, 18)
 size = Vector2(32, 32)
 
 [node name="controlled1" type="CharacterBody2D" node_paths=PackedStringArray("playerInteract")]
-position = Vector2(1, 1)
-collision_layer = 4
-collision_mask = 5
+position = Vector2(6, -2)
+collision_layer = 12
+collision_mask = 13
 script = ExtResource("1_f3x4s")
 playerInteract = NodePath("InteractArea")
 metadata/_edit_group_ = true
@@ -36,7 +36,6 @@ zoom = Vector2(1.5, 1.5)
 script = ExtResource("3_kj26r")
 
 [node name="WeaponManager" type="Node2D" parent="."]
-visible = false
 script = ExtResource("4_tfpqi")
 
 [node name="WeaponSpriteWrapper" type="Node2D" parent="WeaponManager"]
@@ -48,8 +47,9 @@ position = Vector2(15.64, -4.61)
 scale = Vector2(2.5, 2.5)
 
 [node name="WeaponHitbox" type="Area2D" parent="WeaponManager"]
-visible = false
 show_behind_parent = true
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponManager/WeaponHitbox"]
 show_behind_parent = true
@@ -79,4 +79,5 @@ width = 5.0
 default_color = Color(0.172549, 1, 1, 1)
 script = ExtResource("7_l4k3f")
 
+[connection signal="body_entered" from="WeaponManager/WeaponHitbox" to="WeaponManager" method="_on_weapon_hitbox_body_entered"]
 [connection signal="timeout" from="WeaponManager/HitboxTimer" to="WeaponManager" method="OnHitboxTimerTimeout"]
