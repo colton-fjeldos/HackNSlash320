@@ -1,9 +1,12 @@
 using Godot;
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 public partial class controlled1 : CharacterBody2D
 {
+	private Dictionary<string, Dictionary<string, object>> Skills;
+	
 	//stored float values for easy changing
 	public static float movementMax = 350.0f;
 	
@@ -55,6 +58,18 @@ public partial class controlled1 : CharacterBody2D
 	// Exported dictionary for skills
 	//[Export]
 	//public Dictionary<string, Dictionary<string, object>> Skills { get; set; }
+	
+	// Define variables for each skill node
+	private bool healthBoostUnlocked = false;
+	private int healthBoostLevel = 0;
+	
+	private bool speedBoostUnlocked = false;
+	private int speedBoostLevel = 0;
+	
+	private bool damageBoostUnlocked = false;
+	private int damageBoostLevel = 0;
+
+	
 
 
 	public override void _Ready()
@@ -70,18 +85,23 @@ public partial class controlled1 : CharacterBody2D
 		// Get a reference to the SkillTree node path
 		Node skillTree = GetNode<Node>("/root/Node2D/CanvasLayer2/SkillTree");
 		
+		// Check if the reference to the SkillTree node is not null
 		if (skillTree != null)
 		{
-			// Print a message to indicate that the reference was successfully obtained
-			GD.Print("Reference to SkillTree node obtained successfully.");
+			// Get the exported Skills dictionary from the SkillTree node
+			object skillsVariant = skillTree.Get("Skills");
+			
+			string skillsString = skillsVariant.ToString();
+			
+			GD.Print("Skills Dictionary:", skillsVariant);
+			
+			// Parse the string to extract skill information
+			ParseSkillsString(skillsString);
 		}
 		else
 		{
-			// Print a message to indicate that the reference could not be obtained
-		GD.Print("Failed to obtain reference to SkillTree node.");
+			GD.Print("Failed to obtain reference to SkillTree node.");
 		}
-		
-		
 	}
 	
 	//The way invulnerability works is that multiple types of invuln don't stack,
@@ -271,5 +291,76 @@ public partial class controlled1 : CharacterBody2D
 	
 	private void handleDeath(){
 		GD.Print("TODO Character death");
+	}
+	
+	// Method to parse the string representation of the skills dictionary
+	private void ParseSkillsString(string skillsString)
+	{
+		// Remove unwanted characters from the string
+		skillsString = skillsString.Replace("{", "").Replace("}", "").Replace("\"", "").Trim();
+		// Split the string by comma to get individual skill entries
+		string[] skillEntries = skillsString.Split(',');
+		
+		// Iterate over each skill entry
+		foreach (string entry in skillEntries)
+		{
+			// Split the entry by colon to separate skill name and properties
+			string[] parts = entry.Split(':');
+					
+			// Extract skill name
+			string skillName = parts[0].Trim();
+			
+			// Skip the skill if it is the "level" property
+			if (skillName.Equals("level", StringComparison.OrdinalIgnoreCase))
+			{
+				continue;
+			}
+			
+			// Extract properties
+			string[] properties = parts[1].Split(',');
+			
+			// Initialize unlock status
+			bool unlock = false;
+			
+			// Iterate over properties to find the unlock status
+			foreach (string prop in properties)
+			{
+				if (prop.Trim().Equals("unlock: true", StringComparison.OrdinalIgnoreCase))
+				{
+					unlock = true;
+					break;
+				}
+			}
+			
+			// Update the variables for each skill node based on its status
+			 if (skillName == "Health Boost")
+			{
+				if (unlock)
+				{
+					GD.Print("Health Boost unlocked!");
+				}
+				 healthBoostUnlocked = unlock;
+			}
+			else if (skillName == "Speed Boost")
+			{
+				if (unlock && !speedBoostUnlocked)
+				{
+					GD.Print("Speed Boost unlocked!");
+				}
+				speedBoostUnlocked = unlock;
+			}
+			else if (skillName == "Damage Boost")
+			{
+				if (unlock && !damageBoostUnlocked)
+				{
+					GD.Print("Damage Boost unlocked!");
+				}
+				damageBoostUnlocked = unlock;
+			}
+			
+			// Print the extracted information
+			GD.Print("Skill:", skillName);
+			GD.Print("Unlock:", unlock);
+		}
 	}
 }

@@ -1,5 +1,7 @@
 extends TextureButton
 class_name SkillNode
+signal checkSkill(skillName)
+
 
 
 @onready var panel = $Panel
@@ -27,6 +29,8 @@ func _on_pressed():
 			var SkillTree = get_tree().get_first_node_in_group("SkillTree")
 			SkillTree.setUnlock(SkillName, level)
 			print(SkillName)
+			print("Unlocked:", SkillTree.checkSkill(SkillName));
+			
 			#var unlock: bool = SkillTree.checkSkill("Health Boost")
 			#match unlock:
 			#	true:
@@ -47,6 +51,13 @@ func _on_pressed():
 			level = 0
 			panel.show_behind_parent = false
 			line_2d.default_color = Color(1, 1, 1)
+			
+			
+			var SkillTree = get_tree().get_first_node_in_group("SkillTree")
+			SkillTree.setLock(SkillName)
+			
+			print(SkillName)
+			print("Unlocked:", SkillTree.checkSkill(SkillName));
 		
 			var skills = get_children()
 			for skill in skills:

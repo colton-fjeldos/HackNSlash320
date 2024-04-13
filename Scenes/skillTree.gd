@@ -2,7 +2,8 @@ extends Control
 
 var isSkillTreeVisible
 var skillTree
-signal skill_checked
+
+
 
 
 func _ready():
@@ -34,6 +35,11 @@ func setUnlock(skill: String, level: int):
 		Skills[skill]["unlock"] = true
 		Skills[skill]["level"] = level
 		
+
+func setLock(skill: String):
+	if skill in Skills.keys():
+		Skills[skill]["unlock"] = false
+		Skills[skill]["level"] = 0
 
 func checkSkill(skill: String) -> bool:
 	if skill in Skills:
