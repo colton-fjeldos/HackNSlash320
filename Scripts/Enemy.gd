@@ -94,7 +94,7 @@ func _chase():
 		if _enemyMovement[0].y == _enemyMovement[1].y or _enemyMovement.size() == 2:
 			if (abs(_enemyMovement[0].x - global_position.x) < abs(_enemyMovement[0].x - _enemyMovement[1].x)):
 				nextPos = _enemyMovement[1]
-				print ("nextPos: ", nextPos, " enemyPos: ", global_position)
+				#print ("nextPos: ", nextPos, " enemyPos: ", global_position)
 				
 		#if (abs(_enemyMovement[0].x - global_position.x) < 4):
 				#nextPos = _enemyMovement[1]
@@ -154,6 +154,7 @@ func _playerInAttackRange(enemyPos, playerPos):
 
 
 func _on_area_2d_body_entered(body):
+	print("attacking player")
 	var _player = get_parent().get_node("controlled1")
 	_player.takeDamage(20)
 

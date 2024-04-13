@@ -78,6 +78,8 @@ public partial class controlled1 : CharacterBody2D
 		myTimer.startFunc(33f,0f);
 		
 		deathScene = GD.Load<PackedScene>("res://Scenes/Subscenes/Character/Projectiles/DeathScene.tscn");
+		GD.Print(deathScene);
+		
 		root = (Node2D) GetTree().Root.GetChild(-1);
 	}
 	
@@ -266,6 +268,7 @@ public partial class controlled1 : CharacterBody2D
 		int newHealth = playerHealth - damageVal;
 		if (newHealth < 0) newHealth = 0;
 		playerHealth = newHealth;
+		GD.Print("Player took " + damageVal + " damage, now has " + playerHealth + " health");
 		updateAliveStatus();
 	}
 	
