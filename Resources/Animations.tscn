@@ -362,7 +362,9 @@ _data = {
 "SlideOut": SubResource("Animation_t5fh7")
 }
 
-[node name="SlideAnimation" type="CanvasLayer"]
+[node name="SlideAnimation" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_x44x3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

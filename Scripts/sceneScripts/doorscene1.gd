@@ -12,7 +12,7 @@ func _process(delta):
 	if inRange:
 		if Input.is_action_just_pressed("interact"):
 			print("Running global function!")
-			AnimationScene.change_scene("res://Scenes/Scene2.tscn","slide")
+			GlobalAnimation.change_scene("res://Scenes/Scene2.tscn","slide")
 	pass
 
 

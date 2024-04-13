@@ -17,9 +17,9 @@ config/icon="res://Textures/icon.png"
 
 [autoload]
 
+GlobalAnimationScene="res://Scenes/Subscenes/Animation Scenes/Animation.tscn"
 GlobalAnimation="*res://Scripts/sceneScripts/Animation.gd"
 Global="*res://Scripts/Global.gd"
-AnimationScene="*res://Resources/Animations.tscn"
 
 [debug]
 
