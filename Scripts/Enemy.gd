@@ -181,7 +181,10 @@ func _playerInAttackRange(enemyPos, playerPos):
 		return true
 	return false
 
-
+func _on_area_2d_body_entered(body):
+	print("attacking player")
+	var _player = get_parent().get_node("controlled1")
+	_player.takeDamage(20)
 
 func updateHealth(damage):
 	_health = _health - damage

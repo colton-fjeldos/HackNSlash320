@@ -3,9 +3,11 @@ using System;
 
 public partial class TimerBar : Line2D
 {
-	
+	//base vector that sets its original position
 	private Vector2 point1 = new Vector2(0f,0f);
+	//second adjustable point
 	private Vector2 point2;
+	//bar starts at 33 pixels, current length of character model
 	private float bar = 33.0f;
 	
 	
