@@ -149,9 +149,6 @@ func _jump(pos1, pos2):
 	tween.tween_property(self, "global_position", pos2, duration2).set_trans(Tween.TRANS_LINEAR)
 	tween.set_ease( Tween.EASE_IN_OUT)
 	
-	#if !tween.is_running():
-	#tween.tween_property(self, "global_position", pos1, 1)
-	#tween.tween_property(self, "global_position", pos2, 1)
 	
 	
 	
