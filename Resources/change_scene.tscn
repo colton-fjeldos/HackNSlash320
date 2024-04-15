@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dhaqw3hc685qm"]
 
-[ext_resource type="Script" path="res://Scripts/sceneScripts/Animation.gd" id="1_x44x3"]
+[ext_resource type="Script" path="res://Scripts/sceneScripts/Scene_Change.gd" id="1_yk3hc"]
 
 [sub_resource type="Animation" id="Animation_t76ew"]
 resource_name = "FadeIn"
@@ -92,7 +92,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0, 0, 1)]
+"values": [Color(0, 0, 0, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -104,7 +104,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0, 0, 1)]
+"values": [Color(0, 0, 0, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -116,7 +116,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0, 0, 1)]
+"values": [Color(0, 0, 0, 0)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -128,7 +128,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0, 0, 1)]
+"values": [Color(0, 0, 0, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -140,7 +140,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0, 0, 1)]
+"values": [Color(0, 0, 0, 0)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
@@ -152,7 +152,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0, 0, 1)]
+"values": [Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_2tif1"]
@@ -362,60 +362,64 @@ _data = {
 "SlideOut": SubResource("Animation_t5fh7")
 }
 
-[node name="SlideAnimation" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("1_x44x3")
+[node name="change_scene" type="Node"]
+script = ExtResource("1_yk3hc")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationScene" type="AnimationPlayer" parent="."]
 root_node = NodePath("ColorRect")
 libraries = {
 "": SubResource("AnimationLibrary_c7cvl")
 }
 
-[node name="ColorRect" type="ColorRect" parent="AnimationPlayer"]
-visible = false
+[node name="ColorRect" type="ColorRect" parent="AnimationScene"]
 self_modulate = Color(0, 0, 0, 1)
 offset_right = 1161.0
 offset_bottom = 656.0
-color = Color(0, 0, 0, 1)
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
 
-[node name="ColorRect2" type="ColorRect" parent="AnimationPlayer"]
-visible = false
+[node name="ColorRect2" type="ColorRect" parent="AnimationScene"]
 offset_top = -57.0
 offset_right = 155.0
 offset_bottom = 102.0
 rotation = 0.785398
-color = Color(0, 0, 0, 1)
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
 
-[node name="ColorRect3" type="ColorRect" parent="AnimationPlayer/ColorRect2"]
+[node name="ColorRect3" type="ColorRect" parent="AnimationScene/ColorRect2"]
 layout_mode = 0
 offset_left = 101.0
 offset_top = 98.0
 offset_right = 257.0
 offset_bottom = 258.0
-color = Color(0, 0, 0, 1)
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
 
-[node name="ColorRect4" type="ColorRect" parent="AnimationPlayer/ColorRect2/ColorRect3"]
+[node name="ColorRect4" type="ColorRect" parent="AnimationScene/ColorRect2/ColorRect3"]
 layout_mode = 0
 offset_left = 84.1457
 offset_top = 86.9742
 offset_right = 239.146
 offset_bottom = 245.974
-color = Color(0, 0, 0, 1)
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
 
-[node name="ColorRect5" type="ColorRect" parent="AnimationPlayer/ColorRect2/ColorRect3/ColorRect4"]
+[node name="ColorRect5" type="ColorRect" parent="AnimationScene/ColorRect2/ColorRect3/ColorRect4"]
 layout_mode = 0
 offset_left = 101.116
 offset_top = 98.2878
 offset_right = 256.116
 offset_bottom = 257.288
-color = Color(0, 0, 0, 1)
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
 
-[node name="ColorRect6" type="ColorRect" parent="AnimationPlayer/ColorRect2/ColorRect3/ColorRect4/ColorRect5"]
+[node name="ColorRect6" type="ColorRect" parent="AnimationScene/ColorRect2/ColorRect3/ColorRect4/ColorRect5"]
 layout_mode = 0
 offset_left = 91.9239
 offset_top = 86.2671
 offset_right = 246.924
 offset_bottom = 245.267
-color = Color(0, 0, 0, 1)
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[connection signal="animation_finished" from="AnimationScene" to="." method="_on_animation_scene_animation_finished"]
