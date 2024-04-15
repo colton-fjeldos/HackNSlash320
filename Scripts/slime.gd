@@ -14,7 +14,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	position += ((player.position - position)/SPEED) * delta * 75
+	#position += ((player.position - position)/SPEED) * delta * 75
 
 	move_and_slide()
 	
