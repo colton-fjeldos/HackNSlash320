@@ -9,13 +9,13 @@ var _inChase = false
 var _pathfinder
 var isJumping = false
 var processCount = 0
+var second = Vector2.ZERO
 var buffer
 
 enum States {idle, patrolling, chasing, attacking}
 var state = States.patrolling
 
 func _ready():
-	
 	_stateUpdate()
 	_player = get_parent().get_node("controlled1")
 	_pathfinder = get_parent().get_node("Pathfinder")
@@ -23,7 +23,8 @@ func _ready():
 func _physics_process(delta):
 	
 	if(!is_on_floor()):
-		velocity.y += _gravity * delta
+		
+		velocity.y += 480 * delta
 		move_and_slide()
 	
 	if(global_position.y > 630):
@@ -46,7 +47,7 @@ func _physics_process(delta):
 			_chase()
 			
 	if state == States.attacking:
-		_giveDamage()
+		_player.takeDamage(0.5)
 
 
 func _stateUpdate():
@@ -83,21 +84,25 @@ func _patrol():
 
 func _chase():
 	var chaseSpeed = 70
-	var jumpForce = -200
+	#var jumpForce = -200
 	var ii = 0
+	var sameY = false
+
 	
 	
+	if (processCount == 0 and !_player.is_on_floor()):
+		return
+		
 	var _enemyMovement = _pathfinder.getPath(global_position, _player.global_position)
 	_enemyMovement.push_back(_player.global_position)
+	
 	var nextPos = _enemyMovement[ii]
 	
-	if (processCount == 0):
+	if (processCount == 0 and is_on_floor()):
 			buffer = global_position.y - _enemyMovement[0].y
+			print (_player.global_position.y - _enemyMovement[0].y)
 			processCount = 1
 			
-	
-	#print (_enemyMovement[0])
-	print(_player.global_position)
 	
 	if(_enemyMovement.size() > 1):
 		if _enemyMovement[0].y == _enemyMovement[1].y or _enemyMovement.size() == 2:
@@ -112,28 +117,57 @@ func _chase():
 				nextPos = _enemyMovement[1]
 				#print (" 2 ", _enemyMovement)
 				#print()
-		#print(nextPos, " ", global_position.x, ",", (global_position.y - buffer))
-
+		
+		
+		#print(nextPos, " ", global_position.x, ",", (global_position.y))
 		if !(nextPos.y + 1 >= (global_position.y - buffer)) and _player.is_on_floor() and is_on_floor():
 			isJumping = true
-			nextPos.y = nextPos.y + buffer
 			var secondPos = _enemyMovement[ii + 1]
 			secondPos.y = secondPos.y + buffer
+			nextPos.y = nextPos.y + buffer
+			second = secondPos
+			if (secondPos.x <= nextPos.x):
+				$Run.flip_h = true
+			else:
+				$Run.flip_h = false
 			_jump(nextPos, secondPos)
+			
+			
+		if isJumping:
+			if (global_position.distance_to(second) == 0):
+				isJumping = false
+		
 		else:
-			isJumping = false
-		
-	if (nextPos.x <= global_position.x):
-		$Run.flip_h = true
-		velocity.x = -1 * chaseSpeed
-		if !$LeftRaycast.is_colliding() and is_on_floor() and !isJumping:
-			velocity.y = jumpForce
-		
-	else:
-		$Run.flip_h = false
-		velocity.x = chaseSpeed
-		if !$RightRaycast.is_colliding() and is_on_floor() and !isJumping: 
-			velocity.y = jumpForce
+			var jumpForce = abs(global_position.x - nextPos.x) * -1.75
+			#print(_enemyMovement.size())
+			if (nextPos.x <= global_position.x):
+				if !isJumping:
+					$Run.flip_h = true
+				velocity.x = -1 * chaseSpeed
+				if !$LeftRaycast.is_colliding() and is_on_floor() and $RightRaycast.is_colliding():
+					
+					if(_enemyMovement.size() > (ii + 1)):
+						var secondPos = _enemyMovement[ii + 1]
+						if (nextPos.y == secondPos.y or secondPos == _player.global_position):
+							print(jumpForce)
+							velocity.y = jumpForce
+					elif(_enemyMovement.size() > 2):
+						print(jumpForce)
+						velocity.y = jumpForce
+				
+			else:
+				if !isJumping:
+					$Run.flip_h = false
+				velocity.x = chaseSpeed
+				if !$RightRaycast.is_colliding() and is_on_floor() and $LeftRaycast.is_colliding():# and !isJumping: 
+					if(_enemyMovement.size() > (ii + 1)):
+						var secondPos = _enemyMovement[ii + 1]
+						if (nextPos.y == secondPos.y or secondPos == _player.global_position):
+							print(nextPos.x, global_position.x)
+							velocity.y = jumpForce
+					elif(_enemyMovement.size() > 2):
+						print(nextPos.x, global_position.x)
+						velocity.y = jumpForce
 			
 	move_and_slide()
 
@@ -145,16 +179,12 @@ func _jump(pos1, pos2):
 	tween.tween_property(self, "global_position", pos1, duration1).set_trans(Tween.TRANS_LINEAR)
 	tween.set_ease( Tween.EASE_IN_OUT)
 	
-	var duration2 = pos2.distance_to(global_position)/100
+	var duration2 = 0.2
 	tween.tween_property(self, "global_position", pos2, duration2).set_trans(Tween.TRANS_LINEAR)
 	tween.set_ease( Tween.EASE_IN_OUT)
 	
-	#if !tween.is_running():
-	#tween.tween_property(self, "global_position", pos1, 1)
-	#tween.tween_property(self, "global_position", pos2, 1)
-	
-	
-	
+
+
 func _attack():
 	
 	if (_player.global_position.x <= global_position.x):
@@ -181,21 +211,7 @@ func _playerInAttackRange(enemyPos, playerPos):
 		return true
 	return false
 
-func _on_area_2d_body_entered(body):
-	print("attacking player")
-	var _player = get_parent().get_node("controlled1")
-	_player.takeDamage(20)
-
 func updateHealth(damage):
 	_health = _health - damage
 	if _health <= 0:
 		queue_free()
-		
-		
-func _giveDamage():
-	#_player.takeDamage(1)
-	pass
-	#print (_player.playerHealth)
-
-
-

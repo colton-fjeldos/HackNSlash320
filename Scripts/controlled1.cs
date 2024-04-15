@@ -49,7 +49,7 @@ public partial class controlled1 : CharacterBody2D
 	//this is the dashBar timer graphical interface
 	private TimerBar myTimer;
 	//starting values for health
-	private int playerHealth = 100;
+	private float playerHealth = 100.0f;
 	private int maxHealth = 100;
 	
 	private bool playerAlive = true;
@@ -260,22 +260,22 @@ public partial class controlled1 : CharacterBody2D
 	
 	//If a projectile hits InteractArea, detects that its in the player group
 	//grab that area's parent node, and call the function takeDamage on it.
-	public void takeDamage(int damageVal){
+	public void takeDamage(float damageVal){
 		if (damageVal < 0) return;
 		if (!playerAlive) return;
 		//don't take damage in an invulnerability state
 		if (invulnerable != 0) return;
-		int newHealth = playerHealth - damageVal;
+		float newHealth = playerHealth - damageVal;
 		if (newHealth < 0) newHealth = 0;
 		playerHealth = newHealth;
 		GD.Print("Player took " + damageVal + " damage, now has " + playerHealth + " health");
 		updateAliveStatus();
 	}
 	
-	public void getHealed(int healVal){
+	public void getHealed(float healVal){
 		if (healVal < 0) return;
 		if (!playerAlive) return;
-		int newHealth = playerHealth + healVal;
+		float newHealth = playerHealth + healVal;
 		if (newHealth > 100) playerHealth = 100;
 		playerHealth = newHealth;
 		updateAliveStatus();
