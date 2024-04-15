@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 
 const SPEED = 100
+var _health = 100
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -16,4 +17,10 @@ func _physics_process(delta):
 	#position += ((player.position - position)/SPEED) * delta * 75
 
 	move_and_slide()
+	
+
+func updateHealth(damage):
+	_health = _health - damage
+	if _health <= 0:
+		queue_free()
 

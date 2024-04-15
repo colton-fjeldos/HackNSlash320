@@ -175,7 +175,8 @@ layer_0/tile_data = PackedInt32Array(2490369, 262144, 1, 2490370, 327680, 1, 249
 position = Vector2(59, 574)
 
 [node name="Slime" parent="." instance=ExtResource("4_s0t2i")]
-position = Vector2(233, 602)
+position = Vector2(252, 564)
+scale = Vector2(4, 4)
 collision_layer = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -206,6 +207,7 @@ position = Vector2(443, 549)
 visible = false
 
 [node name="Timer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Panel" type="Panel" parent="Timer"]
 offset_left = 332.0

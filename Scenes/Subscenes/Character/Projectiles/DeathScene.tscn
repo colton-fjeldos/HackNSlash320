@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwav3vse6cdw2"]
+
+[ext_resource type="Texture2D" uid="uid://n78ldru40qme" path="res://Textures/Filler Character Image.png" id="1_2wuau"]
+
+[node name="DeathScene" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_2wuau")
