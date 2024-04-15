@@ -112,6 +112,14 @@ public partial class WeaponManager : Node2D
 		if (body.IsInGroup("Enemy")) {
 			GD.Print("Damaging enemy!");
 			body.Call("updateHealth", weaponDamage);
+			
+			//calculate knockback direction
+			Vector2 direction = GlobalPosition.DirectionTo(body.GlobalPosition);
+			float knockbackStrength = 10;
+			Vector2 knockback = direction * knockbackStrength;
+			
+			//apply knockback to enemy
+			body.Call("applyKnockback", knockback);
 		}
 	}
 
