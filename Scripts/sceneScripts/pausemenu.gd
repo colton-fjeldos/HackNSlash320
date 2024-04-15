@@ -44,7 +44,7 @@ func _on_volume_slider_value_changed(value):
 
 func _on_reset_button_pressed():
 	resume()
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file("res://Scenes/Scene1.tscn")
 	Global.is_pause_menu_open = false
 
 func pause():

@@ -8,10 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://dwyh8u8hsyiqb" path="res://Scenes/Subscenes/Interactables/Weapons/sword.tscn" id="5_i4kdo"]
 [ext_resource type="PackedScene" uid="uid://dug8se1pqdmx1" path="res://Scenes/Subscenes/Interactables/Weapons/axe.tscn" id="7_oykya"]
 [ext_resource type="PackedScene" uid="uid://bsqven2pnpim5" path="res://Scenes/Subscenes/Interactables/Weapons/hammer.tscn" id="7_stg84"]
-[ext_resource type="Script" path="res://Scripts/sceneScripts/doorscene1.gd" id="7_ygax8"]
 [ext_resource type="PackedScene" uid="uid://cxm8abaww5v45" path="res://Scenes/skillTree.tscn" id="10_fnmfv"]
 [ext_resource type="Script" path="res://Scenes/Panel.gd" id="11_d5jqt"]
 [ext_resource type="FontFile" uid="uid://70rlmkas7auv" path="res://Textures/Fonts/joystix monospace.otf" id="11_o3url"]
+[ext_resource type="PackedScene" uid="uid://dhaqw3hc685qm" path="res://Resources/change_scene.tscn" id="12_wjcvf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5x2m1"]
 texture = ExtResource("1_t23mu")
@@ -161,7 +161,7 @@ base_font = ExtResource("11_o3url")
 [sub_resource type="FontVariation" id="FontVariation_ygrki"]
 base_font = ExtResource("11_o3url")
 
-[node name="Node2D" type="Node2D"]
+[node name="Scene1" type="Node2D"]
 script = ExtResource("1_54ohx")
 
 [node name="TileMap" type="TileMap" parent="." groups=["stage"]]
@@ -187,7 +187,6 @@ visible = false
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 5
 collision_mask = 5
-script = ExtResource("7_ygax8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(1126, 586.75)
@@ -250,5 +249,10 @@ theme_override_fonts/font = SubResource("FontVariation_ygrki")
 text = "00"
 horizontal_alignment = 2
 
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
-[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
+
+[node name="change_scene" parent="CanvasLayer3" instance=ExtResource("12_wjcvf")]
+
+[connection signal="world_change" from="." to="CanvasLayer3/change_scene" method="_on_scene_1_world_change"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

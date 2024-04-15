@@ -1,5 +1,6 @@
 extends Area2D
 var inRange
+signal world_chagned(world_name)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,13 +12,8 @@ func _ready():
 func _process(delta):
 	if inRange:
 		if Input.is_action_just_pressed("interact"):
-			get_tree().change_scene_to_file("res://Scenes/Scene2.tscn")
+			emit_signal("world_changed")
+			#print("Running global function!")
+			#GlobalAnimation.change_scene("res://Scenes/Scene2.tscn","slide")
 	pass
 
-
-func _on_body_entered(_body: CharacterBody2D):
-	inRange = true
-
-
-func _on_body_exited(_body):
-	inRange = false
