@@ -16,6 +16,7 @@ config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://Textures/icon.png"
 
 [autoload]
+
 Global="*res://Scripts/Global.gd"
 
 [debug]
