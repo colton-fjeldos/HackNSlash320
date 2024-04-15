@@ -5,11 +5,16 @@ var aStar = AStar2D.new()
 @onready var tileMap = get_parent().get_node("TileMap")
 var _processCount = 0
 var _rayHeight = 20
+var _player
 var _enemy
+var playerBuffer
+var enemyBuffer
+var pathIteration = 0
 
 
 func _ready():
 	_enemy = get_parent().get_node("Enemy")
+	_player = get_parent().get_node("controlled1")
 
 func _process(delta):
 	if (_processCount == 0):
@@ -17,11 +22,39 @@ func _process(delta):
 		_processCount = _processCount + 1
 
 func getPath(start, end): 
+	if(pathIteration == 0):
+		playerBuffer = end.y - aStar.get_point_position(aStar.get_closest_point(end)).y
+		enemyBuffer = start.y - aStar.get_point_position(aStar.get_closest_point(start)).y
+		pathIteration = 1
+		print(playerBuffer, " ", enemyBuffer)
+	start.y = start.y -  enemyBuffer
+	end.y = end.y -  playerBuffer
+	
+	var p1 = _getClosestPoint(start)
+	var p2 = _getClosestPoint(end)
+		
 	var path = aStar.get_point_path(aStar.get_closest_point(start), aStar.get_closest_point(end))
 
 	return path
 	
-
+func _getClosestPoint(point):
+	var closestPoint = null
+	var state = get_world_2d().direct_space_state
+	
+	for currentPoint in aStar.get_point_ids():
+		var pointPosition =  aStar.get_point_position(currentPoint)
+		if (pointPosition.y >= (point.y - 1)) and (pointPosition.y <= (point.y + 1)):
+			var query = PhysicsRayQueryParameters2D.create (pointPosition, point)
+			query.exclude = [_enemy, _player]
+			var result = state.intersect_ray(query)
+			if !result:
+				if(closestPoint == null or (pointPosition.distance_to(point) < closestPoint.distance_to(point))):
+					closestPoint = pointPosition
+	
+	return closestPoint
+		
+		
+		
 func _createMap():
 	# Gets every cell with a tile
 	for cell in tileMap.get_used_cells(0):
@@ -191,7 +224,7 @@ func _connectPoint():
 				if aStar.get_point_position(connectingPoint)[0] > aStar.get_point_position(currentPoint)[0]:
 					if (neighbhour == -1 or ((aStar.get_point_position(connectingPoint)[0] - aStar.get_point_position(currentPoint)[0]) < (aStar.get_point_position(neighbhour)[0] - aStar.get_point_position(currentPoint)[0]))):
 						var query = PhysicsRayQueryParameters2D.create (aStar.get_point_position(currentPoint), aStar.get_point_position(connectingPoint))
-						query.exclude = [_enemy]
+						query.exclude = [_enemy, _player]
 						var result = state.intersect_ray(query)
 						if !result:
 							neighbhour = connectingPoint

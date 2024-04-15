@@ -1,53 +1,70 @@
-[gd_scene load_steps=3 format=3 uid="uid://uu0gcmtbplm1"]
+[gd_scene load_steps=7 format=3 uid="uid://bix7hb1sr5tjv"]
 
-[ext_resource type="Script" path="res://Scripts/randomLevel.gd" id="1_fjb1b"]
-[ext_resource type="Texture2D" uid="uid://dapuo4mpk18u3" path="res://icon.svg" id="1_pbeao"]
+[ext_resource type="Script" path="res://Scripts/randomLevel.gd" id="1_grg66"]
+[ext_resource type="Texture2D" uid="uid://27n6yst6kicq" path="res://Textures/Dark Pallette.png" id="2_824qa"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3spig"]
+noise_type = 0
+frequency = 0.142
+fractal_gain = 0.8
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_tcgqr"]
+noise = SubResource("FastNoiseLite_3spig")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nsaot"]
+texture = ExtResource("2_824qa")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_fhccj"]
+sources/0 = SubResource("TileSetAtlasSource_nsaot")
 
 [node name="Room" type="Node2D"]
-script = ExtResource("1_fjb1b")
+script = ExtResource("1_grg66")
+texture = SubResource("NoiseTexture2D_tcgqr")
 
-[node name="Boders" type="Node" parent="."]
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_fhccj")
+format = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="Boders"]
-position = Vector2(1.52588e-05, -260)
-scale = Vector2(4, 0.0625)
-texture = ExtResource("1_pbeao")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Boders"]
-position = Vector2(0, 256)
-scale = Vector2(4, 0.0625)
-texture = ExtResource("1_pbeao")
-
-[node name="Sprite2D3" type="Sprite2D" parent="Boders"]
-position = Vector2(-256, -9.53674e-07)
-rotation = 1.5708
-scale = Vector2(4, 0.0625)
-texture = ExtResource("1_pbeao")
-
-[node name="Sprite2D4" type="Sprite2D" parent="Boders"]
-position = Vector2(256, -9.53674e-07)
-rotation = 1.5708
-scale = Vector2(4, 0.0625)
-texture = ExtResource("1_pbeao")
-
-[node name="StartPositions" type="Node" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="StartPositions"]
-position = Vector2(-192, -192)
-scale = Vector2(0.045, 0.045)
-texture = ExtResource("1_pbeao")
-
-[node name="Sprite2D2" type="Sprite2D" parent="StartPositions"]
-position = Vector2(-64, -192)
-scale = Vector2(0.045, 0.045)
-texture = ExtResource("1_pbeao")
-
-[node name="Sprite2D3" type="Sprite2D" parent="StartPositions"]
-position = Vector2(64, -192)
-scale = Vector2(0.045, 0.045)
-texture = ExtResource("1_pbeao")
-
-[node name="Sprite2D4" type="Sprite2D" parent="StartPositions"]
-position = Vector2(192, -192)
-scale = Vector2(0.045, 0.045)
-texture = ExtResource("1_pbeao")
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 328)
+scale = Vector2(17.08, 10.76)
