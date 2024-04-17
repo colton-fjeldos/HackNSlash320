@@ -6,7 +6,7 @@ public partial class WeaponManager : Node2D
 	[Export]
 	int thrownSpeed = 500;
 	
-	int weaponDamage = 50;
+	int weaponDamage = 25;
 	public bool hasWeapon = false;
 	
 	Godot.Node2D WeaponSpriteWrapper;
@@ -65,7 +65,7 @@ public partial class WeaponManager : Node2D
 	
 	public override void _Input(InputEvent @event)
 	{
-		if (Input.IsActionJustPressed("attack"))
+		if (Input.IsActionJustPressed("attack") && hasWeapon)
 		{
 			NodeLookAtMouse(Hitbox);
 			SwingSprite.Show();

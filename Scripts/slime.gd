@@ -9,7 +9,7 @@ var knockback_strength = 10.0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@onready var player = get_node("/root/Node2D/controlled1")
+@onready var player = get_node("/root/Scene1/controlled1")
 @onready var healthbar = $HealthBar
 
 func _ready():

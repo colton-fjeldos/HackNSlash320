@@ -19,8 +19,8 @@ size = Vector2(32, 32)
 
 [node name="controlled1" type="CharacterBody2D" node_paths=PackedStringArray("playerInteract")]
 position = Vector2(6, -2)
-collision_layer = 12
-collision_mask = 13
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_f3x4s")
 playerInteract = NodePath("InteractArea")
 metadata/_edit_group_ = true
