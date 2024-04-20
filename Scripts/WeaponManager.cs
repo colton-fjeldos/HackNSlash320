@@ -6,7 +6,7 @@ public partial class WeaponManager : Node2D
 	[Export]
 	int thrownSpeed = 500;
 	
-	int weaponDamage = 25;
+	int weaponDamage = 0;
 	public bool hasWeapon = false;
 	
 	Godot.Node2D WeaponSpriteWrapper;
@@ -77,12 +77,13 @@ public partial class WeaponManager : Node2D
 		{
 			if (hasWeapon){
 				var screen = GetViewport();
-				RigidBody2D thrownItem = (RigidBody2D) thrownScene.Instantiate();
+				ProjectileCollision thrownItem = (ProjectileCollision) thrownScene.Instantiate();
 				thrownItem.Position = GlobalPosition;
 				NodeLookAtMouse(thrownItem);
 				thrownItem.Rotation += 45;
 				Sprite2D thrownSprite = (Sprite2D) thrownItem.GetNode("Sprite");
 				thrownSprite.Texture = WeaponSprite.Texture;
+				thrownItem.weaponDamage = (int) (weaponDamage * 1.25);
 				
 				
 				root.AddChild(thrownItem);
@@ -91,6 +92,7 @@ public partial class WeaponManager : Node2D
 				hasWeapon = false;
 				WeaponSprite.Texture = null;
 				SwingSprite.Texture = null;
+				weaponDamage = 0;
 			}
 		}
 	}
@@ -104,6 +106,10 @@ public partial class WeaponManager : Node2D
 	public void ChangeSprites(Texture2D hSprite, Texture2D sSprite){
 		WeaponSprite.Texture = hSprite;
 		SwingSprite.Texture = sSprite;
+	}
+	
+	public void SetWeaponDamage(int newDamage) {
+		weaponDamage = newDamage;
 	}
 	
 	private void _on_weapon_hitbox_body_entered(Node2D body)
@@ -122,6 +128,8 @@ public partial class WeaponManager : Node2D
 			body.Call("applyKnockback", knockback);
 		}
 	}
+	
+	
 
 }
 

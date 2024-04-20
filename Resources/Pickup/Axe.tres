@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource("1_2153a")
 ID = 2
-Damage = 2
+Damage = 40
 Name = "Axe"
 SwingSprite = ExtResource("2_vg8wx")
 HeldSprite = ExtResource("1_cmhe1")

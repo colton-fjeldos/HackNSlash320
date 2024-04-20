@@ -252,6 +252,7 @@ public partial class controlled1 : CharacterBody2D
 			
 			weaponManager.Show();
 			weaponManager.ChangeSprites(objectPickup.HeldSprite, objectPickup.SwingSprite);
+			weaponManager.SetWeaponDamage(objectPickup.Damage);
 			
 		} else if (Input.IsActionJustPressed("testdeath")){
 			handleDeath();

@@ -177,7 +177,8 @@ position = Vector2(59, 574)
 [node name="Slime" parent="." instance=ExtResource("4_s0t2i")]
 position = Vector2(252, 564)
 scale = Vector2(4, 4)
-collision_layer = 4
+collision_layer = 12
+collision_mask = 9
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
