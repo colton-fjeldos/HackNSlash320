@@ -1,5 +1,10 @@
 extends TextureButton
 class_name SkillNode
+<<<<<<< Updated upstream
+=======
+signal skill_pressed
+
+>>>>>>> Stashed changes
 
 
 @onready var panel = $Panel
@@ -19,6 +24,7 @@ var level : int = 0:
 		label.text = str(level) + "/1"
 
 func _on_pressed():
+	emit_signal("skill_pressed")
 	if is_inside_tree() or (get_parent() is SkillNode and get_parent().level == 1):
 		if level == 0:
 			level = min( level+1, 1)

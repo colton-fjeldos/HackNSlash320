@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://m038w8sqj84p"]
+[gd_scene load_steps=12 format=3 uid="uid://m038w8sqj84p"]
 
 [ext_resource type="Script" path="res://Scripts/controlled1.cs" id="1_f3x4s"]
 [ext_resource type="Texture2D" uid="uid://n78ldru40qme" path="res://Textures/Filler Character Image.png" id="1_swj3o"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Scenes/TimerBar.cs" id="7_l4k3f"]
 [ext_resource type="PackedScene" uid="uid://k518oatcttrq" path="res://Scenes/Subscenes/Interactables/InteractArea.tscn" id="7_uvfh6"]
 [ext_resource type="Script" path="res://Scripts/Interactions/CharacterInteractArea.cs" id="8_c5q5l"]
+[ext_resource type="Script" path="res://Scripts/SkillButton.gd" id="8_xywen"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipcmo"]
 size = Vector2(32, 32)
@@ -80,5 +81,15 @@ width = 5.0
 default_color = Color(0.172549, 1, 1, 1)
 script = ExtResource("7_l4k3f")
 
+<<<<<<< Updated upstream
 [connection signal="body_entered" from="WeaponManager/WeaponHitbox" to="WeaponManager" method="_on_weapon_hitbox_body_entered"]
+=======
+[node name="SkillNode" type="TextureButton" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_xywen")
+
+>>>>>>> Stashed changes
 [connection signal="timeout" from="WeaponManager/HitboxTimer" to="WeaponManager" method="OnHitboxTimerTimeout"]
+[connection signal="skill_pressed1" from="Control" to="." method="_on_control_skill_pressed_1"]
