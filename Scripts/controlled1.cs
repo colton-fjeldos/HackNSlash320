@@ -2,8 +2,20 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 
+
+
+
+
 public partial class controlled1 : CharacterBody2D
 {
+<<<<<<< Updated upstream
+=======
+	private Dictionary<string, Dictionary<string, object>> Skills;
+	public Timer _timer;
+	private int timerCounter = 0;
+
+	
+>>>>>>> Stashed changes
 	//stored float values for easy changing
 	public static float movementMax = 350.0f;
 	
@@ -77,11 +89,80 @@ public partial class controlled1 : CharacterBody2D
 		myTimer = GetNode<TimerBar>("TimerBar");
 		myTimer.startFunc(33f,0f);
 		
+<<<<<<< Updated upstream
 		deathScene = GD.Load<PackedScene>("res://Scenes/Subscenes/Character/Projectiles/DeathScene.tscn");
 		GD.Print(deathScene);
 		
 		root = (Node2D) GetTree().Root.GetChild(-1);
+=======
+		UpdateSkillsDictionary();
+		
+		// Create a new timer
+		_timer = new Timer();
+		// Set the wait time (in seconds)
+		_timer.WaitTime = 1.0f; // 1 second
+		
+		_timer.Connect("timeout", GetUpdateSkillsCallable());
+		//_timer.Connect(0, this, nameof(OnTimerTimeout));
+		
+		 AddChild(_timer);
+		// Start the timer
+		_timer.Start();
+		
 	}
+	
+	// Method called when the timer times out
+	private void OnTimerTimeout()
+	{
+		GD.Print("Timer expired!");
+		timerCounter++;
+		GD.Print("Timer Counter: ", timerCounter);
+		
+		UpdateSkillsDictionary();
+	}
+	
+	private Godot.Callable GetUpdateSkillsCallable()
+	{
+		Godot.Callable callable = new Godot.Callable(this, nameof(OnTimerTimeout));
+		GD.Print("Callable: ", callable);
+		return callable;
+	}
+	
+	
+	 public void UpdateSkillsDictionary()
+	{
+		Node skillTree = GetNode<Node>("/root/Node2D/CanvasLayer2/SkillTree");
+		
+		if (skillTree != null)
+		{
+			
+			//skillTree.Connect("skill_pressed1", this, nameof(OnSkillPressed));
+			
+			
+			// Get the exported Skills dictionary from the SkillTree node
+			object skillsVariant = skillTree.Get("Skills");
+			string skillsString = skillsVariant.ToString();
+			
+			GD.Print("Skills Dictionary:", skillsVariant);
+			
+			
+			
+			// Parse the string to extract skill information
+			ParseSkillsString(skillsString);
+		}
+		else
+		{
+			GD.Print("Failed to obtain reference to SkillTree node.");
+		}
+>>>>>>> Stashed changes
+	}
+	
+	private void _on_control_skill_pressed_1()
+	{
+		GD.Print("Skill pressed.");
+	}
+	
+	
 	
 	//The way invulnerability works is that multiple types of invuln don't stack,
 	//but they can overlap. So if the player dashes, they are invuln for 300 miliseconds
@@ -194,6 +275,8 @@ public partial class controlled1 : CharacterBody2D
 			}
 			
 		}
+		
+		
 		//if its on the ground jump when up is pressed
 		if (Input.IsActionJustPressed("ui_up") && IsOnFloor()){
 				velocity.Y = -jump;
@@ -291,6 +374,7 @@ public partial class controlled1 : CharacterBody2D
 	}
 	
 	private void handleDeath(){
+<<<<<<< Updated upstream
 		Vector2 deathVelocity = new Vector2(velocity.X, -500);
 		var random = new RandomNumberGenerator();
 		random.Randomize();
@@ -305,5 +389,201 @@ public partial class controlled1 : CharacterBody2D
 		
 		//Probably open a pause menu, or some menu to restart level, or something!
 		
+=======
+		GD.Print("TODO Character death");
 	}
+	
+	
+	public bool jumpBoostApplied = false;
+	public bool HealthBoostApplied = false;
+	public bool jump3BoostApplied = false;
+	public bool dashBoostApplied = false;
+	public bool speedBoostApplied = false;
+	// Method to parse the string representation of the skills dictionary
+	private void ParseSkillsString(string skillsString)
+	{
+		
+		// Remove unwanted characters from the string
+		skillsString = skillsString.Replace("{", "").Replace("}", "").Replace("\"", "").Trim();
+		
+		// Split the string by comma to get individual skill entries
+		string[] skillEntries = skillsString.Split(',');
+		
+		// Iterate over each skill entry
+		foreach (string entry in skillEntries)
+		{
+			// Split the entry by colon to separate skill name and properties
+			string[] parts = entry.Split(':');
+					
+			// Extract skill name
+			string skillName = parts[0].Trim();
+			
+			string skillNames = parts[2].Trim();
+			
+			// Extract properties
+			string[] properties = parts[1].Split(',');
+			
+			
+			// Initialize unlock status
+			bool unlock = false;
+			
+			// Iterate over properties to find the unlock status
+			foreach (string prop in properties)
+			{
+				string[] keyValue = prop.Trim().Split(':');
+				
+				
+				// Skip the "level" property
+				if (keyValue[0].Equals("level", StringComparison.OrdinalIgnoreCase))
+				{
+					continue;
+				}
+				
+				if (keyValue[0].Equals("unlock", StringComparison.OrdinalIgnoreCase))
+				{
+					
+					if (skillNames.Equals("true", StringComparison.OrdinalIgnoreCase))
+					{
+						unlock = true;
+						//GD.Print("Unlock set to true for", skillName);
+					}
+					else if (skillNames.Equals("false", StringComparison.OrdinalIgnoreCase))
+					{
+						unlock = false;
+						//GD.Print("Unlock set to false for", skillName);
+					}
+					
+				}
+			}
+			
+			// Apply or remove effects based on skill unlock status
+			switch (skillName)
+			{
+				case "Jump Boost":
+					if (unlock)
+					{
+						if (!jumpBoostApplied)
+						{
+							
+							jumpBoostApplied = true;
+							//jumpBoostUnlocked = true;
+							jump += 100.0f;
+						}
+					}
+					else
+					{
+						if (jumpBoostApplied)
+						{
+							jump -= 100.0f;
+							jumpBoostApplied = false;
+						}
+					}
+					break;
+
+				case "Speed Boost":
+					if (unlock)
+					{
+						if (!speedBoostApplied)
+						{
+							
+						
+							speedBoostApplied = true;
+							speedBoostUnlocked = true;
+							movementMax += 300.0f;
+						}
+					}
+					else
+					{
+						if (speedBoostApplied)
+						{
+							speedBoostApplied = false;
+							movementMax -= 300.0f;
+						}
+					}
+					break;
+
+				case "Health Boost":
+					if (unlock)
+					{
+						if(!HealthBoostApplied)
+						{
+							
+							HealthBoostApplied = true;
+							maxHealth += 10;
+							//GD.Print("Health:", maxHealth);
+						}
+					}
+					else
+					{
+						if(HealthBoostApplied)
+						{
+							maxHealth -= 10;
+							HealthBoostApplied = false;
+							//GD.Print("Health:", maxHealth);
+						}
+					}
+					break;
+				
+				case "Triple jump":
+					if (unlock)
+					{
+						if(!jump3BoostApplied)
+						{
+							
+							jump3BoostApplied = true;
+						}
+					}
+					else
+					{
+						if(jump3BoostApplied)
+						{
+							jump3BoostApplied = false;
+						}
+					}
+					break;
+				
+				case "Dash Length":
+					if (unlock)
+					{
+						if(!dashBoostApplied)
+						{
+							
+							dashBoostApplied = true;
+						}
+					}
+					else
+					{
+						if(dashBoostApplied)
+						{
+							dashBoostApplied = false;
+						}
+					}
+					break;
+					
+				default:
+					// Handle other skills if needed
+					break;
+			}
+
+			
+			// Print the extracted information
+			//GD.Print("Skill:", skillName);
+			//GD.Print("Unlock:", unlock);
+		}
+		
+>>>>>>> Stashed changes
+	}
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+

@@ -82,7 +82,7 @@ offset_left = 507.0
 offset_top = 493.0
 offset_right = 612.0
 offset_bottom = 589.0
-SkillName = "Health Boost"
+SkillName = "Jump Boost"
 
 [node name="SkillButton" parent="SkillButton" instance=ExtResource("1_yd26q")]
 layout_mode = 0
@@ -91,7 +91,7 @@ offset_top = -132.0
 offset_right = -73.0
 offset_bottom = -36.0
 disabled = true
-SkillName = "Damage Boost"
+SkillName = "Health Boost"
 
 [node name="SkillButton" parent="SkillButton/SkillButton" instance=ExtResource("1_yd26q")]
 layout_mode = 0
@@ -100,6 +100,7 @@ offset_top = -194.0
 offset_right = 106.0
 offset_bottom = -98.0
 disabled = true
+SkillName = "Triple jump"
 
 [node name="SkillButton2" parent="SkillButton" instance=ExtResource("1_yd26q")]
 layout_mode = 0
@@ -115,8 +116,11 @@ layout_mode = 0
 offset_top = -196.0
 offset_bottom = -100.0
 disabled = true
+SkillName = "Dash Length"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_6qgsc")
 }
+
+[connection signal="skill_pressed1" from="." to="." method="_on_skill_pressed_1"]
