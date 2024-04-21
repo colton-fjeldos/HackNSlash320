@@ -43,4 +43,5 @@ func _on_hit_body_entered(body):
 		body.knockback = force
 
 func _on_visible_on_screen_enabler_2d_screen_exited():
-	queue_free()
+	print("slime offscreen - despawning")
+	#queue_free()
