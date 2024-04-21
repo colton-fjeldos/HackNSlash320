@@ -10,6 +10,7 @@ func _ready():
 	isSkillTreeVisible = false
 	skillTree.hide()
 	#$AnimationPlayer.play("RESET")
+	print("Node path:", get_path())
 
 
 @export var Skills: Dictionary = {

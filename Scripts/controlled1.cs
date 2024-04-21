@@ -77,23 +77,6 @@ public partial class controlled1 : CharacterBody2D
 	//health, the death scene and dashBar
 	public override void _Ready()
 	{
-		//manually set collision values upon ready for portability
-		this.SetCollisionMaskValue(3,true);
-		this.SetCollisionMaskValue(1,true);
-		this.SetCollisionLayerValue(3,true);
-		weaponManager = GetNode<WeaponManager>("WeaponManager");
-		maxHealth = 100; //modifiers can be added here from skill tree
-		playerHealth = maxHealth;
-		//create a timerBar and initialize it with player pixel values.
-		myTimer = GetNode<TimerBar>("TimerBar");
-		myTimer.startFunc(33f,0f);
-		
-
-		deathScene = GD.Load<PackedScene>("res://Scenes/Subscenes/Character/Projectiles/DeathScene.tscn");
-		GD.Print(deathScene);
-		
-		root = (Node2D) GetTree().Root.GetChild(-1);
-
 		UpdateSkillsDictionary();
 		
 		// Create a new timer
@@ -107,6 +90,36 @@ public partial class controlled1 : CharacterBody2D
 		 AddChild(_timer);
 		// Start the timer
 		_timer.Start();
+		GD.Print("hi1");
+		//manually set collision values upon ready for portability
+		this.SetCollisionMaskValue(3,true);
+		this.SetCollisionMaskValue(1,true);
+		this.SetCollisionLayerValue(3,true);
+		weaponManager = GetNode<WeaponManager>("WeaponManager");
+		maxHealth = 100; //modifiers can be added here from skill tree
+		playerHealth = maxHealth;
+		//create a timerBar and initialize it with player pixel values.
+		myTimer = GetNode<TimerBar>("TimerBar");
+		myTimer.startFunc(33f,0f);
+		
+		deathScene = GD.Load<PackedScene>("res://Scenes/Subscenes/Character/Projectiles/DeathScene.tscn");
+		GD.Print(deathScene);
+		
+		root = (Node2D) GetTree().Root.GetChild(-1);
+		GD.Print("hi");
+		//UpdateSkillsDictionary();
+		
+		// Create a new timer
+		//_timer = new Timer();
+		// Set the wait time (in seconds)
+		//_timer.WaitTime = 1.0f; // 1 second
+		
+		//_timer.Connect("timeout", GetUpdateSkillsCallable());
+		//_timer.Connect(0, this, nameof(OnTimerTimeout));
+		
+		 //AddChild(_timer);
+		// Start the timer
+		//_timer.Start();
 		
 	}
 	
@@ -128,23 +141,20 @@ public partial class controlled1 : CharacterBody2D
 	}
 	
 	
-	 public void UpdateSkillsDictionary()
+	public void UpdateSkillsDictionary()
 	{
-		Node skillTree = GetNode<Node>("/root/Node2D/CanvasLayer2/SkillTree");
+		Node skillTree = GetNode<Node>("/root/Scene1/CanvasLayer2/SkillTree");
 		
 		if (skillTree != null)
 		{
 			
 			//skillTree.Connect("skill_pressed1", this, nameof(OnSkillPressed));
 			
-			
 			// Get the exported Skills dictionary from the SkillTree node
 			object skillsVariant = skillTree.Get("Skills");
 			string skillsString = skillsVariant.ToString();
 			
 			GD.Print("Skills Dictionary:", skillsVariant);
-			
-			
 			
 			// Parse the string to extract skill information
 			ParseSkillsString(skillsString);
