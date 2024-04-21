@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://n78ldru40qme" path="res://Textures/Filler Character Image.png" id="1_swj3o"]
 [ext_resource type="Script" path="res://Scripts/CameraController.cs" id="3_kj26r"]
 [ext_resource type="Script" path="res://Scripts/WeaponManager.cs" id="4_tfpqi"]
+[ext_resource type="Script" path="res://Scenes/TimerBar.cs" id="7_2ne75"]
 [ext_resource type="Script" path="res://Scenes/skillTree.gd" id="7_jv2pb"]
 [ext_resource type="PackedScene" uid="uid://k518oatcttrq" path="res://Scenes/Subscenes/Interactables/InteractArea.tscn" id="7_uvfh6"]
 [ext_resource type="Script" path="res://Scripts/Interactions/CharacterInteractArea.cs" id="8_c5q5l"]
@@ -77,7 +78,7 @@ position = Vector2(-15.6967, -22.035)
 closed = true
 width = 5.0
 default_color = Color(0.172549, 1, 1, 1)
-
+script = ExtResource("7_2ne75")
 
 [node name="Control" type="Control" parent="."]
 visible = false
