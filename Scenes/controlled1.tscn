@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dor1obcrdwupw"]
+[gd_scene load_steps=12 format=3 uid="uid://dor1obcrdwupw"]
 
 [ext_resource type="Script" path="res://Scripts/controlled1.cs" id="1_f3x4s"]
 [ext_resource type="Texture2D" uid="uid://n78ldru40qme" path="res://Textures/Filler Character Image.png" id="1_swj3o"]
@@ -71,6 +71,13 @@ script = ExtResource("8_c5q5l")
 
 [node name="InteractCS2D" type="CollisionShape2D" parent="InteractArea"]
 shape = SubResource("RectangleShape2D_jjc8b")
+
+[node name="TimerBar" type="Line2D" parent="."]
+position = Vector2(-15.6967, -22.035)
+closed = true
+width = 5.0
+default_color = Color(0.172549, 1, 1, 1)
+
 
 [node name="Control" type="Control" parent="."]
 visible = false
