@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://doxorrfybyb0y"]
 
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Tilemaps/Dark Pallette.png" id="1_s7plt"]
-[ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://Scenes/controlled1.tscn" id="2_55bm2"]
+[ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://test/controlled1.tscn" id="2_55bm2"]
 [ext_resource type="PackedScene" uid="uid://cu0yj4bbwgw4a" path="res://Scenes/slime.tscn" id="3_utj8y"]
 [ext_resource type="Script" path="res://Scripts/HP System.gd" id="4_xaja0"]
 

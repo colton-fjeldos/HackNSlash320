@@ -1,8 +1,8 @@
 [gd_scene load_steps=18 format=3 uid="uid://bt11hgntx55jn"]
 
 [ext_resource type="Script" path="res://Scripts/sceneScripts/Scene2.gd" id="1_7gxu1"]
-[ext_resource type="Texture2D" uid="uid://27n6yst6kicq" path="res://Textures/Dark Pallette.png" id="2_bluvy"]
-[ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://Scenes/controlled1.tscn" id="3_mgoc1"]
+[ext_resource type="Texture2D" uid="uid://1rf78ax3jcbn" path="res://Textures/Dark Pallette.png" id="2_bluvy"]
+[ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://test/controlled1.tscn" id="3_mgoc1"]
 [ext_resource type="PackedScene" uid="uid://cu0yj4bbwgw4a" path="res://Scenes/slime.tscn" id="4_3mp32"]
 [ext_resource type="PackedScene" uid="uid://dug8se1pqdmx1" path="res://Scenes/Subscenes/Interactables/Weapons/axe.tscn" id="6_cm3kq"]
 [ext_resource type="PackedScene" uid="uid://urum3745k6v6" path="res://Scenes/PauseMenu.tscn" id="6_jmpwc"]

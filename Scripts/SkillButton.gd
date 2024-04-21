@@ -1,10 +1,10 @@
 extends TextureButton
 class_name SkillNode
-<<<<<<< Updated upstream
-=======
+
+
 signal skill_pressed
 
->>>>>>> Stashed changes
+
 
 
 @onready var panel = $Panel

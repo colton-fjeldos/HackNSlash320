@@ -1,10 +1,20 @@
 [gd_scene load_steps=7 format=3 uid="uid://urum3745k6v6"]
 
 [ext_resource type="Script" path="res://Scripts/sceneScripts/pausemenu.gd" id="1_weqs6"]
-[ext_resource type="Shader" path="res://Textures/Shaders/Blur.gdshader" id="2_y0jne"]
+
+[sub_resource type="Shader" id="Shader_j4c4g"]
+code = "shader_type canvas_item;
+uniform sampler2D SCREEN_TEXTURE: hint_screen_texture, filter_linear_mipmap;
+
+uniform float lod: hint_range(0.0, 5) = 0.0;
+
+void fragment(){
+	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV, lod);
+	COLOR = color;
+}"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g608t"]
-shader = ExtResource("2_y0jne")
+shader = SubResource("Shader_j4c4g")
 shader_parameter/lod = 0.0
 
 [sub_resource type="Animation" id="Animation_ejs6g"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/sceneScripts/Scene1.gd" id="1_54ohx"]
 [ext_resource type="Texture2D" uid="uid://c24a0kxy2mwb2" path="res://Textures/Tilemaps/Dark Pallette.png" id="1_t23mu"]
-[ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://Scenes/controlled1.tscn" id="3_2vvoj"]
+[ext_resource type="PackedScene" uid="uid://m038w8sqj84p" path="res://test/controlled1.tscn" id="3_2vvoj"]
 [ext_resource type="PackedScene" uid="uid://cu0yj4bbwgw4a" path="res://Scenes/slime.tscn" id="4_s0t2i"]
 [ext_resource type="PackedScene" uid="uid://urum3745k6v6" path="res://Scenes/PauseMenu.tscn" id="5_ajwl6"]
 [ext_resource type="PackedScene" uid="uid://dwyh8u8hsyiqb" path="res://Scenes/Subscenes/Interactables/Weapons/sword.tscn" id="5_i4kdo"]
