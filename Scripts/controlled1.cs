@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 
 
@@ -8,14 +9,11 @@ using System.Threading.Tasks;
 
 public partial class controlled1 : CharacterBody2D
 {
-<<<<<<< Updated upstream
-=======
 	private Dictionary<string, Dictionary<string, object>> Skills;
 	public Timer _timer;
 	private int timerCounter = 0;
 
 	
->>>>>>> Stashed changes
 	//stored float values for easy changing
 	public static float movementMax = 350.0f;
 	
@@ -89,12 +87,10 @@ public partial class controlled1 : CharacterBody2D
 		myTimer = GetNode<TimerBar>("TimerBar");
 		myTimer.startFunc(33f,0f);
 		
-<<<<<<< Updated upstream
 		deathScene = GD.Load<PackedScene>("res://Scenes/Subscenes/Character/Projectiles/DeathScene.tscn");
 		GD.Print(deathScene);
 		
 		root = (Node2D) GetTree().Root.GetChild(-1);
-=======
 		UpdateSkillsDictionary();
 		
 		// Create a new timer
@@ -154,7 +150,6 @@ public partial class controlled1 : CharacterBody2D
 		{
 			GD.Print("Failed to obtain reference to SkillTree node.");
 		}
->>>>>>> Stashed changes
 	}
 	
 	private void _on_control_skill_pressed_1()
@@ -374,7 +369,7 @@ public partial class controlled1 : CharacterBody2D
 	}
 	
 	private void handleDeath(){
-<<<<<<< Updated upstream
+
 		Vector2 deathVelocity = new Vector2(velocity.X, -500);
 		var random = new RandomNumberGenerator();
 		random.Randomize();
@@ -389,7 +384,7 @@ public partial class controlled1 : CharacterBody2D
 		
 		//Probably open a pause menu, or some menu to restart level, or something!
 		
-=======
+
 		GD.Print("TODO Character death");
 	}
 	
@@ -488,7 +483,7 @@ public partial class controlled1 : CharacterBody2D
 							
 						
 							speedBoostApplied = true;
-							speedBoostUnlocked = true;
+							//speedBoostUnlocked = true;
 							movementMax += 300.0f;
 						}
 					}
@@ -571,7 +566,6 @@ public partial class controlled1 : CharacterBody2D
 			//GD.Print("Unlock:", unlock);
 		}
 		
->>>>>>> Stashed changes
 	}
 	
 	
