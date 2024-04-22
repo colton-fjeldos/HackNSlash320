@@ -26,7 +26,7 @@ func getPath(start, end):
 		playerBuffer = end.y - aStar.get_point_position(aStar.get_closest_point(end)).y
 		enemyBuffer = start.y - aStar.get_point_position(aStar.get_closest_point(start)).y
 		pathIteration = 1
-		print(playerBuffer, " ", enemyBuffer)
+		#print(playerBuffer, " ", enemyBuffer)
 	start.y = start.y -  enemyBuffer
 	end.y = end.y -  playerBuffer
 	
@@ -97,8 +97,8 @@ func _createMap():
 					elif not (cell + Vector2i.RIGHT + Vector2i.UP) in tileMap.get_used_cells(0) and (cell + Vector2i.LEFT + Vector2i.UP) in tileMap.get_used_cells(0):
 						_createPoint(tileMap.map_to_local(cell + Vector2i.UP))
 	_connectPoint()
-	_draw()
-	queue_redraw()
+	#_draw()
+	#queue_redraw()
 
 
 func _cellType(cell):
@@ -186,24 +186,24 @@ func _getFallPoints(cell, right, left):
 
 func _createPoint(pos):
 	if not aStar.get_point_position(aStar.get_closest_point(pos)) == pos:
-		var instance = _walkPoint.instantiate()
-		add_child(instance)
-		instance.position = pos
+		#var instance = _walkPoint.instantiate()
+		#add_child(instance)
+		#instance.position = pos
 		aStar.add_point(aStar.get_available_point_id(), pos)
 
 
 func _createFallPoint(pos1, pos2):
 	
 	if not aStar.get_point_position(aStar.get_closest_point(pos2)) == pos2:
-		var instance = _walkPoint.instantiate()
-		add_child(instance)
-		instance.position = pos2
+		#var instance = _walkPoint.instantiate()
+		#add_child(instance)
+		#instance.position = pos2
 		aStar.add_point(aStar.get_available_point_id(), pos2)
 		
 	if not aStar.get_point_position(aStar.get_closest_point(pos1)) == pos1:
-		var instance = _walkPoint.instantiate()
-		add_child(instance)
-		instance.position = pos1
+		#var instance = _walkPoint.instantiate()
+		#add_child(instance)
+		#instance.position = pos1
 		aStar.add_point(aStar.get_available_point_id(), pos1)
 		
 
@@ -234,13 +234,13 @@ func _connectPoint():
 
 
 
-func _draw():
-	
-	var array = aStar.get_point_ids()
-	
-	for i in range(array.size()):
-		for j in range(i + 1, array.size()):
-			if aStar.are_points_connected(array[i], array[j]):
-				draw_line(aStar.get_point_position(array[i]), aStar.get_point_position(array[j]), Color(255, 0, 0), 1)
-	
+#func _draw():
+	#
+	#var array = aStar.get_point_ids()
+	#
+	#for i in range(array.size()):
+		#for j in range(i + 1, array.size()):
+			#if aStar.are_points_connected(array[i], array[j]):
+				#draw_line(aStar.get_point_position(array[i]), aStar.get_point_position(array[j]), Color(255, 0, 0), 1)
+	#
 

@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dv2s1u2uro4gg"]
+[gd_scene load_steps=10 format=3 uid="uid://jtvdpaqc1ux1"]
 
-[ext_resource type="Script" path="res://Scripts/controlled1.cs" id="1_l8ile"]
-[ext_resource type="Texture2D" uid="uid://n78ldru40qme" path="res://Textures/Filler Character Image.png" id="2_djipd"]
-[ext_resource type="Script" path="res://Scripts/CameraController.cs" id="3_35xb7"]
-[ext_resource type="Script" path="res://Scripts/WeaponManager.cs" id="4_7tvjx"]
-[ext_resource type="PackedScene" uid="uid://k518oatcttrq" path="res://Scenes/Subscenes/Interactables/InteractArea.tscn" id="5_23dgl"]
-[ext_resource type="Script" path="res://Scripts/Interactions/CharacterInteractArea.cs" id="6_5t465"]
+[ext_resource type="Script" path="res://Scripts/controlled1.cs" id="1_de7lv"]
+[ext_resource type="Texture2D" uid="uid://n78ldru40qme" path="res://Textures/Filler Character Image.png" id="2_2g4vp"]
+[ext_resource type="Script" path="res://Scripts/WeaponManager.cs" id="4_mmdwn"]
+[ext_resource type="PackedScene" uid="uid://k518oatcttrq" path="res://Scenes/Subscenes/Interactables/InteractArea.tscn" id="5_gjg3i"]
+[ext_resource type="Script" path="res://Scripts/Interactions/CharacterInteractArea.cs" id="6_tgwqw"]
+[ext_resource type="Script" path="res://Scenes/TimerBar.cs" id="7_d2kpj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipcmo"]
 size = Vector2(32, 32)
@@ -16,31 +16,28 @@ size = Vector2(10.525, 18)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjc8b"]
 size = Vector2(32, 32)
 
-[node name="controlled1" type="CharacterBody2D" node_paths=PackedStringArray("playerInteract")]
-position = Vector2(1, 1)
+[node name="controlled1" type="CharacterBody2D"]
+position = Vector2(6, -2)
 collision_layer = 4
-collision_mask = 4
-script = ExtResource("1_l8ile")
-playerInteract = NodePath("InteractArea")
+collision_mask = 0
+script = ExtResource("1_de7lv")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_djipd")
+texture = ExtResource("2_2g4vp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ipcmo")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(5, 5)
+offset = Vector2(2.08165e-12, -70)
+zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 drag_vertical_enabled = true
-drag_vertical_offset = 1.0
-drag_top_margin = 0.0
-script = ExtResource("3_35xb7")
+drag_top_margin = 0.85
 
 [node name="WeaponManager" type="Node2D" parent="."]
-visible = false
-script = ExtResource("4_7tvjx")
+script = ExtResource("4_mmdwn")
 
 [node name="WeaponSpriteWrapper" type="Node2D" parent="WeaponManager"]
 
@@ -51,8 +48,9 @@ position = Vector2(15.64, -4.61)
 scale = Vector2(2.5, 2.5)
 
 [node name="WeaponHitbox" type="Area2D" parent="WeaponManager"]
-visible = false
 show_behind_parent = true
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponManager/WeaponHitbox"]
 show_behind_parent = true
@@ -69,10 +67,18 @@ scale = Vector2(1.5, 1.5)
 process_callback = 0
 wait_time = 0.25
 
-[node name="InteractArea" parent="." groups=["player"] instance=ExtResource("5_23dgl")]
-script = ExtResource("6_5t465")
+[node name="InteractArea" parent="." groups=["player"] instance=ExtResource("5_gjg3i")]
+script = ExtResource("6_tgwqw")
 
 [node name="InteractCS2D" type="CollisionShape2D" parent="InteractArea"]
 shape = SubResource("RectangleShape2D_jjc8b")
 
+[node name="TimerBar" type="Line2D" parent="."]
+position = Vector2(-15.6967, -22.035)
+closed = true
+width = 5.0
+default_color = Color(0.172549, 1, 1, 1)
+script = ExtResource("7_d2kpj")
+
+[connection signal="body_entered" from="WeaponManager/WeaponHitbox" to="WeaponManager" method="_on_weapon_hitbox_body_entered"]
 [connection signal="timeout" from="WeaponManager/HitboxTimer" to="WeaponManager" method="OnHitboxTimerTimeout"]

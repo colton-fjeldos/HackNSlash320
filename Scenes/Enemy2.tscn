@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://bymgexhio50sb"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy2.gd" id="1_sbdnb"]
+[ext_resource type="Texture2D" uid="uid://b2miv1jmoi1f1" path="res://Textures/Enemy/CharaWizardJump_00002.png" id="2_t0xxu"]
+[ext_resource type="PackedScene" uid="uid://sk7aex7q21ts" path="res://Scenes/softCollsion.tscn" id="3_qtuqg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q8ky2"]
+size = Vector2(154, 276)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f5dqe"]
+
+[node name="Enemy2" type="CharacterBody2D"]
+collision_layer = 8
+script = ExtResource("1_sbdnb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_t0xxu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-8, 5)
+scale = Vector2(1.33888, 0.987278)
+shape = SubResource("RectangleShape2D_q8ky2")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(2500, 2.08165e-12)
+collision_mask = 5
+
+[node name="ReloadTimer" type="Timer" parent="RayCast2D"]
+wait_time = 0.25
+one_shot = true
+
+[node name="SoftCollsion" parent="." instance=ExtResource("3_qtuqg")]
+scale = Vector2(4.51732, 4.23893)
+
+[node name="CollisionShape2D" parent="SoftCollsion" index="0"]
+scale = Vector2(-2.22825, 1.78383)
+shape = SubResource("CircleShape2D_f5dqe")
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="timeout" from="RayCast2D/ReloadTimer" to="." method="_on_reload_timer_timeout"]
+
+[editable path="SoftCollsion"]
